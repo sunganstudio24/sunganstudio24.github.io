@@ -93,10 +93,9 @@
 
         <a href="photo.html" class="group relative aspect-[3/2] overflow-hidden rounded-xl border border-studio-border bg-studio-border/30 shadow-sm hover:shadow-md transition-all duration-500">
           <div class="absolute inset-0 bg-black/10 group-hover:bg-black/20 z-10 transition-colors duration-500"></div>
-          <img src="images/cover_photo.jpg" alt="사진 포트폴리오 대표 이미지"
+          <img id="coverPhotoImg" src="images/cover_photo.jpg" alt="사진 포트폴리오 대표 이미지"
                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-               loading="lazy" draggable="false"
-               onerror="this.style.display='none'">
+               loading="lazy" draggable="false">
           <div class="absolute bottom-0 left-0 right-0 p-8 z-20 flex justify-between items-end text-white">
             <div class="text-left">
               <span class="text-xs tracking-[0.2em] opacity-80 uppercase block mb-1">Photo</span>
@@ -112,10 +111,9 @@
 
         <a href="video.html" class="group relative aspect-[3/2] overflow-hidden rounded-xl border border-studio-border bg-studio-border/30 shadow-sm hover:shadow-md transition-all duration-500">
           <div class="absolute inset-0 bg-black/15 group-hover:bg-black/25 z-10 transition-colors duration-500"></div>
-          <img src="images/cover_video.jpg" alt="영상 포트폴리오 대표 이미지"
+          <img id="coverVideoImg" src="images/cover_video.jpg" alt="영상 포트폴리오 대표 이미지"
                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-               loading="lazy" draggable="false"
-               onerror="this.style.display='none'">
+               loading="lazy" draggable="false">
           <div class="absolute bottom-0 left-0 right-0 p-8 z-20 flex justify-between items-end text-white">
             <div class="text-left">
               <span class="text-xs tracking-[0.2em] opacity-80 uppercase block mb-1">Film</span>
@@ -130,35 +128,14 @@
 
       </div>
 
-      <!-- 작업 분야 요약 -->
-      <div class="mt-16 pt-12 border-t border-studio-border grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-        <div>
-          <i data-lucide="calendar-days" class="w-6 h-6 text-studio-accent mx-auto mb-3"></i>
-          <p class="text-sm font-medium text-studio-text">행사 아카이빙</p>
-          <p class="text-xs text-studio-muted font-light mt-1">축제 · 행사 · 컨퍼런스</p>
-        </div>
-        <div>
-          <i data-lucide="user-round" class="w-6 h-6 text-studio-accent mx-auto mb-3"></i>
-          <p class="text-sm font-medium text-studio-text">프로필 · 인물</p>
-          <p class="text-xs text-studio-muted font-light mt-1">개인 · 단체 · 브랜드 프로필</p>
-        </div>
-        <div>
-          <i data-lucide="package" class="w-6 h-6 text-studio-accent mx-auto mb-3"></i>
-          <p class="text-sm font-medium text-studio-text">제품 · 음식</p>
-          <p class="text-xs text-studio-muted font-light mt-1">커머스 · 메뉴 촬영</p>
-        </div>
-        <div>
-          <i data-lucide="clapperboard" class="w-6 h-6 text-studio-accent mx-auto mb-3"></i>
-          <p class="text-sm font-medium text-studio-text">홍보 · 광고 영상</p>
-          <p class="text-xs text-studio-muted font-light mt-1">브랜드 필름 · 커머셜</p>
-        </div>
-      </div>
+      <!-- 작업 분야 요약 (실제 등록된 카테고리만 동적으로 표시) -->
+      <div id="categorySummary" class="mt-16 pt-12 border-t border-studio-border grid grid-cols-2 md:grid-cols-4 gap-8 text-center"></div>
     </section>
   </main>
 
   <footer class="bg-studio-card border-t border-studio-border py-8">
     <div class="max-w-6xl mx-auto px-6 text-center text-xs text-studio-muted">
-      <p>&copy; 2026 순간, 스튜디오</p>
+      <p>&copy; 순간, 스튜디오</p>
     </div>
   </footer>
 
@@ -174,6 +151,99 @@
         e.preventDefault();
       }
     });
+
+    // 커버 이미지가 없을 때 실제 콘텐츠(최신 사진/첫 영상 썸네일)로 대체,
+    // 그마저 실패하면 그라디언트 배경이 그대로 보이도록 이미지를 숨김
+    function setupCoverFallback(imgEl, jsonPath, pickSrc) {
+      imgEl.onerror = () => {
+        imgEl.onerror = () => { imgEl.style.display = 'none'; };
+        fetch(jsonPath)
+          .then(res => res.json())
+          .then(data => {
+            const src = pickSrc(data);
+            if (src) {
+              imgEl.src = src;
+            } else {
+              imgEl.style.display = 'none';
+            }
+          })
+          .catch(() => { imgEl.style.display = 'none'; });
+      };
+    }
+
+    setupCoverFallback(
+      document.getElementById('coverPhotoImg'),
+      'images.json',
+      (data) => (Array.isArray(data) && data.length > 0) ? data[data.length - 1].file : null
+    );
+
+    setupCoverFallback(
+      document.getElementById('coverVideoImg'),
+      'videos.json',
+      (data) => (Array.isArray(data) && data.length > 0) ? `https://img.youtube.com/vi/${data[0].youtubeId}/hqdefault.jpg` : null
+    );
+
+    // 작업 분야 요약: photo.html/video.html의 필터 라벨과 동일한 문구를 사용
+    const PHOTO_CATEGORY_META = {
+      homepage: { label: '홈페이지', icon: 'globe' },
+      profile: { label: '프로필', icon: 'user' },
+      product: { label: '제품 촬영', icon: 'package' },
+      interior: { label: '인테리어', icon: 'home' },
+      food: { label: '음식 촬영', icon: 'utensils' }
+    };
+    const VIDEO_CATEGORY_META = {
+      promo: { label: '홍보 영상', icon: 'megaphone' },
+      event: { label: '행사 아카이빙', icon: 'calendar-days' },
+      ad: { label: '광고/커머셜', icon: 'clapperboard' }
+    };
+
+    let summaryPhotoData = null;
+    let summaryVideoData = null;
+
+    function renderCategorySummary() {
+      if (summaryPhotoData === null || summaryVideoData === null) return;
+
+      const items = [];
+      Object.keys(PHOTO_CATEGORY_META).forEach((key) => {
+        const has = summaryPhotoData.some(p => p.category === key);
+        if (has) items.push({ href: `photo.html?category=${key}`, ...PHOTO_CATEGORY_META[key] });
+      });
+      Object.keys(VIDEO_CATEGORY_META).forEach((key) => {
+        const has = summaryVideoData.some(v => v.category === key);
+        if (has) items.push({ href: `video.html?category=${key}`, ...VIDEO_CATEGORY_META[key] });
+      });
+
+      const container = document.getElementById('categorySummary');
+      container.innerHTML = '';
+      items.forEach((item) => {
+        const a = document.createElement('a');
+        a.href = item.href;
+        a.className = 'group block';
+
+        const icon = document.createElement('i');
+        icon.setAttribute('data-lucide', item.icon);
+        icon.className = 'w-6 h-6 text-studio-accent mx-auto mb-3';
+
+        const label = document.createElement('p');
+        label.className = 'text-sm font-medium text-studio-text group-hover:text-studio-accent transition-colors duration-300';
+        label.textContent = item.label;
+
+        a.appendChild(icon);
+        a.appendChild(label);
+        container.appendChild(a);
+      });
+      lucide.createIcons();
+    }
+
+    fetch('images.json')
+      .then(res => res.json())
+      .then(data => { summaryPhotoData = data; renderCategorySummary(); })
+      .catch(() => { summaryPhotoData = []; renderCategorySummary(); });
+
+    fetch('videos.json')
+      .then(res => res.json())
+      .then(data => { summaryVideoData = data; renderCategorySummary(); })
+      .catch(() => { summaryVideoData = []; renderCategorySummary(); });
   </script>
 </body>
 </html>

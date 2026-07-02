@@ -112,7 +112,7 @@
 
   <footer class="bg-studio-card border-t border-studio-border py-8 transition-all duration-300">
     <div class="max-w-6xl mx-auto px-6 text-center text-xs text-studio-muted">
-      <p>© 2026 순간, 스튜디오</p>
+      <p>© 순간, 스튜디오</p>
     </div>
   </footer>
 
@@ -179,14 +179,30 @@
     // 필터 제어 로직
     document.querySelectorAll('.filter-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
-        document.querySelectorAll('.filter-btn').forEach(b => {
-          b.className = 'filter-btn px-4 py-1.5 text-xs rounded-full border border-studio-border bg-studio-card text-studio-muted hover:border-studio-accent transition-colors duration-300';
-        });
-        e.target.className = 'filter-btn px-4 py-1.5 text-xs rounded-full border border-studio-accent bg-studio-accent text-white transition-colors duration-300';
+        setActiveFilterBtn(e.target.getAttribute('data-filter'));
         activeFilter = e.target.getAttribute('data-filter');
         renderPhotos();
       });
     });
+
+    function setActiveFilterBtn(filter) {
+      document.querySelectorAll('.filter-btn').forEach(b => {
+        const isActive = b.getAttribute('data-filter') === filter;
+        b.className = isActive
+          ? 'filter-btn px-4 py-1.5 text-xs rounded-full border border-studio-accent bg-studio-accent text-white transition-colors duration-300'
+          : 'filter-btn px-4 py-1.5 text-xs rounded-full border border-studio-border bg-studio-card text-studio-muted hover:border-studio-accent transition-colors duration-300';
+      });
+    }
+
+    // URL 파라미터(?category=)로 전달된 카테고리를 초기 필터로 적용
+    (function applyCategoryFromUrl() {
+      const cat = new URLSearchParams(window.location.search).get('category');
+      if (!cat) return;
+      const btn = Array.from(document.querySelectorAll('.filter-btn')).find(b => b.getAttribute('data-filter') === cat);
+      if (!btn) return;
+      activeFilter = cat;
+      setActiveFilterBtn(cat);
+    })();
 
     // 라이트박스 제어 로직 (style.display로 완벽 제어)
     const lb = document.getElementById('lightbox');
