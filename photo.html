@@ -34,6 +34,18 @@
     }
     ::-webkit-scrollbar { width: 5px; }
     ::-webkit-scrollbar-thumb { background: #8C7A6B; }
+
+    /* 이미지 보호: 드래그 및 선택 방지 */
+    img {
+      -webkit-user-drag: none;
+      -khtml-user-drag: none;
+      -moz-user-drag: none;
+      -o-user-drag: none;
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+    }
   </style>
 </head>
 <body class="min-h-screen flex flex-col">
@@ -88,9 +100,11 @@
       <button id="closeLbBtn" class="text-white/60 hover:text-white p-2 focus:outline-none"><i data-lucide="x" class="w-6 h-6"></i></button>
     </div>
     <div class="relative max-w-4xl max-h-[75vh] w-full flex items-center justify-center">
-      <button id="prevLbBtn" class="absolute left-0 text-white/50 hover:text-white p-3 bg-black/30 rounded-full focus:outline-none" aria-label="이전 이미지"><i data-lucide="chevron-left" class="w-6 h-6"></i></button>
-      <img id="lbImg" src="" class="max-w-full max-h-[75vh] object-contain rounded shadow-2xl">
-      <button id="nextLbBtn" class="absolute right-0 text-white/50 hover:text-white p-3 bg-black/30 rounded-full focus:outline-none" aria-label="다음 이미지"><i data-lucide="chevron-right" class="w-6 h-6"></i></button>
+      <button id="prevLbBtn" class="absolute left-0 z-20 text-white/50 hover:text-white p-3 bg-black/30 rounded-full focus:outline-none" aria-label="이전 이미지"><i data-lucide="chevron-left" class="w-6 h-6"></i></button>
+      <img id="lbImg" src="" draggable="false" class="max-w-full max-h-[75vh] object-contain rounded shadow-2xl">
+      <!-- 이미지 직접 우클릭/드래그 차단용 투명 오버레이 (버튼보다 아래 z-index) -->
+      <div id="lbImgShield" class="img-shield absolute inset-0 z-10"></div>
+      <button id="nextLbBtn" class="absolute right-0 z-20 text-white/50 hover:text-white p-3 bg-black/30 rounded-full focus:outline-none" aria-label="다음 이미지"><i data-lucide="chevron-right" class="w-6 h-6"></i></button>
     </div>
     <div class="text-center text-white pb-6">
       <h4 id="lbTitle" class="text-base font-light tracking-wide mb-1"></h4>
@@ -163,6 +177,7 @@
         img.alt = photo.title;
         img.className = 'w-full h-auto object-cover transition duration-500 hover:scale-105';
         img.loading = 'lazy';
+        img.draggable = false;
 
         // 정보 마스크 레이어
         const overlay = document.createElement('div');
@@ -243,9 +258,17 @@
       updateLb();
     });
 
+    const lbImgShield = document.getElementById('lbImgShield');
     lb.addEventListener('click', (e) => {
-      if (e.target === lb || e.target === lbImg.parentNode) {
+      if (e.target === lb || e.target === lbImg.parentNode || e.target === lbImgShield) {
         closeLb();
+      }
+    });
+
+    // 이미지(및 보호 오버레이)에만 우클릭 방지 적용, 일반 텍스트 영역은 우클릭 유지
+    document.addEventListener('contextmenu', (e) => {
+      if (e.target.tagName === 'IMG' || e.target.classList.contains('img-shield')) {
+        e.preventDefault();
       }
     });
 
