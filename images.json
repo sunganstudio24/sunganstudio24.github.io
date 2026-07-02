@@ -1,10 +1,5 @@
 [
   {
-    "file": "images/profile/profile_001.jpg",
-    "category": "profile",
-    "title": "자연광 포트레이트 개인 소장 프로필"
-  },
-  {
     "file": "images/food/food_001.jpg",
     "category": "food",
     "title": "음식 - 궁중수라간 - 20250412 궁중수라간 도시락 수정본"
@@ -2218,5 +2213,860 @@
     "file": "images/homepage/homepage_232.jpg",
     "category": "homepage",
     "title": "홈페이지 - 음식 - 한상"
+  },
+  {
+    "file": "images/interior/interior_001.jpg",
+    "category": "interior",
+    "title": "인테리어 - 문산선지국 인테리어"
+  },
+  {
+    "file": "images/interior/interior_002.jpg",
+    "category": "interior",
+    "title": "인테리어 - 문산선지국 인테리어"
+  },
+  {
+    "file": "images/interior/interior_003.jpg",
+    "category": "interior",
+    "title": "인테리어 - 문산선지국 인테리어"
+  },
+  {
+    "file": "images/interior/interior_004.jpg",
+    "category": "interior",
+    "title": "인테리어 - 문산선지국 인테리어"
+  },
+  {
+    "file": "images/interior/interior_005.jpg",
+    "category": "interior",
+    "title": "인테리어 - 문산선지국 인테리어"
+  },
+  {
+    "file": "images/interior/interior_006.jpg",
+    "category": "interior",
+    "title": "인테리어 - 문산선지국 인테리어"
+  },
+  {
+    "file": "images/interior/interior_007.jpg",
+    "category": "interior",
+    "title": "인테리어 - 문산선지국 인테리어"
+  },
+  {
+    "file": "images/interior/interior_008.jpg",
+    "category": "interior",
+    "title": "인테리어 - 문산선지국 인테리어"
+  },
+  {
+    "file": "images/interior/interior_009.jpg",
+    "category": "interior",
+    "title": "인테리어 - 문산선지국 인테리어"
+  },
+  {
+    "file": "images/interior/interior_010.jpg",
+    "category": "interior",
+    "title": "인테리어 - 문산선지국 인테리어"
+  },
+  {
+    "file": "images/interior/interior_011.jpg",
+    "category": "interior",
+    "title": "인테리어 - 문산선지국 인테리어"
+  },
+  {
+    "file": "images/interior/interior_012.jpg",
+    "category": "interior",
+    "title": "인테리어 - 문산선지국 인테리어"
+  },
+  {
+    "file": "images/interior/interior_013.jpg",
+    "category": "interior",
+    "title": "인테리어 - 보드게임 카페"
+  },
+  {
+    "file": "images/interior/interior_014.jpg",
+    "category": "interior",
+    "title": "인테리어 - 보드게임 카페"
+  },
+  {
+    "file": "images/interior/interior_015.jpg",
+    "category": "interior",
+    "title": "인테리어 - 보드게임 카페"
+  },
+  {
+    "file": "images/interior/interior_016.jpg",
+    "category": "interior",
+    "title": "인테리어 - 보드게임 카페"
+  },
+  {
+    "file": "images/interior/interior_017.jpg",
+    "category": "interior",
+    "title": "인테리어 - 보드게임 카페"
+  },
+  {
+    "file": "images/interior/interior_018.jpg",
+    "category": "interior",
+    "title": "인테리어 - 보드게임 카페"
+  },
+  {
+    "file": "images/interior/interior_019.jpg",
+    "category": "interior",
+    "title": "인테리어 - 보드게임 카페"
+  },
+  {
+    "file": "images/interior/interior_020.jpg",
+    "category": "interior",
+    "title": "인테리어 - 보드게임 카페"
+  },
+  {
+    "file": "images/interior/interior_021.jpg",
+    "category": "interior",
+    "title": "인테리어 - 보드게임 카페"
+  },
+  {
+    "file": "images/interior/interior_022.jpg",
+    "category": "interior",
+    "title": "인테리어 - 보드게임 카페"
+  },
+  {
+    "file": "images/interior/interior_023.jpg",
+    "category": "interior",
+    "title": "인테리어 - 보드게임 카페"
+  },
+  {
+    "file": "images/interior/interior_024.jpg",
+    "category": "interior",
+    "title": "인테리어 - 보드게임 카페"
+  },
+  {
+    "file": "images/interior/interior_025.jpg",
+    "category": "interior",
+    "title": "인테리어 - 보드게임 카페"
+  },
+  {
+    "file": "images/interior/interior_026.jpg",
+    "category": "interior",
+    "title": "인테리어 - 보드게임 카페"
+  },
+  {
+    "file": "images/interior/interior_027.jpg",
+    "category": "interior",
+    "title": "인테리어 - 보드게임 카페"
+  },
+  {
+    "file": "images/interior/interior_028.jpg",
+    "category": "interior",
+    "title": "인테리어 - 보드게임 카페"
+  },
+  {
+    "file": "images/interior/interior_029.jpg",
+    "category": "interior",
+    "title": "인테리어 - 보드게임 카페"
+  },
+  {
+    "file": "images/interior/interior_030.jpg",
+    "category": "interior",
+    "title": "인테리어 - 보드게임 카페"
+  },
+  {
+    "file": "images/interior/interior_031.jpg",
+    "category": "interior",
+    "title": "인테리어 - 보드게임 카페"
+  },
+  {
+    "file": "images/interior/interior_032.jpg",
+    "category": "interior",
+    "title": "인테리어 - 보드게임 카페"
+  },
+  {
+    "file": "images/interior/interior_033.jpg",
+    "category": "interior",
+    "title": "인테리어 - 보드게임 카페"
+  },
+  {
+    "file": "images/interior/interior_034.jpg",
+    "category": "interior",
+    "title": "인테리어 - 보드게임 카페"
+  },
+  {
+    "file": "images/interior/interior_035.jpg",
+    "category": "interior",
+    "title": "인테리어 - 보드게임 카페"
+  },
+  {
+    "file": "images/interior/interior_036.jpg",
+    "category": "interior",
+    "title": "인테리어 - 보드게임 카페"
+  },
+  {
+    "file": "images/interior/interior_037.jpg",
+    "category": "interior",
+    "title": "인테리어 - 보드게임 카페"
+  },
+  {
+    "file": "images/interior/interior_038.jpg",
+    "category": "interior",
+    "title": "인테리어 - 보드게임 카페"
+  },
+  {
+    "file": "images/interior/interior_039.jpg",
+    "category": "interior",
+    "title": "인테리어 - 보드게임 카페"
+  },
+  {
+    "file": "images/interior/interior_040.jpg",
+    "category": "interior",
+    "title": "인테리어 - 보드게임 카페"
+  },
+  {
+    "file": "images/interior/interior_041.jpg",
+    "category": "interior",
+    "title": "인테리어 - 보드게임 카페"
+  },
+  {
+    "file": "images/interior/interior_042.jpg",
+    "category": "interior",
+    "title": "인테리어 - 보드게임 카페"
+  },
+  {
+    "file": "images/product/product_001.jpg",
+    "category": "product",
+    "title": "제품 - 수상 보트"
+  },
+  {
+    "file": "images/product/product_002.jpg",
+    "category": "product",
+    "title": "제품 - 수상 보트"
+  },
+  {
+    "file": "images/product/product_003.jpg",
+    "category": "product",
+    "title": "제품 - 수상 보트"
+  },
+  {
+    "file": "images/product/product_004.jpg",
+    "category": "product",
+    "title": "제품 - 수상 보트"
+  },
+  {
+    "file": "images/product/product_005.jpg",
+    "category": "product",
+    "title": "제품 - 수상 보트"
+  },
+  {
+    "file": "images/product/product_006.jpg",
+    "category": "product",
+    "title": "제품 - 수상 보트"
+  },
+  {
+    "file": "images/product/product_007.jpg",
+    "category": "product",
+    "title": "제품 - 수상 보트"
+  },
+  {
+    "file": "images/product/product_008.jpg",
+    "category": "product",
+    "title": "제품 - 수상 보트"
+  },
+  {
+    "file": "images/product/product_009.jpg",
+    "category": "product",
+    "title": "제품 - VR 장비"
+  },
+  {
+    "file": "images/product/product_010.jpg",
+    "category": "product",
+    "title": "제품 - VR 장비"
+  },
+  {
+    "file": "images/product/product_011.jpg",
+    "category": "product",
+    "title": "제품 - VR 장비"
+  },
+  {
+    "file": "images/product/product_012.jpg",
+    "category": "product",
+    "title": "제품 - VR 장비"
+  },
+  {
+    "file": "images/product/product_013.jpg",
+    "category": "product",
+    "title": "제품 - VR 장비"
+  },
+  {
+    "file": "images/product/product_014.jpg",
+    "category": "product",
+    "title": "제품 - VR 장비"
+  },
+  {
+    "file": "images/product/product_015.jpg",
+    "category": "product",
+    "title": "제품 - VR 장비"
+  },
+  {
+    "file": "images/product/product_016.jpg",
+    "category": "product",
+    "title": "제품 - VR 장비"
+  },
+  {
+    "file": "images/product/product_017.jpg",
+    "category": "product",
+    "title": "제품 - VR 장비"
+  },
+  {
+    "file": "images/product/product_018.jpg",
+    "category": "product",
+    "title": "제품 - VR 장비"
+  },
+  {
+    "file": "images/product/product_019.jpg",
+    "category": "product",
+    "title": "제품 - VR 장비"
+  },
+  {
+    "file": "images/product/product_020.jpg",
+    "category": "product",
+    "title": "제품 - VR 장비"
+  },
+  {
+    "file": "images/product/product_021.jpg",
+    "category": "product",
+    "title": "제품 - VR 장비"
+  },
+  {
+    "file": "images/product/product_022.jpg",
+    "category": "product",
+    "title": "제품 - VR 장비"
+  },
+  {
+    "file": "images/product/product_023.jpg",
+    "category": "product",
+    "title": "제품 - VR 장비"
+  },
+  {
+    "file": "images/product/product_024.jpg",
+    "category": "product",
+    "title": "제품 - VR 장비"
+  },
+  {
+    "file": "images/product/product_025.jpg",
+    "category": "product",
+    "title": "제품 - VR 장비"
+  },
+  {
+    "file": "images/product/product_026.jpg",
+    "category": "product",
+    "title": "제품 - VR 장비"
+  },
+  {
+    "file": "images/product/product_027.jpg",
+    "category": "product",
+    "title": "제품 - VR 장비"
+  },
+  {
+    "file": "images/product/product_028.jpg",
+    "category": "product",
+    "title": "제품 - VR 장비"
+  },
+  {
+    "file": "images/product/product_029.jpg",
+    "category": "product",
+    "title": "제품 - VR 장비"
+  },
+  {
+    "file": "images/product/product_030.jpg",
+    "category": "product",
+    "title": "제품 - VR 장비"
+  },
+  {
+    "file": "images/product/product_031.jpg",
+    "category": "product",
+    "title": "제품 - VR 장비"
+  },
+  {
+    "file": "images/product/product_032.jpg",
+    "category": "product",
+    "title": "제품 - VR 장비"
+  },
+  {
+    "file": "images/product/product_033.jpg",
+    "category": "product",
+    "title": "제품 - VR 장비"
+  },
+  {
+    "file": "images/profile/profile_001.jpg",
+    "category": "profile",
+    "title": "프로필 - 강다원"
+  },
+  {
+    "file": "images/profile/profile_002.jpg",
+    "category": "profile",
+    "title": "프로필 - 강다원"
+  },
+  {
+    "file": "images/profile/profile_003.jpg",
+    "category": "profile",
+    "title": "프로필 - 강다원"
+  },
+  {
+    "file": "images/profile/profile_004.jpg",
+    "category": "profile",
+    "title": "프로필 - 공원걸"
+  },
+  {
+    "file": "images/profile/profile_005.jpg",
+    "category": "profile",
+    "title": "프로필 - 공원걸"
+  },
+  {
+    "file": "images/profile/profile_006.jpg",
+    "category": "profile",
+    "title": "프로필 - 공원걸"
+  },
+  {
+    "file": "images/profile/profile_007.jpg",
+    "category": "profile",
+    "title": "프로필 - 공원걸"
+  },
+  {
+    "file": "images/profile/profile_008.jpg",
+    "category": "profile",
+    "title": "프로필 - 공원걸"
+  },
+  {
+    "file": "images/profile/profile_009.jpg",
+    "category": "profile",
+    "title": "프로필 - 공원걸"
+  },
+  {
+    "file": "images/profile/profile_010.jpg",
+    "category": "profile",
+    "title": "프로필 - 권태훈"
+  },
+  {
+    "file": "images/profile/profile_011.jpg",
+    "category": "profile",
+    "title": "프로필 - 권태훈"
+  },
+  {
+    "file": "images/profile/profile_012.jpg",
+    "category": "profile",
+    "title": "프로필 - 권태훈"
+  },
+  {
+    "file": "images/profile/profile_013.jpg",
+    "category": "profile",
+    "title": "프로필 - 권태훈"
+  },
+  {
+    "file": "images/profile/profile_014.jpg",
+    "category": "profile",
+    "title": "프로필 - 권태훈"
+  },
+  {
+    "file": "images/profile/profile_015.jpg",
+    "category": "profile",
+    "title": "프로필 - 권태훈"
+  },
+  {
+    "file": "images/profile/profile_016.jpg",
+    "category": "profile",
+    "title": "프로필 - 김시현"
+  },
+  {
+    "file": "images/profile/profile_017.jpg",
+    "category": "profile",
+    "title": "프로필 - 김시현"
+  },
+  {
+    "file": "images/profile/profile_018.jpg",
+    "category": "profile",
+    "title": "프로필 - 김시현"
+  },
+  {
+    "file": "images/profile/profile_019.jpg",
+    "category": "profile",
+    "title": "프로필 - 김시현"
+  },
+  {
+    "file": "images/profile/profile_020.jpg",
+    "category": "profile",
+    "title": "프로필 - 김영무"
+  },
+  {
+    "file": "images/profile/profile_021.jpg",
+    "category": "profile",
+    "title": "프로필 - 김영무"
+  },
+  {
+    "file": "images/profile/profile_022.jpg",
+    "category": "profile",
+    "title": "프로필 - 김영무"
+  },
+  {
+    "file": "images/profile/profile_023.jpg",
+    "category": "profile",
+    "title": "프로필 - 김지민"
+  },
+  {
+    "file": "images/profile/profile_024.jpg",
+    "category": "profile",
+    "title": "프로필 - 김지민"
+  },
+  {
+    "file": "images/profile/profile_025.jpg",
+    "category": "profile",
+    "title": "프로필 - 서동성"
+  },
+  {
+    "file": "images/profile/profile_026.jpg",
+    "category": "profile",
+    "title": "프로필 - 서동성"
+  },
+  {
+    "file": "images/profile/profile_027.jpg",
+    "category": "profile",
+    "title": "프로필 - 서동성"
+  },
+  {
+    "file": "images/profile/profile_028.jpg",
+    "category": "profile",
+    "title": "프로필 - 서동성"
+  },
+  {
+    "file": "images/profile/profile_029.jpg",
+    "category": "profile",
+    "title": "프로필 - 서동성"
+  },
+  {
+    "file": "images/profile/profile_030.jpg",
+    "category": "profile",
+    "title": "프로필 - 서동성"
+  },
+  {
+    "file": "images/profile/profile_031.jpg",
+    "category": "profile",
+    "title": "프로필 - 서동성"
+  },
+  {
+    "file": "images/profile/profile_032.jpg",
+    "category": "profile",
+    "title": "프로필 - 서동성"
+  },
+  {
+    "file": "images/profile/profile_033.jpg",
+    "category": "profile",
+    "title": "프로필 - 서동성"
+  },
+  {
+    "file": "images/profile/profile_034.jpg",
+    "category": "profile",
+    "title": "프로필 - 오주연"
+  },
+  {
+    "file": "images/profile/profile_035.jpg",
+    "category": "profile",
+    "title": "프로필 - 오주연"
+  },
+  {
+    "file": "images/profile/profile_036.jpg",
+    "category": "profile",
+    "title": "프로필 - 요양원"
+  },
+  {
+    "file": "images/profile/profile_037.jpg",
+    "category": "profile",
+    "title": "프로필 - 요양원"
+  },
+  {
+    "file": "images/profile/profile_038.jpg",
+    "category": "profile",
+    "title": "프로필 - 요양원"
+  },
+  {
+    "file": "images/profile/profile_039.jpg",
+    "category": "profile",
+    "title": "프로필 - 요양원"
+  },
+  {
+    "file": "images/profile/profile_040.jpg",
+    "category": "profile",
+    "title": "프로필 - 요양원"
+  },
+  {
+    "file": "images/profile/profile_041.jpg",
+    "category": "profile",
+    "title": "프로필 - 요양원"
+  },
+  {
+    "file": "images/profile/profile_042.jpg",
+    "category": "profile",
+    "title": "프로필 - 요양원"
+  },
+  {
+    "file": "images/profile/profile_043.jpg",
+    "category": "profile",
+    "title": "프로필 - 요양원"
+  },
+  {
+    "file": "images/profile/profile_044.jpg",
+    "category": "profile",
+    "title": "프로필 - 요양원"
+  },
+  {
+    "file": "images/profile/profile_045.jpg",
+    "category": "profile",
+    "title": "프로필 - 요양원"
+  },
+  {
+    "file": "images/profile/profile_046.jpg",
+    "category": "profile",
+    "title": "프로필 - 요양원"
+  },
+  {
+    "file": "images/profile/profile_047.jpg",
+    "category": "profile",
+    "title": "프로필 - 요양원"
+  },
+  {
+    "file": "images/profile/profile_048.jpg",
+    "category": "profile",
+    "title": "프로필 - 요양원"
+  },
+  {
+    "file": "images/profile/profile_049.jpg",
+    "category": "profile",
+    "title": "프로필 - 요양원"
+  },
+  {
+    "file": "images/profile/profile_050.jpg",
+    "category": "profile",
+    "title": "프로필 - 요양원"
+  },
+  {
+    "file": "images/profile/profile_051.jpg",
+    "category": "profile",
+    "title": "프로필 - 요양원"
+  },
+  {
+    "file": "images/profile/profile_052.jpg",
+    "category": "profile",
+    "title": "프로필 - 요양원"
+  },
+  {
+    "file": "images/profile/profile_053.jpg",
+    "category": "profile",
+    "title": "프로필 - 요양원"
+  },
+  {
+    "file": "images/profile/profile_054.jpg",
+    "category": "profile",
+    "title": "프로필 - 요양원"
+  },
+  {
+    "file": "images/profile/profile_055.jpg",
+    "category": "profile",
+    "title": "프로필 - 요양원"
+  },
+  {
+    "file": "images/profile/profile_056.jpg",
+    "category": "profile",
+    "title": "프로필 - 요양원"
+  },
+  {
+    "file": "images/profile/profile_057.jpg",
+    "category": "profile",
+    "title": "프로필 - 요양원"
+  },
+  {
+    "file": "images/profile/profile_058.jpg",
+    "category": "profile",
+    "title": "프로필 - 요양원"
+  },
+  {
+    "file": "images/profile/profile_059.jpg",
+    "category": "profile",
+    "title": "프로필 - 요양원"
+  },
+  {
+    "file": "images/profile/profile_060.jpg",
+    "category": "profile",
+    "title": "프로필 - 요양원"
+  },
+  {
+    "file": "images/profile/profile_061.jpg",
+    "category": "profile",
+    "title": "프로필 - 요양원"
+  },
+  {
+    "file": "images/profile/profile_062.jpg",
+    "category": "profile",
+    "title": "프로필 - 요양원"
+  },
+  {
+    "file": "images/profile/profile_063.jpg",
+    "category": "profile",
+    "title": "프로필 - 요양원"
+  },
+  {
+    "file": "images/profile/profile_064.jpg",
+    "category": "profile",
+    "title": "프로필 - 요양원"
+  },
+  {
+    "file": "images/profile/profile_065.jpg",
+    "category": "profile",
+    "title": "프로필 - 요양원"
+  },
+  {
+    "file": "images/profile/profile_066.jpg",
+    "category": "profile",
+    "title": "프로필 - 요양원"
+  },
+  {
+    "file": "images/profile/profile_067.jpg",
+    "category": "profile",
+    "title": "프로필 - 요양원"
+  },
+  {
+    "file": "images/profile/profile_068.jpg",
+    "category": "profile",
+    "title": "프로필 - 요양원"
+  },
+  {
+    "file": "images/profile/profile_069.jpg",
+    "category": "profile",
+    "title": "프로필 - 요양원"
+  },
+  {
+    "file": "images/profile/profile_070.jpg",
+    "category": "profile",
+    "title": "프로필 - 요양원"
+  },
+  {
+    "file": "images/profile/profile_071.jpg",
+    "category": "profile",
+    "title": "프로필 - 요양원"
+  },
+  {
+    "file": "images/profile/profile_072.jpg",
+    "category": "profile",
+    "title": "프로필 - 요양원"
+  },
+  {
+    "file": "images/profile/profile_073.jpg",
+    "category": "profile",
+    "title": "프로필 - 이상영"
+  },
+  {
+    "file": "images/profile/profile_074.jpg",
+    "category": "profile",
+    "title": "프로필 - 이상영"
+  },
+  {
+    "file": "images/profile/profile_075.jpg",
+    "category": "profile",
+    "title": "프로필 - 이상영"
+  },
+  {
+    "file": "images/profile/profile_076.jpg",
+    "category": "profile",
+    "title": "프로필 - 이상영"
+  },
+  {
+    "file": "images/profile/profile_077.jpg",
+    "category": "profile",
+    "title": "프로필 - 이상영"
+  },
+  {
+    "file": "images/profile/profile_078.jpg",
+    "category": "profile",
+    "title": "프로필 - 이상영"
+  },
+  {
+    "file": "images/profile/profile_079.jpg",
+    "category": "profile",
+    "title": "프로필 - 이상영"
+  },
+  {
+    "file": "images/profile/profile_080.jpg",
+    "category": "profile",
+    "title": "프로필 - 이상영"
+  },
+  {
+    "file": "images/profile/profile_081.jpg",
+    "category": "profile",
+    "title": "프로필 - 이한결"
+  },
+  {
+    "file": "images/profile/profile_082.jpg",
+    "category": "profile",
+    "title": "프로필 - 이한결"
+  },
+  {
+    "file": "images/profile/profile_083.jpg",
+    "category": "profile",
+    "title": "프로필 - 임서진"
+  },
+  {
+    "file": "images/profile/profile_084.jpg",
+    "category": "profile",
+    "title": "프로필 - 임서진"
+  },
+  {
+    "file": "images/profile/profile_085.jpg",
+    "category": "profile",
+    "title": "프로필 - 정성재"
+  },
+  {
+    "file": "images/profile/profile_086.jpg",
+    "category": "profile",
+    "title": "프로필 - 정성재"
+  },
+  {
+    "file": "images/profile/profile_087.jpg",
+    "category": "profile",
+    "title": "프로필 - 정성재"
+  },
+  {
+    "file": "images/profile/profile_088.jpg",
+    "category": "profile",
+    "title": "프로필 - 조준섭"
+  },
+  {
+    "file": "images/profile/profile_089.jpg",
+    "category": "profile",
+    "title": "프로필 - 조준섭"
+  },
+  {
+    "file": "images/profile/profile_090.jpg",
+    "category": "profile",
+    "title": "프로필 - 조준섭"
+  },
+  {
+    "file": "images/profile/profile_091.jpg",
+    "category": "profile",
+    "title": "프로필 - 조준섭"
+  },
+  {
+    "file": "images/profile/profile_092.jpg",
+    "category": "profile",
+    "title": "프로필 - 최지우"
+  },
+  {
+    "file": "images/profile/profile_093.jpg",
+    "category": "profile",
+    "title": "프로필 - 최지우"
+  },
+  {
+    "file": "images/profile/profile_094.jpg",
+    "category": "profile",
+    "title": "프로필 - 최지우"
+  },
+  {
+    "file": "images/profile/profile_095.jpg",
+    "category": "profile",
+    "title": "프로필 - 최지우"
+  },
+  {
+    "file": "images/profile/profile_096.jpg",
+    "category": "profile",
+    "title": "프로필 - 최지우"
   }
 ]
