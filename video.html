@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>영상 아카이브 — 순간 스튜디오</title>
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@0.263.0"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            studio: {
+              bg: '#FAF7F2',
+              text: '#2B2420',
+              muted: '#5C534E',
+              accent: '#8C7A6B',
+              border: '#EBE5DC',
+              card: '#FFFFFF'
+            }
+          },
+          fontFamily: { sans: ['Pretendard', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Pretendard', sans-serif;
+      background-color: #FAF7F2;
+      color: #2B2420;
+    }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-thumb { background: #8C7A6B; }
+  </style>
+</head>
+<body class="bg-studio-bg text-studio-text min-h-screen flex flex-col">
+  <header class="bg-studio-bg border-b border-studio-border/50 sticky top-0 z-40">
+    <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+      <a href="index.html" class="flex flex-col">
+        <span class="text-xl font-bold tracking-widest">순간 스튜디오</span>
+        <span class="text-[10px] tracking-widest text-studio-muted">SUNGAN STUDIO</span>
+      </a>
+      <nav class="hidden md:flex space-x-10 text-sm font-medium">
+        <a href="photo.html" class="text-studio-muted hover:text-studio-text">사진 아카이브</a>
+        <a href="video.html" class="text-studio-text border-b border-studio-accent pb-1">영상 아카이브</a>
+        <a href="about.html" class="text-studio-muted hover:text-studio-text">스튜디오 소개</a>
+      </nav>
+      <!-- 모바일 토글 버튼 -->
+      <button id="mobileMenuBtn" class="md:hidden text-studio-text focus:outline-none" aria-label="메뉴 열기">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
+    </div>
+    <!-- 모바일 드롭다운 메뉴 -->
+    <div id="mobileMenu" class="hidden md:hidden bg-studio-bg border-b border-studio-border px-6 py-6 space-y-4 shadow-sm">
+      <a href="photo.html" class="block text-base font-medium text-studio-muted hover:text-studio-text py-2">사진 아카이브</a>
+      <a href="video.html" class="block text-base font-medium text-studio-text py-2">영상 아카이브</a>
+      <a href="about.html" class="block text-base font-medium text-studio-muted hover:text-studio-text py-2">스튜디오 소개</a>
+    </div>
+  </header>
+
+  <main class="flex-grow max-w-6xl mx-auto px-6 py-12 w-full">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-light tracking-widest text-studio-text mb-2">VIDEO PORTFOLIO</h2>
+      <p class="text-xs tracking-widest text-studio-muted uppercase mb-6">순간을 엮어낸 동적인 서사시</p>
+
+      <!-- 카테고리 필터 -->
+      <div class="flex flex-wrap justify-center gap-2 max-w-xl mx-auto">
+        <button data-filter="all" class="filter-btn px-4 py-1.5 text-xs rounded-full border border-studio-accent bg-studio-accent text-white transition-colors duration-300">전체</button>
+        <button data-filter="promo" class="filter-btn px-4 py-1.5 text-xs rounded-full border border-studio-border bg-studio-card text-studio-muted hover:border-studio-accent transition-colors duration-300">홍보 영상</button>
+        <button data-filter="event" class="filter-btn px-4 py-1.5 text-xs rounded-full border border-studio-border bg-studio-card text-studio-muted hover:border-studio-accent transition-colors duration-300">행사 아카이빙</button>
+        <button data-filter="ad" class="filter-btn px-4 py-1.5 text-xs rounded-full border border-studio-border bg-studio-card text-studio-muted hover:border-studio-accent transition-colors duration-300">광고/커머셜</button>
+      </div>
+    </div>
+
+    <!-- 비디오 그리드 -->
+    <div id="videoGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+  </main>
+
+  <!-- 극장 재생기 모달 (hidden 대신 display: none 레이아웃 설계로 충돌 제거) -->
+  <div id="theater" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-sm flex flex-col justify-between items-center p-6" style="display: none;">
+    <div class="w-full flex justify-between items-center text-white/80 text-[10px] uppercase">
+      <span>Cinema Theater</span>
+      <button id="closeTheaterBtn" class="text-white/60 hover:text-white p-2 focus:outline-none"><i data-lucide="x" class="w-6 h-6"></i></button>
+    </div>
+    <div class="w-full max-w-4xl aspect-video rounded-lg overflow-hidden bg-black shadow-2xl">
+      <iframe id="theaterIframe" src="" class="w-full h-full border-0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+    <div class="text-center text-white pb-6">
+      <h4 id="theaterTitle" class="text-lg font-light tracking-wide"></h4>
+    </div>
+  </div>
+
+  <footer class="bg-studio-card border-t border-studio-border py-8 transition-all duration-300">
+    <div class="max-w-6xl mx-auto px-6 text-center text-xs text-studio-muted">
+      <p>© 2026 순간 스튜디오</p>
+    </div>
+  </footer>
+
+  <script>
+    let videoData = [];
+    let activeFilter = 'all';
+
+    // 로컬 환경을 고려한 고품질 영상 데이터 폴백 지원
+    const fallbackVideos = [
+      {
+        "youtubeId": "L3wK6uGe7eI",
+        "category": "promo",
+        "title": "브랜드 홍보 필름 예시"
+      },
+      {
+        "youtubeId": "tO01V-77v7g",
+        "category": "event",
+        "title": "지역 문화제 행사 스케치 예시"
+      }
+    ];
+
+    fetch('videos.json')
+      .then(res => res.json())
+      .then(data => {
+        videoData = data;
+        renderVideos();
+      })
+      .catch(err => {
+        console.warn("로컬 환경(CORS) 혹은 videos.json 파일을 찾지 못해 샘플 데이터셋을 로드합니다.", err);
+        videoData = fallbackVideos;
+        renderVideos();
+      });
+
+    function getCategoryLabel(cat) {
+      const labels = {
+        'promo': '홍보 영상',
+        'event': '행사 아카이빙',
+        'ad': '광고/커머셜'
+      };
+      return labels[cat] || cat;
+    }
+
+    function renderVideos() {
+      const grid = document.getElementById('videoGrid');
+      grid.innerHTML = '';
+      const list = activeFilter === 'all' ? videoData : videoData.filter(v => v.category === activeFilter);
+
+      list.forEach(video => {
+        const card = document.createElement('div');
+        card.className = 'group relative overflow-hidden bg-studio-card border border-studio-border rounded-xl shadow-sm flex flex-col';
+        const thumbUrl = `https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`;
+
+        // 썸네일 노드 생성
+        const triggerDiv = document.createElement('div');
+        triggerDiv.className = 'relative aspect-video overflow-hidden bg-black cursor-pointer';
+
+        const img = document.createElement('img');
+        img.src = thumbUrl;
+        img.alt = video.title;
+        img.className = 'w-full h-full object-cover opacity-95 transition duration-500 hover:scale-105';
+        img.loading = 'lazy';
+
+        const playOverlay = document.createElement('div');
+        playOverlay.className = 'absolute inset-0 flex items-center justify-center';
+
+        const playBtn = document.createElement('div');
+        playBtn.className = 'w-12 h-12 rounded-full bg-studio-text/80 backdrop-blur-sm border border-white/20 text-white flex items-center justify-center group-hover:bg-studio-accent transition duration-300';
+
+        const playIcon = document.createElement('i');
+        playIcon.setAttribute('data-lucide', 'play');
+        playIcon.className = 'ml-1 w-5 h-5 fill-current';
+
+        playBtn.appendChild(playIcon);
+        playOverlay.appendChild(playBtn);
+        triggerDiv.appendChild(img);
+        triggerDiv.appendChild(playOverlay);
+
+        // 설명부 노드 생성 (textContent 속성을 통해 완전 안전하게 문자열 인젝션 차단)
+        const infoDiv = document.createElement('div');
+        infoDiv.className = 'p-5 flex-grow flex flex-col justify-between';
+
+        const subDiv = document.createElement('div');
+        const catSpan = document.createElement('span');
+        catSpan.className = 'text-[9px] text-studio-accent font-medium uppercase mb-1 block';
+        catSpan.textContent = getCategoryLabel(video.category);
+
+        const titleH = document.createElement('h4');
+        titleH.className = 'text-sm font-semibold text-studio-text tracking-wide';
+        titleH.textContent = video.title;
+
+        subDiv.appendChild(catSpan);
+        subDiv.appendChild(titleH);
+        infoDiv.appendChild(subDiv);
+
+        card.appendChild(triggerDiv);
+        card.appendChild(infoDiv);
+
+        // 자바스크립트 기반 리스너 매핑 (인라인 onclick 전면 우회)
+        triggerDiv.addEventListener('click', () => {
+          openTheater(video.youtubeId, video.title);
+        });
+
+        grid.appendChild(card);
+      });
+      lucide.createIcons();
+    }
+
+    // 필터 제어
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        document.querySelectorAll('.filter-btn').forEach(b => {
+          b.className = 'filter-btn px-4 py-1.5 text-xs rounded-full border border-studio-border bg-studio-card text-studio-muted hover:border-studio-accent transition-colors duration-300';
+        });
+        e.target.className = 'filter-btn px-4 py-1.5 text-xs rounded-full border border-studio-accent bg-studio-accent text-white transition-colors duration-300';
+        activeFilter = e.target.getAttribute('data-filter');
+        renderVideos();
+      });
+    });
+
+    const theater = document.getElementById('theater');
+    const iframe = document.getElementById('theaterIframe');
+    const tTitle = document.getElementById('theaterTitle');
+
+    function openTheater(yid, title) {
+      theater.style.display = 'flex';
+      iframe.src = `https://www.youtube.com/embed/${yid}?autoplay=1&rel=0`;
+      tTitle.textContent = title;
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeTheater() {
+      theater.style.display = 'none';
+      iframe.src = '';
+      document.body.style.overflow = 'auto';
+    }
+
+    // 모달 제어 이벤트 바인딩
+    document.getElementById('closeTheaterBtn').addEventListener('click', closeTheater);
+
+    theater.addEventListener('click', (e) => {
+      if (e.target === theater || e.target === iframe.parentNode) {
+        closeTheater();
+      }
+    });
+
+    // 모바일 햄버거 토글
+    document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+      const m = document.getElementById('mobileMenu');
+      m.classList.toggle('hidden');
+    });
+
+    lucide.createIcons();
+  </script>
+</body>
+</html>

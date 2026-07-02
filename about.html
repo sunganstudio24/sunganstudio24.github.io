@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>소개 — 순간 스튜디오</title>
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@0.263.0"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            studio: {
+              bg: '#FAF7F2',
+              text: '#2B2420',
+              muted: '#5C534E',
+              accent: '#8C7A6B',
+              border: '#EBE5DC',
+              card: '#FFFFFF'
+            }
+          },
+          fontFamily: { sans: ['Pretendard', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Pretendard', sans-serif;
+      background-color: #FAF7F2;
+      color: #2B2420;
+    }
+  </style>
+</head>
+<body class="bg-studio-bg text-studio-text min-h-screen flex flex-col">
+  <header class="bg-studio-bg border-b border-studio-border/50 sticky top-0 z-40">
+    <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+      <a href="index.html" class="flex flex-col">
+        <span class="text-xl font-bold tracking-widest">순간 스튜디오</span>
+        <span class="text-[10px] tracking-widest text-studio-muted">SUNGAN STUDIO</span>
+      </a>
+      <nav class="hidden md:flex space-x-10 text-sm font-medium">
+        <a href="photo.html" class="text-studio-muted hover:text-studio-text">사진 아카이브</a>
+        <a href="video.html" class="text-studio-muted hover:text-studio-text">영상 아카이브</a>
+        <a href="about.html" class="text-studio-text border-b border-studio-accent pb-1">스튜디오 소개</a>
+      </nav>
+      <!-- 모바일 토글 버튼 -->
+      <button id="mobileMenuBtn" class="md:hidden text-studio-text focus:outline-none" aria-label="메뉴 열기">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
+    </div>
+    <!-- 모바일 드롭다운 메뉴 -->
+    <div id="mobileMenu" class="hidden md:hidden bg-studio-bg border-b border-studio-border px-6 py-6 space-y-4 shadow-sm">
+      <a href="photo.html" class="block text-base font-medium text-studio-muted hover:text-studio-text py-2">사진 아카이브</a>
+      <a href="video.html" class="block text-base font-medium text-studio-muted hover:text-studio-text py-2">영상 아카이브</a>
+      <a href="about.html" class="block text-base font-medium text-studio-text py-2">스튜디오 소개</a>
+    </div>
+  </header>
+
+  <main class="flex-grow max-w-4xl mx-auto px-6 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center mb-16">
+      <div class="md:col-span-5 aspect-[3/4] rounded-xl overflow-hidden bg-studio-border/40 border border-studio-border shadow-sm">
+        <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&w=800&q=80" alt="스튜디오 디렉터들의 작업 전경" class="w-full h-full object-cover">
+      </div>
+      <div class="md:col-span-7 space-y-6">
+        <span class="text-xs font-semibold tracking-widest text-studio-accent uppercase">ABOUT SUNGAN</span>
+        <h3 class="text-2xl md:text-3xl font-light text-studio-text leading-tight">지나치는 일상의 한 자락을<br>진심 어린 마음으로 머무르게 합니다.</h3>
+        <p class="text-studio-muted text-sm leading-relaxed font-light">
+          <strong>순간 스튜디오</strong>는 경남 진주를 중심으로 남강의 고즈넉한 정취와 함께 흘러가는 소중한 이야기를 정갈하게 아카이빙합니다.
+          행사, 프로필, 라이프스타일 컷 등 대상의 고유성을 온전히 담아냅니다.
+        </p>
+      </div>
+    </div>
+
+    <!-- 문의 폼이 생략되고 플레이스홀더로 정제된 핵심 스튜디오 연락 상세 패널 -->
+    <div class="border-t border-studio-border pt-12 text-sm font-light text-studio-muted space-y-6">
+      <h4 class="text-base font-semibold text-studio-text uppercase tracking-wider">STUDIO DIRECTORY</h4>
+
+      <div class="space-y-4 max-w-xl">
+        <div class="flex items-center gap-3">
+          <i data-lucide="map-pin" class="w-5 h-5 text-studio-accent"></i>
+          <span>주소: 경상남도 진주시 봉곡동 474-39, 101호</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <i data-lucide="phone" class="w-5 h-5 text-studio-accent"></i>
+          <span>연락처: 010-2506-4076</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <i data-lucide="mail" class="w-5 h-5 text-studio-accent"></i>
+          <span>이메일: <a href="mailto:dj7013@naver.com" class="underline hover:text-studio-accent transition-colors">dj7013@naver.com</a></span>
+        </div>
+        <div class="flex items-center gap-3">
+          <i data-lucide="instagram" class="w-5 h-5 text-studio-accent"></i>
+          <span>인스타그램: <a href="https://instagram.com/sungan__studio" target="_blank" rel="noopener noreferrer" class="underline hover:text-studio-accent transition-colors">@sungan__studio</a></span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="bg-studio-card border-t border-studio-border py-8 transition-all duration-300">
+    <div class="max-w-6xl mx-auto px-6 text-center text-xs text-studio-muted">
+      <p>© 2026 순간 스튜디오</p>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+    // 모바일 햄버거 토글
+    document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+      const m = document.getElementById('mobileMenu');
+      m.classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>

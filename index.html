@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>순간 스튜디오 — 경남 진주 사진·영상 스튜디오</title>
+  <meta name="description" content="경남 진주 기반 사진·영상 스튜디오. 행사 아카이빙, 프로필, 제품, 인테리어, 음식 사진과 홍보·광고 영상을 제작합니다.">
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@0.263.0"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            studio: {
+              bg: '#FAF7F2',
+              text: '#2B2420',
+              muted: '#5C534E',
+              accent: '#8C7A6B',
+              border: '#EBE5DC',
+              card: '#FFFFFF'
+            }
+          },
+          fontFamily: { sans: ['Pretendard', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Pretendard', sans-serif;
+      background-color: #FAF7F2;
+      color: #2B2420;
+    }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-thumb { background: #8C7A6B; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+  <header class="bg-studio-bg border-b border-studio-border/50 sticky top-0 z-40">
+    <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+      <a href="index.html" class="flex flex-col">
+        <span class="text-xl font-bold tracking-widest">순간 스튜디오</span>
+        <span class="text-[10px] tracking-widest text-studio-muted">SUNGAN STUDIO</span>
+      </a>
+      <nav class="hidden md:flex space-x-10 text-sm font-medium">
+        <a href="photo.html" class="text-studio-muted hover:text-studio-text">사진 아카이브</a>
+        <a href="video.html" class="text-studio-muted hover:text-studio-text">영상 아카이브</a>
+        <a href="about.html" class="text-studio-muted hover:text-studio-text">스튜디오 소개</a>
+      </nav>
+      <button id="mobileMenuBtn" class="md:hidden text-studio-text focus:outline-none" aria-label="메뉴 열기">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
+    </div>
+    <div id="mobileMenu" class="hidden md:hidden bg-studio-bg border-b border-studio-border px-6 py-6 space-y-4 shadow-sm">
+      <a href="photo.html" class="block text-base font-medium text-studio-muted hover:text-studio-text py-2">사진 아카이브</a>
+      <a href="video.html" class="block text-base font-medium text-studio-muted hover:text-studio-text py-2">영상 아카이브</a>
+      <a href="about.html" class="block text-base font-medium text-studio-muted hover:text-studio-text py-2">스튜디오 소개</a>
+    </div>
+  </header>
+
+  <main class="flex-grow">
+    <!-- 히어로 -->
+    <section class="py-20 md:py-28 flex flex-col items-center text-center px-6">
+      <div class="max-w-3xl">
+        <span class="text-xs font-semibold tracking-[0.3em] text-studio-accent uppercase mb-4 block">Sungan Studio Portfolio</span>
+        <h1 class="text-4xl md:text-6xl font-light tracking-tight leading-tight mb-6">
+          찰나의 모든 순간을,<br>
+          <span class="font-normal border-b border-studio-accent/40 pb-1">영원히 간직할 가치로.</span>
+        </h1>
+        <p class="text-studio-muted text-sm md:text-base leading-relaxed max-w-lg mx-auto font-light">
+          경남 진주를 기반으로 공간, 사람, 브랜드가 지닌 고유한 이야기를 따뜻하고 차분한 시선으로 기록합니다.
+        </p>
+      </div>
+    </section>
+
+    <!-- 두 갈래 진입 -->
+    <section class="max-w-6xl mx-auto px-6 pb-24 w-full">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+        <a href="photo.html" class="group relative aspect-[3/2] overflow-hidden rounded-xl border border-studio-border bg-studio-border/30 shadow-sm hover:shadow-md transition-all duration-500">
+          <div class="absolute inset-0 bg-black/10 group-hover:bg-black/20 z-10 transition-colors duration-500"></div>
+          <img src="images/cover_photo.jpg" alt="사진 포트폴리오 대표 이미지"
+               class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+               loading="lazy"
+               onerror="this.style.display='none'">
+          <div class="absolute bottom-0 left-0 right-0 p-8 z-20 flex justify-between items-end text-white">
+            <div class="text-left">
+              <span class="text-xs tracking-[0.2em] opacity-80 uppercase block mb-1">Photo</span>
+              <h3 class="text-2xl font-light tracking-wide">사진 포트폴리오</h3>
+            </div>
+            <div class="w-10 h-10 rounded-full border border-white/30 flex items-center justify-center group-hover:bg-white group-hover:text-studio-text transition-all duration-300">
+              <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
+            </div>
+          </div>
+          <!-- 커버 이미지가 없을 때 대비 배경 -->
+          <div class="absolute inset-0 -z-10 bg-gradient-to-br from-studio-accent/60 to-studio-text/80"></div>
+        </a>
+
+        <a href="video.html" class="group relative aspect-[3/2] overflow-hidden rounded-xl border border-studio-border bg-studio-border/30 shadow-sm hover:shadow-md transition-all duration-500">
+          <div class="absolute inset-0 bg-black/15 group-hover:bg-black/25 z-10 transition-colors duration-500"></div>
+          <img src="images/cover_video.jpg" alt="영상 포트폴리오 대표 이미지"
+               class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+               loading="lazy"
+               onerror="this.style.display='none'">
+          <div class="absolute bottom-0 left-0 right-0 p-8 z-20 flex justify-between items-end text-white">
+            <div class="text-left">
+              <span class="text-xs tracking-[0.2em] opacity-80 uppercase block mb-1">Film</span>
+              <h3 class="text-2xl font-light tracking-wide">영상 포트폴리오</h3>
+            </div>
+            <div class="w-10 h-10 rounded-full border border-white/30 flex items-center justify-center group-hover:bg-white group-hover:text-studio-text transition-all duration-300">
+              <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
+            </div>
+          </div>
+          <div class="absolute inset-0 -z-10 bg-gradient-to-br from-studio-text/80 to-studio-accent/60"></div>
+        </a>
+
+      </div>
+
+      <!-- 작업 분야 요약 -->
+      <div class="mt-16 pt-12 border-t border-studio-border grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div>
+          <i data-lucide="calendar-days" class="w-6 h-6 text-studio-accent mx-auto mb-3"></i>
+          <p class="text-sm font-medium text-studio-text">행사 아카이빙</p>
+          <p class="text-xs text-studio-muted font-light mt-1">축제 · 행사 · 컨퍼런스</p>
+        </div>
+        <div>
+          <i data-lucide="user-round" class="w-6 h-6 text-studio-accent mx-auto mb-3"></i>
+          <p class="text-sm font-medium text-studio-text">프로필 · 인물</p>
+          <p class="text-xs text-studio-muted font-light mt-1">개인 · 단체 · 브랜드 프로필</p>
+        </div>
+        <div>
+          <i data-lucide="package" class="w-6 h-6 text-studio-accent mx-auto mb-3"></i>
+          <p class="text-sm font-medium text-studio-text">제품 · 음식</p>
+          <p class="text-xs text-studio-muted font-light mt-1">커머스 · 메뉴 촬영</p>
+        </div>
+        <div>
+          <i data-lucide="clapperboard" class="w-6 h-6 text-studio-accent mx-auto mb-3"></i>
+          <p class="text-sm font-medium text-studio-text">홍보 · 광고 영상</p>
+          <p class="text-xs text-studio-muted font-light mt-1">브랜드 필름 · 커머셜</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-studio-card border-t border-studio-border py-8">
+    <div class="max-w-6xl mx-auto px-6 text-center text-xs text-studio-muted">
+      <p>&copy; 2026 순간 스튜디오</p>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+    document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+      document.getElementById('mobileMenu').classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>

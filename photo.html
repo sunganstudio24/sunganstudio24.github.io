@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>사진 아카이브 — 순간 스튜디오</title>
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@0.263.0"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            studio: {
+              bg: '#FAF7F2',
+              text: '#2B2420',
+              muted: '#5C534E',
+              accent: '#8C7A6B',
+              border: '#EBE5DC',
+              card: '#FFFFFF'
+            }
+          },
+          fontFamily: { sans: ['Pretendard', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Pretendard', sans-serif;
+      background-color: #FAF7F2;
+      color: #2B2420;
+    }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-thumb { background: #8C7A6B; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+  <header class="bg-studio-bg border-b border-studio-border/50 sticky top-0 z-40">
+    <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+      <a href="index.html" class="flex flex-col">
+        <span class="text-xl font-bold tracking-widest">순간 스튜디오</span>
+        <span class="text-[10px] tracking-widest text-studio-muted">SUNGAN STUDIO</span>
+      </a>
+      <nav class="hidden md:flex space-x-10 text-sm font-medium">
+        <a href="photo.html" class="text-studio-text border-b border-studio-accent pb-1">사진 아카이브</a>
+        <a href="video.html" class="text-studio-muted hover:text-studio-text">영상 아카이브</a>
+        <a href="about.html" class="text-studio-muted hover:text-studio-text">스튜디오 소개</a>
+      </nav>
+      <!-- 모바일 토글 버튼 -->
+      <button id="mobileMenuBtn" class="md:hidden text-studio-text focus:outline-none" aria-label="메뉴 열기">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
+    </div>
+    <!-- 모바일 드롭다운 메뉴 -->
+    <div id="mobileMenu" class="hidden md:hidden bg-studio-bg border-b border-studio-border px-6 py-6 space-y-4 shadow-sm">
+      <a href="photo.html" class="block text-base font-medium text-studio-text py-2">사진 아카이브</a>
+      <a href="video.html" class="block text-base font-medium text-studio-muted hover:text-studio-text py-2">영상 아카이브</a>
+      <a href="about.html" class="block text-base font-medium text-studio-muted hover:text-studio-text py-2">스튜디오 소개</a>
+    </div>
+  </header>
+
+  <main class="flex-grow max-w-6xl mx-auto px-6 py-12 w-full">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-light tracking-widest text-studio-text mb-2">PHOTO PORTFOLIO</h2>
+      <p class="text-xs tracking-widest text-studio-muted uppercase mb-6">순간이 담아낸 정적인 찬란함</p>
+
+      <!-- 카테고리 필터 -->
+      <div class="flex flex-wrap justify-center gap-2 max-w-2xl mx-auto" id="filterContainer">
+        <button data-filter="all" class="filter-btn px-4 py-1.5 text-xs rounded-full border border-studio-accent bg-studio-accent text-white transition-colors duration-300">전체</button>
+        <button data-filter="event" class="filter-btn px-4 py-1.5 text-xs rounded-full border border-studio-border bg-studio-card text-studio-muted hover:border-studio-accent transition-colors duration-300">행사 아카이빙</button>
+        <button data-filter="profile" class="filter-btn px-4 py-1.5 text-xs rounded-full border border-studio-border bg-studio-card text-studio-muted hover:border-studio-accent transition-colors duration-300">프로필</button>
+        <button data-filter="product" class="filter-btn px-4 py-1.5 text-xs rounded-full border border-studio-border bg-studio-card text-studio-muted hover:border-studio-accent transition-colors duration-300">제품 촬영</button>
+        <button data-filter="interior" class="filter-btn px-4 py-1.5 text-xs rounded-full border border-studio-border bg-studio-card text-studio-muted hover:border-studio-accent transition-colors duration-300">인테리어</button>
+        <button data-filter="food" class="filter-btn px-4 py-1.5 text-xs rounded-full border border-studio-border bg-studio-card text-studio-muted hover:border-studio-accent transition-colors duration-300">음식 촬영</button>
+      </div>
+    </div>
+
+    <!-- Masonry Grid -->
+    <div id="photoGrid" class="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4"></div>
+  </main>
+
+  <!-- Lightbox (hidden과 flex가 동시 할당되지 않으며 display 속성으로 노출을 완전히 제어합니다) -->
+  <div id="lightbox" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-sm flex flex-col justify-between items-center p-6" style="display: none;">
+    <div class="w-full flex justify-between items-center text-white/85 text-xs">
+      <span id="lbIndex"></span>
+      <button id="closeLbBtn" class="text-white/60 hover:text-white p-2 focus:outline-none"><i data-lucide="x" class="w-6 h-6"></i></button>
+    </div>
+    <div class="relative max-w-4xl max-h-[75vh] w-full flex items-center justify-center">
+      <button id="prevLbBtn" class="absolute left-0 text-white/50 hover:text-white p-3 bg-black/30 rounded-full focus:outline-none" aria-label="이전 이미지"><i data-lucide="chevron-left" class="w-6 h-6"></i></button>
+      <img id="lbImg" src="" class="max-w-full max-h-[75vh] object-contain rounded shadow-2xl">
+      <button id="nextLbBtn" class="absolute right-0 text-white/50 hover:text-white p-3 bg-black/30 rounded-full focus:outline-none" aria-label="다음 이미지"><i data-lucide="chevron-right" class="w-6 h-6"></i></button>
+    </div>
+    <div class="text-center text-white pb-6">
+      <h4 id="lbTitle" class="text-base font-light tracking-wide mb-1"></h4>
+      <p id="lbCategory" class="text-xs text-white/50 font-light uppercase tracking-widest"></p>
+    </div>
+  </div>
+
+  <footer class="bg-studio-card border-t border-studio-border py-8 transition-all duration-300">
+    <div class="max-w-6xl mx-auto px-6 text-center text-xs text-studio-muted">
+      <p>© 2026 순간 스튜디오</p>
+    </div>
+  </footer>
+
+  <script>
+    let photoData = [];
+    let activeFilter = 'all';
+    let filteredList = [];
+    let currentLbIndex = 0;
+
+    // 로컬 CORS 에러 대비용 고품질 Unsplash 목업 이미지 폴백
+    const fallbackImages = [
+      {
+        "file": "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80",
+        "category": "event",
+        "title": "행사 아카이빙 대표 예시"
+      },
+      {
+        "file": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80",
+        "category": "profile",
+        "title": "프로필 촬영 대표 예시"
+      }
+    ];
+
+    // JSON 동적 로드 및 폴백 처리
+    fetch('images.json')
+      .then(res => res.json())
+      .then(data => {
+        photoData = data;
+        renderPhotos();
+      })
+      .catch(err => {
+        console.warn("로컬 환경(CORS) 혹은 images.json 파일을 찾지 못해 원활한 테스트를 위한 샘플 이미지를 로드합니다.", err);
+        photoData = fallbackImages;
+        renderPhotos();
+      });
+
+    function getCategoryLabel(cat) {
+      const labels = {
+        'event': '행사 아카이빙',
+        'profile': '프로필',
+        'product': '제품 촬영',
+        'interior': '인테리어',
+        'food': '음식 촬영'
+      };
+      return labels[cat] || cat;
+    }
+
+    function renderPhotos() {
+      const grid = document.getElementById('photoGrid');
+      grid.innerHTML = '';
+      filteredList = activeFilter === 'all' ? photoData : photoData.filter(p => p.category === activeFilter);
+
+      filteredList.forEach((photo, idx) => {
+        const card = document.createElement('div');
+        card.className = 'gallery-card break-inside-avoid mb-4 group relative overflow-hidden rounded-xl border border-studio-border/50 bg-studio-card cursor-pointer';
+
+        // 이미지 태그 (hover:scale-105 바인딩)
+        const img = document.createElement('img');
+        img.src = photo.file;
+        img.alt = photo.title;
+        img.className = 'w-full h-auto object-cover transition duration-500 hover:scale-105';
+        img.loading = 'lazy';
+
+        // 정보 마스크 레이어
+        const overlay = document.createElement('div');
+        overlay.className = 'absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-4 text-white z-10';
+
+        // 텍스트는 textContent 속성으로만 안전하게 대입하여 인용부호 충돌 방지
+        const catSpan = document.createElement('span');
+        catSpan.className = 'text-[9px] tracking-widest opacity-80 uppercase mb-0.5 font-semibold';
+        catSpan.textContent = getCategoryLabel(photo.category);
+
+        const titleH = document.createElement('h4');
+        titleH.className = 'text-xs font-medium';
+        titleH.textContent = photo.title;
+
+        overlay.appendChild(catSpan);
+        overlay.appendChild(titleH);
+        card.appendChild(img);
+        card.appendChild(overlay);
+
+        // 자바스크립트 수동 이벤트 리스너 바인딩 (인라인 onClick 전면 배제)
+        card.addEventListener('click', () => openLb(idx));
+
+        grid.appendChild(card);
+      });
+      lucide.createIcons();
+    }
+
+    // 필터 제어 로직
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        document.querySelectorAll('.filter-btn').forEach(b => {
+          b.className = 'filter-btn px-4 py-1.5 text-xs rounded-full border border-studio-border bg-studio-card text-studio-muted hover:border-studio-accent transition-colors duration-300';
+        });
+        e.target.className = 'filter-btn px-4 py-1.5 text-xs rounded-full border border-studio-accent bg-studio-accent text-white transition-colors duration-300';
+        activeFilter = e.target.getAttribute('data-filter');
+        renderPhotos();
+      });
+    });
+
+    // 라이트박스 제어 로직 (style.display로 완벽 제어)
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lbImg');
+    const lbTitle = document.getElementById('lbTitle');
+    const lbCategory = document.getElementById('lbCategory');
+    const lbIndex = document.getElementById('lbIndex');
+
+    function openLb(idx) {
+      currentLbIndex = idx;
+      lb.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+      updateLb();
+    }
+
+    function closeLb() {
+      lb.style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+
+    function updateLb() {
+      const item = filteredList[currentLbIndex];
+      if (!item) return;
+      lbImg.src = item.file;
+      lbTitle.textContent = item.title;
+      lbCategory.textContent = getCategoryLabel(item.category);
+      lbIndex.textContent = `${currentLbIndex + 1} / ${filteredList.length}`;
+    }
+
+    // 라이트박스 리스너 등록
+    document.getElementById('closeLbBtn').addEventListener('click', closeLb);
+    document.getElementById('prevLbBtn').addEventListener('click', (e) => {
+      e.stopPropagation();
+      currentLbIndex = (currentLbIndex - 1 + filteredList.length) % filteredList.length;
+      updateLb();
+    });
+    document.getElementById('nextLbBtn').addEventListener('click', (e) => {
+      e.stopPropagation();
+      currentLbIndex = (currentLbIndex + 1) % filteredList.length;
+      updateLb();
+    });
+
+    lb.addEventListener('click', (e) => {
+      if (e.target === lb || e.target === lbImg.parentNode) {
+        closeLb();
+      }
+    });
+
+    // ESC 및 좌우 키 바인딩
+    window.addEventListener('keydown', (e) => {
+      if (lb.style.display === 'none') return;
+      if (e.key === 'Escape') closeLb();
+      if (e.key === 'ArrowLeft') {
+        currentLbIndex = (currentLbIndex - 1 + filteredList.length) % filteredList.length;
+        updateLb();
+      }
+      if (e.key === 'ArrowRight') {
+        currentLbIndex = (currentLbIndex + 1) % filteredList.length;
+        updateLb();
+      }
+    });
+
+    // 모바일 햄버거 토글
+    document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+      const m = document.getElementById('mobileMenu');
+      m.classList.toggle('hidden');
+    });
+
+    lucide.createIcons();
+  </script>
+</body>
+</html>
