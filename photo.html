@@ -106,10 +106,8 @@
       <div id="lbImgShield" class="img-shield absolute inset-0 z-10"></div>
       <button id="nextLbBtn" class="absolute right-0 z-20 text-white/50 hover:text-white p-3 bg-black/30 rounded-full focus:outline-none" aria-label="다음 이미지"><i data-lucide="chevron-right" class="w-6 h-6"></i></button>
     </div>
-    <div class="text-center text-white pb-6">
-      <h4 id="lbTitle" class="text-base font-light tracking-wide mb-1"></h4>
-      <p id="lbCategory" class="text-xs text-white/50 font-light uppercase tracking-widest"></p>
-    </div>
+    <!-- 상단 바와 대칭을 맞추기 위한 여백용 빈 요소 -->
+    <div class="h-10 invisible"></div>
   </div>
 
   <footer class="bg-studio-card border-t border-studio-border py-8 transition-all duration-300">
@@ -151,17 +149,6 @@
         renderPhotos();
       });
 
-    function getCategoryLabel(cat) {
-      const labels = {
-        'homepage': '홈페이지',
-        'profile': '프로필',
-        'product': '제품 촬영',
-        'interior': '인테리어',
-        'food': '음식 촬영'
-      };
-      return labels[cat] || cat;
-    }
-
     function renderPhotos() {
       const grid = document.getElementById('photoGrid');
       grid.innerHTML = '';
@@ -169,7 +156,7 @@
 
       filteredList.forEach((photo, idx) => {
         const card = document.createElement('div');
-        card.className = 'gallery-card break-inside-avoid mb-4 group relative overflow-hidden rounded-xl border border-studio-border/50 bg-studio-card cursor-pointer';
+        card.className = 'gallery-card break-inside-avoid mb-4 overflow-hidden rounded-xl border border-studio-border/50 bg-studio-card cursor-pointer';
 
         // 이미지 태그 (hover:scale-105 바인딩)
         const img = document.createElement('img');
@@ -179,23 +166,7 @@
         img.loading = 'lazy';
         img.draggable = false;
 
-        // 정보 마스크 레이어
-        const overlay = document.createElement('div');
-        overlay.className = 'absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-4 text-white z-10';
-
-        // 텍스트는 textContent 속성으로만 안전하게 대입하여 인용부호 충돌 방지
-        const catSpan = document.createElement('span');
-        catSpan.className = 'text-[9px] tracking-widest opacity-80 uppercase mb-0.5 font-semibold';
-        catSpan.textContent = getCategoryLabel(photo.category);
-
-        const titleH = document.createElement('h4');
-        titleH.className = 'text-xs font-medium';
-        titleH.textContent = photo.title;
-
-        overlay.appendChild(catSpan);
-        overlay.appendChild(titleH);
         card.appendChild(img);
-        card.appendChild(overlay);
 
         // 자바스크립트 수동 이벤트 리스너 바인딩 (인라인 onClick 전면 배제)
         card.addEventListener('click', () => openLb(idx));
@@ -220,8 +191,6 @@
     // 라이트박스 제어 로직 (style.display로 완벽 제어)
     const lb = document.getElementById('lightbox');
     const lbImg = document.getElementById('lbImg');
-    const lbTitle = document.getElementById('lbTitle');
-    const lbCategory = document.getElementById('lbCategory');
     const lbIndex = document.getElementById('lbIndex');
 
     function openLb(idx) {
@@ -240,8 +209,6 @@
       const item = filteredList[currentLbIndex];
       if (!item) return;
       lbImg.src = item.file;
-      lbTitle.textContent = item.title;
-      lbCategory.textContent = getCategoryLabel(item.category);
       lbIndex.textContent = `${currentLbIndex + 1} / ${filteredList.length}`;
     }
 
