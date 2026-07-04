@@ -91,7 +91,7 @@
       <span>Cinema Theater</span>
       <button id="closeTheaterBtn" class="text-white/60 hover:text-white p-2 focus:outline-none"><i data-lucide="x" class="w-6 h-6"></i></button>
     </div>
-    <div class="w-full max-w-4xl aspect-video rounded-lg overflow-hidden bg-black shadow-2xl">
+    <div id="theaterFrame" class="w-full max-w-4xl aspect-video rounded-lg overflow-hidden bg-black shadow-2xl">
       <iframe id="theaterIframe" src="" class="w-full h-full border-0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     </div>
     <div class="text-center text-white pb-6">
@@ -168,9 +168,11 @@
         card.className = 'group relative overflow-hidden bg-studio-card border border-studio-border rounded-xl shadow-sm flex flex-col';
         const thumbUrl = `https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`;
 
-        // 썸네일 노드 생성
+        // 썸네일 노드 생성 (세로 영상은 9:16 비율로 표시해 검은 여백 없이 크롭)
         const triggerDiv = document.createElement('div');
-        triggerDiv.className = 'relative aspect-video overflow-hidden bg-black cursor-pointer';
+        triggerDiv.className = video.vertical
+          ? 'relative aspect-[9/16] overflow-hidden bg-black cursor-pointer'
+          : 'relative aspect-video overflow-hidden bg-black cursor-pointer';
 
         const img = document.createElement('img');
         img.src = thumbUrl;
@@ -215,7 +217,7 @@
 
         // 자바스크립트 기반 리스너 매핑 (인라인 onclick 전면 우회)
         triggerDiv.addEventListener('click', () => {
-          openTheater(video.youtubeId, video.title);
+          openTheater(video.youtubeId, video.title, video.vertical);
         });
 
         grid.appendChild(card);
@@ -252,11 +254,15 @@
     })();
 
     const theater = document.getElementById('theater');
+    const theaterFrame = document.getElementById('theaterFrame');
     const iframe = document.getElementById('theaterIframe');
     const tTitle = document.getElementById('theaterTitle');
 
-    function openTheater(yid, title) {
+    function openTheater(yid, title, vertical) {
       theater.style.display = 'flex';
+      theaterFrame.className = vertical
+        ? 'h-[75vh] max-h-[75vh] aspect-[9/16] rounded-lg overflow-hidden bg-black shadow-2xl mx-auto'
+        : 'w-full max-w-4xl aspect-video rounded-lg overflow-hidden bg-black shadow-2xl';
       iframe.src = `https://www.youtube.com/embed/${yid}?autoplay=1&rel=0`;
       tTitle.textContent = title;
       document.body.style.overflow = 'hidden';
