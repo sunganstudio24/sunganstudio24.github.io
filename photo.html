@@ -41,6 +41,10 @@
     ::-webkit-scrollbar { width: 5px; }
     ::-webkit-scrollbar-thumb { background: #8C7A6B; }
 
+    /* 모바일 필터 가로 스크롤 시 스크롤바 숨김 */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
     /* 이미지 보호: 드래그 및 선택 방지 */
     img {
       -webkit-user-drag: none;
@@ -84,14 +88,14 @@
       <h2 class="text-3xl font-light tracking-widest text-studio-text mb-2">PHOTO PORTFOLIO</h2>
       <p class="text-xs tracking-widest text-studio-muted uppercase mb-6">행사 · 프로필 · 제품 · 인테리어 · 음식</p>
 
-      <!-- 카테고리 필터 -->
-      <div class="flex flex-wrap justify-center gap-2 max-w-2xl mx-auto" id="filterContainer">
-        <button data-filter="all" class="filter-btn px-4 py-1.5 text-xs rounded-full border border-studio-accent bg-studio-accent text-white transition-colors duration-300">전체</button>
-        <button data-filter="homepage" class="filter-btn px-4 py-1.5 text-xs rounded-full border border-studio-border bg-studio-card text-studio-muted hover:border-studio-accent transition-colors duration-300">홈페이지</button>
-        <button data-filter="profile" class="filter-btn px-4 py-1.5 text-xs rounded-full border border-studio-border bg-studio-card text-studio-muted hover:border-studio-accent transition-colors duration-300">프로필</button>
-        <button data-filter="product" class="filter-btn px-4 py-1.5 text-xs rounded-full border border-studio-border bg-studio-card text-studio-muted hover:border-studio-accent transition-colors duration-300">제품 촬영</button>
-        <button data-filter="interior" class="filter-btn px-4 py-1.5 text-xs rounded-full border border-studio-border bg-studio-card text-studio-muted hover:border-studio-accent transition-colors duration-300">인테리어</button>
-        <button data-filter="food" class="filter-btn px-4 py-1.5 text-xs rounded-full border border-studio-border bg-studio-card text-studio-muted hover:border-studio-accent transition-colors duration-300">음식 촬영</button>
+      <!-- 카테고리 필터 (모바일은 가로 스크롤 한 줄, md 이상은 중앙 정렬 줄바꿈) -->
+      <div class="flex flex-nowrap md:flex-wrap justify-start md:justify-center gap-2 max-w-2xl mx-auto overflow-x-auto no-scrollbar px-6 -mx-6 md:px-0 md:mx-auto" id="filterContainer">
+        <button data-filter="all" class="filter-btn shrink-0 px-4 py-2.5 text-xs rounded-full border border-studio-accent bg-studio-accent text-white transition-colors duration-300">전체</button>
+        <button data-filter="homepage" class="filter-btn shrink-0 px-4 py-2.5 text-xs rounded-full border border-studio-border bg-studio-card text-studio-muted hover:border-studio-accent transition-colors duration-300">홈페이지</button>
+        <button data-filter="profile" class="filter-btn shrink-0 px-4 py-2.5 text-xs rounded-full border border-studio-border bg-studio-card text-studio-muted hover:border-studio-accent transition-colors duration-300">프로필</button>
+        <button data-filter="product" class="filter-btn shrink-0 px-4 py-2.5 text-xs rounded-full border border-studio-border bg-studio-card text-studio-muted hover:border-studio-accent transition-colors duration-300">제품 촬영</button>
+        <button data-filter="interior" class="filter-btn shrink-0 px-4 py-2.5 text-xs rounded-full border border-studio-border bg-studio-card text-studio-muted hover:border-studio-accent transition-colors duration-300">인테리어</button>
+        <button data-filter="food" class="filter-btn shrink-0 px-4 py-2.5 text-xs rounded-full border border-studio-border bg-studio-card text-studio-muted hover:border-studio-accent transition-colors duration-300">음식 촬영</button>
       </div>
     </div>
 
@@ -103,14 +107,14 @@
   <div id="lightbox" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-sm flex flex-col justify-between items-center p-6" style="display: none;">
     <div class="w-full flex justify-between items-center text-white/85 text-xs">
       <span id="lbIndex"></span>
-      <button id="closeLbBtn" class="text-white/60 hover:text-white p-2 focus:outline-none"><i data-lucide="x" class="w-6 h-6"></i></button>
+      <button id="closeLbBtn" class="w-11 h-11 flex items-center justify-center text-white/60 hover:text-white focus:outline-none" aria-label="닫기"><i data-lucide="x" class="w-6 h-6"></i></button>
     </div>
     <div class="relative max-w-4xl max-h-[75vh] w-full flex items-center justify-center">
-      <button id="prevLbBtn" class="absolute left-0 z-20 text-white/50 hover:text-white p-3 bg-black/30 rounded-full focus:outline-none" aria-label="이전 이미지"><i data-lucide="chevron-left" class="w-6 h-6"></i></button>
+      <button id="prevLbBtn" class="absolute left-1 md:left-0 z-20 w-11 h-11 flex items-center justify-center text-white/60 hover:text-white bg-black/30 rounded-full focus:outline-none" aria-label="이전 이미지"><i data-lucide="chevron-left" class="w-6 h-6"></i></button>
       <img id="lbImg" src="" draggable="false" class="max-w-full max-h-[75vh] object-contain rounded shadow-2xl">
       <!-- 이미지 직접 우클릭/드래그 차단용 투명 오버레이 (버튼보다 아래 z-index) -->
       <div id="lbImgShield" class="img-shield absolute inset-0 z-10"></div>
-      <button id="nextLbBtn" class="absolute right-0 z-20 text-white/50 hover:text-white p-3 bg-black/30 rounded-full focus:outline-none" aria-label="다음 이미지"><i data-lucide="chevron-right" class="w-6 h-6"></i></button>
+      <button id="nextLbBtn" class="absolute right-1 md:right-0 z-20 w-11 h-11 flex items-center justify-center text-white/60 hover:text-white bg-black/30 rounded-full focus:outline-none" aria-label="다음 이미지"><i data-lucide="chevron-right" class="w-6 h-6"></i></button>
     </div>
     <!-- 상단 바와 대칭을 맞추기 위한 여백용 빈 요소 -->
     <div class="h-10 invisible"></div>
@@ -119,7 +123,7 @@
   <footer class="bg-studio-card border-t border-studio-border py-8 transition-all duration-300">
     <div class="max-w-6xl mx-auto px-6 text-center text-xs text-studio-muted">
       <p>© 순간, 스튜디오</p>
-      <p class="mt-1 text-[11px] text-studio-muted/70">
+      <p class="mt-1 text-sm text-studio-muted/70">
         <a href="mailto:dj7013@naver.com" class="hover:text-studio-accent transition-colors">dj7013@naver.com</a>
         ·
         <a href="https://instagram.com/sungan__studio" target="_blank" rel="noopener noreferrer" class="hover:text-studio-accent transition-colors">@sungan__studio</a>
@@ -209,8 +213,8 @@
       document.querySelectorAll('.filter-btn').forEach(b => {
         const isActive = b.getAttribute('data-filter') === filter;
         b.className = isActive
-          ? 'filter-btn px-4 py-1.5 text-xs rounded-full border border-studio-accent bg-studio-accent text-white transition-colors duration-300'
-          : 'filter-btn px-4 py-1.5 text-xs rounded-full border border-studio-border bg-studio-card text-studio-muted hover:border-studio-accent transition-colors duration-300';
+          ? 'filter-btn shrink-0 px-4 py-2.5 text-xs rounded-full border border-studio-accent bg-studio-accent text-white transition-colors duration-300'
+          : 'filter-btn shrink-0 px-4 py-2.5 text-xs rounded-full border border-studio-border bg-studio-card text-studio-muted hover:border-studio-accent transition-colors duration-300';
       });
     }
 
@@ -267,6 +271,28 @@
         closeLb();
       }
     });
+
+    // 모바일 스와이프로 이전/다음 이미지 이동
+    let touchStartX = 0;
+    let touchStartY = 0;
+    lb.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    lb.addEventListener('touchend', (e) => {
+      const deltaX = e.changedTouches[0].screenX - touchStartX;
+      const deltaY = e.changedTouches[0].screenY - touchStartY;
+      const SWIPE_THRESHOLD = 50;
+      if (Math.abs(deltaX) > SWIPE_THRESHOLD && Math.abs(deltaX) > Math.abs(deltaY)) {
+        if (deltaX < 0) {
+          currentLbIndex = (currentLbIndex + 1) % filteredList.length;
+        } else {
+          currentLbIndex = (currentLbIndex - 1 + filteredList.length) % filteredList.length;
+        }
+        updateLb();
+      }
+    }, { passive: true });
 
     // 이미지(및 보호 오버레이)에만 우클릭 방지 적용, 일반 텍스트 영역은 우클릭 유지
     document.addEventListener('contextmenu', (e) => {
