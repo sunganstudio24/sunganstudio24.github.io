@@ -117,15 +117,24 @@
       }
     ];
 
+    // Fisher-Yates 셔플 (페이지 로드 시 한 번만 적용)
+    function shuffleArray(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
     fetch('videos.json')
       .then(res => res.json())
       .then(data => {
-        videoData = data;
+        videoData = shuffleArray(data);
         renderVideos();
       })
       .catch(err => {
         console.warn("로컬 환경(CORS) 혹은 videos.json 파일을 찾지 못해 샘플 데이터셋을 로드합니다.", err);
-        videoData = fallbackVideos;
+        videoData = shuffleArray(fallbackVideos);
         renderVideos();
       });
 

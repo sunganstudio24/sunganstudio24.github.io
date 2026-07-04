@@ -136,16 +136,25 @@
       }
     ];
 
+    // Fisher-Yates 셔플 (페이지 로드 시 한 번만 적용)
+    function shuffleArray(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
     // JSON 동적 로드 및 폴백 처리
     fetch('images.json')
       .then(res => res.json())
       .then(data => {
-        photoData = data;
+        photoData = shuffleArray(data);
         renderPhotos();
       })
       .catch(err => {
         console.warn("로컬 환경(CORS) 혹은 images.json 파일을 찾지 못해 원활한 테스트를 위한 샘플 이미지를 로드합니다.", err);
-        photoData = fallbackImages;
+        photoData = shuffleArray(fallbackImages);
         renderPhotos();
       });
 
