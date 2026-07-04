@@ -168,16 +168,18 @@
         card.className = 'group relative overflow-hidden bg-studio-card border border-studio-border rounded-xl shadow-sm flex flex-col';
         const thumbUrl = `https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`;
 
-        // 썸네일 노드 생성 (세로 영상은 9:16 비율로 표시해 검은 여백 없이 크롭)
+        // 썸네일 노드 생성 (카드 박스는 vertical 여부와 관계없이 16:9로 통일)
         const triggerDiv = document.createElement('div');
-        triggerDiv.className = video.vertical
-          ? 'relative aspect-[9/16] overflow-hidden bg-black cursor-pointer'
-          : 'relative aspect-video overflow-hidden bg-black cursor-pointer';
+        triggerDiv.className = 'relative aspect-video overflow-hidden bg-black cursor-pointer';
 
         const img = document.createElement('img');
         img.src = thumbUrl;
         img.alt = video.title;
-        img.className = 'w-full h-full object-cover opacity-95 transition duration-500 hover:scale-105';
+        // 세로 영상은 유튜브 썸네일의 좌우 여백이 16:9 박스에 그대로 드러나므로
+        // 중앙을 확대해 여백 없이 채움
+        img.className = video.vertical
+          ? 'w-full h-full object-cover scale-[2.8] opacity-95 transition duration-500 hover:scale-[2.9]'
+          : 'w-full h-full object-cover opacity-95 transition duration-500 hover:scale-105';
         img.loading = 'lazy';
 
         const playOverlay = document.createElement('div');
