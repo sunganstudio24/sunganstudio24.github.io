@@ -99,7 +99,7 @@
       <!-- 카테고리 필터 (모바일은 가로 스크롤 한 줄, md 이상은 중앙 정렬 줄바꿈) -->
       <div class="flex flex-nowrap md:flex-wrap justify-start md:justify-center gap-2 max-w-xl mx-auto overflow-x-auto no-scrollbar px-6 -mx-6 md:px-0 md:mx-auto">
         <button data-filter="all" class="filter-btn shrink-0 px-4 py-2.5 text-xs rounded-full border border-studio-accent bg-studio-accent text-white transition-colors duration-300">전체</button>
-        <button data-filter="promo" class="filter-btn shrink-0 px-4 py-2.5 text-xs rounded-full border border-studio-border bg-studio-card text-studio-muted hover:border-studio-accent transition-colors duration-300">홍보 영상</button>
+        <button data-filter="promo" class="filter-btn shrink-0 px-4 py-2.5 text-xs rounded-full border border-studio-border bg-studio-card text-studio-muted hover:border-studio-accent transition-colors duration-300">홍보</button>
         <button data-filter="event" class="filter-btn shrink-0 px-4 py-2.5 text-xs rounded-full border border-studio-border bg-studio-card text-studio-muted hover:border-studio-accent transition-colors duration-300">행사 아카이빙</button>
         <button data-filter="ad" class="filter-btn shrink-0 px-4 py-2.5 text-xs rounded-full border border-studio-border bg-studio-card text-studio-muted hover:border-studio-accent transition-colors duration-300">광고/커머셜</button>
       </div>
@@ -175,7 +175,7 @@
 
     function getCategoryLabel(cat) {
       const labels = {
-        'promo': '홍보 영상',
+        'promo': '홍보',
         'event': '행사 아카이빙',
         'ad': '광고/커머셜'
       };
