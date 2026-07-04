@@ -44,6 +44,26 @@
     /* 모바일 필터 가로 스크롤 시 스크롤바 숨김 */
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* 세로(쇼츠) 영상 썸네일을 90도 회전시켜 16:9 카드 박스를 여백 없이 채우는 트릭.
+       container-type: size로 박스 크기를 고정한 뒤, 회전 전 이미지의 width/height를
+       컨테이너의 height/width(cqh/cqw)로 서로 바꿔치기하면 90도 회전 후 정확히
+       원래 박스 크기(16:9)를 가득 채우게 된다. */
+    .v-thumb-box { container-type: size; }
+    .v-thumb-img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100cqh;
+      height: 100cqw;
+      max-width: none;
+      object-fit: cover;
+      transform: translate(-50%, -50%) rotate(-90deg);
+      transition: transform 0.5s;
+    }
+    .group:hover .v-thumb-img {
+      transform: translate(-50%, -50%) rotate(-90deg) scale(1.05);
+    }
   </style>
 </head>
 <body class="bg-studio-bg text-studio-text min-h-screen flex flex-col">
@@ -174,15 +194,16 @@
 
         // 썸네일 노드 생성 (카드 박스는 vertical 여부와 관계없이 16:9로 통일)
         const triggerDiv = document.createElement('div');
-        triggerDiv.className = 'relative aspect-video overflow-hidden bg-black cursor-pointer';
+        triggerDiv.className = video.vertical
+          ? 'relative aspect-video overflow-hidden bg-black cursor-pointer v-thumb-box'
+          : 'relative aspect-video overflow-hidden bg-black cursor-pointer';
 
         const img = document.createElement('img');
         img.src = thumbUrl;
         img.alt = video.title;
-        // 세로 영상은 유튜브 썸네일의 좌우 여백이 16:9 박스에 그대로 드러나므로
-        // 중앙을 확대해 여백 없이 채움
+        // 세로 영상은 썸네일을 90도 회전시켜 눕힌 뒤 16:9 박스를 여백 없이 채움
         img.className = video.vertical
-          ? 'w-full h-full object-cover scale-[2.8] opacity-95 transition duration-500 hover:scale-[2.9]'
+          ? 'v-thumb-img opacity-95'
           : 'w-full h-full object-cover opacity-95 transition duration-500 hover:scale-105';
         img.loading = 'lazy';
 
