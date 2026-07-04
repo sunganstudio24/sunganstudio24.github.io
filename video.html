@@ -190,7 +190,9 @@
       list.forEach(video => {
         const card = document.createElement('div');
         card.className = 'group relative overflow-hidden bg-studio-card border border-studio-border rounded-xl shadow-sm flex flex-col';
-        const thumbUrl = `https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`;
+        const hqThumbUrl = `https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`;
+        // 세로(쇼츠) 영상은 검은 띠 없는 세로 원본 썸네일(oar2)을 우선 사용
+        const thumbUrl = video.vertical ? `https://i.ytimg.com/vi/${video.youtubeId}/oar2.jpg` : hqThumbUrl;
 
         // 썸네일 노드 생성 (카드 박스는 vertical 여부와 관계없이 16:9로 통일)
         const triggerDiv = document.createElement('div');
@@ -206,6 +208,13 @@
           ? 'v-thumb-img opacity-95'
           : 'w-full h-full object-cover opacity-95 transition duration-500 hover:scale-105';
         img.loading = 'lazy';
+        if (video.vertical) {
+          // oar2 썸네일이 없는 영상일 경우 hqdefault로 폴백 (1회만 시도)
+          img.addEventListener('error', function onErr() {
+            img.removeEventListener('error', onErr);
+            img.src = hqThumbUrl;
+          });
+        }
 
         const playOverlay = document.createElement('div');
         playOverlay.className = 'absolute inset-0 flex items-center justify-center';
