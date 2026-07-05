@@ -238,12 +238,28 @@
       lb.style.display = 'flex';
       document.body.style.overflow = 'hidden';
       updateLb();
+      // 모바일 뒤로가기가 페이지 이탈 대신 라이트박스만 닫도록 히스토리 상태 추가
+      history.pushState({ lightbox: true }, '');
     }
 
-    function closeLb() {
+    // 실제 숨김 처리 (popstate 핸들러에서만 호출되어 히스토리와 화면 상태를 항상 동기화)
+    function hideLb() {
       lb.style.display = 'none';
       document.body.style.overflow = 'auto';
     }
+
+    // X 버튼/배경 클릭/ESC로 닫을 때는 pushState로 쌓은 상태를 back()으로 정리
+    // (직접 hideLb()를 호출하면 히스토리 항목이 남아 뒤로가기를 두 번 눌러야 함)
+    function closeLb() {
+      if (lb.style.display === 'none') return;
+      history.back();
+    }
+
+    window.addEventListener('popstate', () => {
+      if (lb.style.display !== 'none') {
+        hideLb();
+      }
+    });
 
     function updateLb() {
       const item = filteredList[currentLbIndex];
