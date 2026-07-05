@@ -101,6 +101,8 @@
 
     <!-- Masonry Grid -->
     <div id="photoGrid" class="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4"></div>
+    <!-- 무한 스크롤 트리거용 sentinel (IntersectionObserver 관찰 대상) -->
+    <div id="scrollSentinel" class="h-1 w-full"></div>
   </main>
 
   <!-- Lightbox (hidden과 flex가 동시 할당되지 않으며 display 속성으로 노출을 완전히 제어합니다) -->
@@ -136,6 +138,8 @@
     let activeFilter = 'all';
     let filteredList = [];
     let currentLbIndex = 0;
+    let renderedCount = 0;
+    const BATCH_SIZE = 12;
 
     // 로컬 CORS 에러 대비용 고품질 Unsplash 목업 이미지 폴백
     const fallbackImages = [
@@ -177,8 +181,17 @@
       const grid = document.getElementById('photoGrid');
       grid.innerHTML = '';
       filteredList = activeFilter === 'all' ? photoData : photoData.filter(p => p.category === activeFilter);
+      renderedCount = 0;
+      appendNextBatch();
+    }
 
-      filteredList.forEach((photo, idx) => {
+    // 필터된 전체 목록(filteredList) 중 다음 BATCH_SIZE개만 그리드에 추가 렌더
+    function appendNextBatch() {
+      const grid = document.getElementById('photoGrid');
+      const nextSlice = filteredList.slice(renderedCount, renderedCount + BATCH_SIZE);
+
+      nextSlice.forEach((photo, i) => {
+        const idx = renderedCount + i; // filteredList 기준 실제 인덱스 (라이트박스 내비게이션용)
         const card = document.createElement('div');
         card.className = 'gallery-card break-inside-avoid mb-4 overflow-hidden rounded-xl border border-studio-border/50 bg-studio-card cursor-pointer';
 
@@ -197,8 +210,38 @@
 
         grid.appendChild(card);
       });
+      renderedCount += nextSlice.length;
       lucide.createIcons();
     }
+
+    // 무한 스크롤: sentinel이 뷰포트 200px 이내로 들어오면 다음 12장 추가
+    const scrollSentinel = document.getElementById('scrollSentinel');
+
+    // IntersectionObserver(rootMargin: 200px)로 sentinel과의 근접 여부를 판단하되,
+    // 스크롤이 멈출 때마다 매번 새 인스턴스로 한 번만 관찰하고 바로 해제한다.
+    // (오래 살아있는 단일 인스턴스로 계속 관찰하면, 최초 관찰 시 강제로 발생하는
+    // 콜백 이후 실제 스크롤로 인한 재교차를 감지하지 못하는 환경이 있어 안전하게
+    // 매 스크롤 틱마다 새로 확인한다.)
+    function checkSentinelProximity() {
+      if (renderedCount >= filteredList.length) return;
+      const obs = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && window.scrollY > 0 && renderedCount < filteredList.length) {
+          appendNextBatch();
+        }
+        obs.disconnect();
+      }, { rootMargin: '200px' });
+      obs.observe(scrollSentinel);
+    }
+
+    let scrollCheckQueued = false;
+    window.addEventListener('scroll', () => {
+      if (scrollCheckQueued) return;
+      scrollCheckQueued = true;
+      requestAnimationFrame(() => {
+        checkSentinelProximity();
+        scrollCheckQueued = false;
+      });
+    }, { passive: true });
 
     // 필터 제어 로직
     document.querySelectorAll('.filter-btn').forEach(btn => {
