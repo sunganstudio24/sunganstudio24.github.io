@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>가격 안내 — 순간, 스튜디오</title>
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <meta property="og:title" content="순간, 스튜디오">
+  <meta property="og:description" content="진주에서 활동하고 있는 스튜디오입니다. 사진과 영상으로 순간을 기록합니다.">
+  <meta property="og:image" content="https://sunganstudio24.github.io/images/about.jpg">
+  <meta property="og:url" content="https://sunganstudio24.github.io/pricing.html">
+  <meta property="og:type" content="website">
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@0.263.0"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            studio: {
+              bg: '#FAF7F2',
+              text: '#2B2420',
+              muted: '#5C534E',
+              accent: '#8C7A6B',
+              border: '#EBE5DC',
+              card: '#FFFFFF'
+            }
+          },
+          fontFamily: { sans: ['Pretendard', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Pretendard', sans-serif;
+      background-color: #FAF7F2;
+      color: #2B2420;
+    }
+  </style>
+</head>
+<body class="bg-studio-bg text-studio-text min-h-screen flex flex-col">
+  <header class="bg-studio-bg border-b border-studio-border/50 sticky top-0 z-40">
+    <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+      <a href="index.html" class="flex flex-col">
+        <span class="text-xl font-bold tracking-widest">순간, 스튜디오</span>
+        <span class="text-[10px] tracking-widest text-studio-muted">SUNGAN STUDIO</span>
+      </a>
+      <nav class="hidden md:flex space-x-10 text-sm font-medium">
+        <a href="photo.html" class="text-studio-muted hover:text-studio-text">사진</a>
+        <a href="video.html" class="text-studio-muted hover:text-studio-text">영상</a>
+        <a href="pricing.html" class="text-studio-text border-b border-studio-accent pb-1">가격 안내</a>
+        <a href="about.html" class="text-studio-muted hover:text-studio-text">소개</a>
+      </nav>
+      <!-- 모바일 토글 버튼 -->
+      <button id="mobileMenuBtn" class="md:hidden text-studio-text focus:outline-none" aria-label="메뉴 열기">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
+    </div>
+    <!-- 모바일 드롭다운 메뉴 -->
+    <div id="mobileMenu" class="hidden md:hidden bg-studio-bg border-b border-studio-border px-6 py-6 space-y-4 shadow-sm">
+      <a href="photo.html" class="block text-base font-medium text-studio-muted hover:text-studio-text py-2">사진</a>
+      <a href="video.html" class="block text-base font-medium text-studio-muted hover:text-studio-text py-2">영상</a>
+      <a href="pricing.html" class="block text-base font-medium text-studio-text py-2">가격 안내</a>
+      <a href="about.html" class="block text-base font-medium text-studio-muted hover:text-studio-text py-2">소개</a>
+    </div>
+  </header>
+
+  <main class="flex-grow max-w-6xl mx-auto px-6 py-12 w-full">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl font-light tracking-widest text-studio-text mb-2">PRICING</h2>
+      <p class="text-xs tracking-widest text-studio-muted uppercase">가격 안내</p>
+    </div>
+
+    <!-- 섹션 1: 홈페이지·브랜드 사진 촬영 -->
+    <section class="mb-24">
+      <h3 class="text-xl font-light text-studio-text mb-8 flex items-center gap-2">
+        <span>📸</span>
+        <span>홈페이지·브랜드 사진 촬영</span>
+      </h3>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
+        <!-- STILL -->
+        <div class="rounded-xl border border-studio-border bg-studio-card p-8 flex flex-col shadow-sm h-full">
+          <span class="text-xs font-semibold tracking-widest text-studio-accent uppercase mb-3">STILL</span>
+          <p class="text-3xl font-light text-studio-text mb-6">₩ 400,000</p>
+          <ul class="text-sm text-studio-muted space-y-4 leading-relaxed">
+            <li><span class="block font-medium text-studio-text mb-1">적합 대상</span>소규모 매장·신규 오픈</li>
+            <li><span class="block font-medium text-studio-text mb-1">촬영 범위</span>공간 및 외관</li>
+            <li><span class="block font-medium text-studio-text mb-1">포함 사항</span>대표 이미지 제작 포함</li>
+          </ul>
+        </div>
+
+        <!-- MOMENT (추천) -->
+        <div class="relative rounded-xl border-2 border-studio-accent bg-studio-card p-8 flex flex-col shadow-md md:scale-105 z-10 h-full">
+          <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-studio-accent text-white text-xs font-semibold tracking-wide px-3 py-1 rounded-full whitespace-nowrap">⭐ 추천</span>
+          <span class="text-xs font-semibold tracking-widest text-studio-accent uppercase mb-3">MOMENT</span>
+          <p class="text-3xl font-light text-studio-text mb-6">₩ 700,000</p>
+          <ul class="text-sm text-studio-muted space-y-4 leading-relaxed">
+            <li><span class="block font-medium text-studio-text mb-1">적합 대상</span>홈페이지·브랜드 소개용</li>
+            <li><span class="block font-medium text-studio-text mb-1">촬영 범위</span>공간·외관 + 제품(해당 시) + 업무·서비스 현장</li>
+            <li><span class="block font-medium text-studio-text mb-1">포함 사항</span>대표 이미지 제작 포함</li>
+          </ul>
+        </div>
+
+        <!-- FULL FRAME -->
+        <div class="rounded-xl border border-studio-border bg-studio-card p-8 flex flex-col shadow-sm h-full">
+          <span class="text-xs font-semibold tracking-widest text-studio-accent uppercase mb-3">FULL FRAME</span>
+          <p class="text-3xl font-light text-studio-text mb-6">₩ 1,200,000</p>
+          <ul class="text-sm text-studio-muted space-y-4 leading-relaxed">
+            <li><span class="block font-medium text-studio-text mb-1">적합 대상</span>기관·기업·다점포</li>
+            <li><span class="block font-medium text-studio-text mb-1">촬영 범위</span>공간·외관 + 제품 + 업무·서비스 현장 + 드론 + 직원 프로필 + 디테일 컷</li>
+            <li><span class="block font-medium text-studio-text mb-1">포함 사항</span>대표 이미지 제작 포함</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 섹션 2: 홍보 영상 제작 -->
+    <section class="mb-16">
+      <h3 class="text-xl font-light text-studio-text mb-8 flex items-center gap-2">
+        <span>🎬</span>
+        <span>홍보 영상 제작</span>
+      </h3>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
+        <!-- STILL -->
+        <div class="rounded-xl border border-studio-border bg-studio-card p-8 flex flex-col shadow-sm h-full">
+          <span class="text-xs font-semibold tracking-widest text-studio-accent uppercase mb-3">STILL</span>
+          <p class="text-3xl font-light text-studio-text mb-6">₩ 600,000</p>
+          <ul class="text-sm text-studio-muted space-y-4 leading-relaxed">
+            <li><span class="block font-medium text-studio-text mb-1">적합 대상</span>SNS·홈페이지용 단편 홍보</li>
+            <li><span class="block font-medium text-studio-text mb-1">러닝타임</span>30~60초</li>
+            <li><span class="block font-medium text-studio-text mb-1">포함 사항</span>색보정, BGM 삽입</li>
+          </ul>
+        </div>
+
+        <!-- MOMENT (추천) -->
+        <div class="relative rounded-xl border-2 border-studio-accent bg-studio-card p-8 flex flex-col shadow-md md:scale-105 z-10 h-full">
+          <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-studio-accent text-white text-xs font-semibold tracking-wide px-3 py-1 rounded-full whitespace-nowrap">⭐ 추천</span>
+          <span class="text-xs font-semibold tracking-widest text-studio-accent uppercase mb-3">MOMENT</span>
+          <p class="text-3xl font-light text-studio-text mb-6">₩ 1,200,000</p>
+          <ul class="text-sm text-studio-muted space-y-4 leading-relaxed">
+            <li><span class="block font-medium text-studio-text mb-1">적합 대상</span>브랜드 메인 홍보영상</li>
+            <li><span class="block font-medium text-studio-text mb-1">러닝타임</span>60~90초</li>
+            <li><span class="block font-medium text-studio-text mb-1">포함 사항</span>스토리 구성, 색보정, BGM 삽입, 자막 제작, 썸네일 제작</li>
+          </ul>
+        </div>
+
+        <!-- FULL FRAME -->
+        <div class="rounded-xl border border-studio-border bg-studio-card p-8 flex flex-col shadow-sm h-full">
+          <span class="text-xs font-semibold tracking-widest text-studio-accent uppercase mb-3">FULL FRAME</span>
+          <p class="text-3xl font-light text-studio-text mb-6">₩ 2,500,000</p>
+          <ul class="text-sm text-studio-muted space-y-4 leading-relaxed">
+            <li><span class="block font-medium text-studio-text mb-1">적합 대상</span>기업·기관 전용 프리미엄 영상</li>
+            <li><span class="block font-medium text-studio-text mb-1">러닝타임</span>2~3분</li>
+            <li><span class="block font-medium text-studio-text mb-1">포함 사항</span>기획 회의, 콘티 제작, 스토리 구성, 색보정, BGM 삽입, 자막 제작, 썸네일 제작, 인터뷰 촬영, 드론 촬영</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 안내 문구 -->
+    <section class="border-t border-studio-border pt-8 mb-16">
+      <p class="text-xs text-studio-muted leading-relaxed max-w-2xl mx-auto text-center">
+        보정/편집 수정은 2회까지 무료 제공되며, 3회 이상 요청 시 회당 추가 비용이 발생합니다.<br>
+        모든 촬영은 촬영 시간, 장소, 촬영 범위, 편집 난이도에 따라 견적이 달라질 수 있습니다. 상담 후 맞춤 견적을 안내드립니다.
+      </p>
+    </section>
+
+    <!-- 문의 CTA -->
+    <section class="text-center border-t border-studio-border pt-16">
+      <h4 class="text-lg font-light text-studio-text mb-6">촬영 및 제작 문의</h4>
+      <a href="mailto:dj7013@naver.com" class="inline-flex items-center gap-2 bg-studio-accent text-white text-sm font-medium px-8 py-3.5 rounded-full hover:bg-studio-text transition-colors duration-300">
+        <i data-lucide="mail" class="w-4 h-4"></i>
+        촬영 문의하기
+      </a>
+      <p class="mt-5 text-sm text-studio-muted">
+        <a href="https://instagram.com/sungan__studio" target="_blank" rel="noopener noreferrer" class="hover:text-studio-accent transition-colors">@sungan__studio</a>
+      </p>
+    </section>
+  </main>
+
+  <footer class="bg-studio-card border-t border-studio-border py-8 transition-all duration-300">
+    <div class="max-w-6xl mx-auto px-6 text-center text-xs text-studio-muted">
+      <p>© 순간, 스튜디오</p>
+      <p class="mt-1 text-sm text-studio-muted/70">
+        <a href="mailto:dj7013@naver.com" class="hover:text-studio-accent transition-colors">dj7013@naver.com</a>
+        ·
+        <a href="https://instagram.com/sungan__studio" target="_blank" rel="noopener noreferrer" class="hover:text-studio-accent transition-colors">@sungan__studio</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+    // 모바일 햄버거 토글
+    document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+      const m = document.getElementById('mobileMenu');
+      m.classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>
