@@ -1,5 +1,10 @@
 [
   {
+    "youtubeId": "oTG-O55LIuk",
+    "category": "promo",
+    "title": "짐플릭스 진주시청점 — 홍보영상"
+  },
+  {
     "youtubeId": "6s4Xa_RxfUY",
     "category": "ad",
     "title": "DASHU 다운텍"
@@ -17,7 +22,7 @@
   {
     "youtubeId": "Drm2dK5zhoM",
     "category": "promo",
-    "title": "짐플릭스 진주시청점",
+    "title": "짐플릭스 진주시청점 — 인스타그램 릴스",
     "vertical": true
   }
 ]
