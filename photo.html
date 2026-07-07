@@ -193,16 +193,19 @@
     }
 
     let columnEls = [];
-    let nextColumnIndex = 0;
+    let columnHeights = []; // 각 컬럼에 누적된 실제 렌더 높이(px) 추적
+    let renderGeneration = 0; // 필터 변경/리사이즈로 그리드가 재구성될 때마다 증가
+    const COLUMN_GAP = 16; // Tailwind gap-4(1rem) = 16px, 컬럼 높이 계산에 동일하게 반영
 
     // 현재 컬럼 수에 맞춰 빈 컬럼 div들을 새로 만든다 (필터 변경/초기 로드/브레이크포인트
     // 전환 시에만 호출 - 스크롤로 인한 배치 추가에서는 절대 호출하지 않는다)
     function buildColumns() {
+      renderGeneration++;
       const grid = document.getElementById('photoGrid');
       grid.innerHTML = '';
       const count = getColumnCount();
       columnEls = [];
-      nextColumnIndex = 0;
+      columnHeights = new Array(count).fill(0);
       for (let i = 0; i < count; i++) {
         const col = document.createElement('div');
         col.className = 'flex-1 min-w-0 flex flex-col gap-4';
@@ -211,15 +214,13 @@
       }
     }
 
-    // 다음에 카드를 넣을 컬럼을 라운드로빈으로 반환.
-    // (offsetHeight 기반으로 "가장 짧은 컬럼"을 고르는 방식은, 방금 추가한 이미지가
-    // 아직 로드되지 않아 높이가 0으로 측정되는 동안 같은 컬럼이 계속 "가장 짧다"고
-    // 판단되어 카드가 한쪽 컬럼에만 쏠리는 문제가 있었다. 라운드로빈은 이미지 로드
-    // 상태와 무관하게 항상 균등하게 분배되고, 이미 배치된 카드의 컬럼도 절대 바뀌지 않는다.)
-    function nextColumn() {
-      const col = columnEls[nextColumnIndex];
-      nextColumnIndex = (nextColumnIndex + 1) % columnEls.length;
-      return col;
+    // 현재 누적 높이가 가장 낮은(짧은) 컬럼의 인덱스를 반환
+    function shortestColumnIndex() {
+      let idx = 0;
+      for (let i = 1; i < columnHeights.length; i++) {
+        if (columnHeights[i] < columnHeights[idx]) idx = i;
+      }
+      return idx;
     }
 
     function createPhotoCard(photo, idx) {
@@ -233,12 +234,37 @@
       img.className = 'w-full h-auto object-cover transition duration-500 hover:scale-105';
       img.loading = 'lazy';
       img.draggable = false;
+      img.dataset.filteredIdx = idx; // 리사이즈 재배치 시 실제 종횡비를 idx로 역참조하기 위함
 
       card.appendChild(img);
 
       // 자바스크립트 수동 이벤트 리스너 바인딩 (인라인 onClick 전면 배제)
       card.addEventListener('click', () => openLb(idx));
       return card;
+    }
+
+    // 이미지의 실제 크기를 먼저 확인한 뒤, 그 시점의 컬럼 높이를 기준으로
+    // 가장 짧은 컬럼에 배치한다. DOM에 아직 삽입되지 않은 별도의 Image()로
+    // 미리 로드해 naturalWidth/naturalHeight를 즉시 신뢰할 수 있게 하며,
+    // 이 덕분에 "로드 전이라 높이가 0으로 측정되어 한쪽 컬럼에 쏠리는" 문제가
+    // 근본적으로 생기지 않는다. 배치 완료 후에는 해당 카드를 다시 옮기지 않는다.
+    function placeCardWhenReady(photo, idx) {
+      const myGeneration = renderGeneration;
+      const preload = new Image();
+
+      function place(aspectRatio) {
+        if (myGeneration !== renderGeneration) return; // 그 사이 필터/리사이즈로 재구성됨 - 폐기
+        const colIndex = shortestColumnIndex();
+        const colEl = columnEls[colIndex];
+        const colWidth = colEl.getBoundingClientRect().width;
+        columnHeights[colIndex] += (colWidth / aspectRatio) + COLUMN_GAP;
+        colEl.appendChild(createPhotoCard(photo, idx));
+        lucide.createIcons();
+      }
+
+      preload.onload = () => place(preload.naturalWidth / preload.naturalHeight);
+      preload.onerror = () => place(4 / 3); // 로드 실패 시 기본 비율로 폴백
+      preload.src = photo.file;
     }
 
     function renderPhotos() {
@@ -248,17 +274,16 @@
       appendNextBatch();
     }
 
-    // 필터된 전체 목록(filteredList) 중 다음 BATCH_SIZE개를 라운드로빈 컬럼에
-    // 순수 append. 기존에 렌더된 카드는 절대 이동/재생성하지 않는다.
+    // 필터된 전체 목록(filteredList) 중 다음 BATCH_SIZE개를, 각 이미지 로드 완료
+    // 시점에 가장 짧은 컬럼으로 배치한다. 기존에 렌더된 카드는 절대 이동/재생성하지 않는다.
     function appendNextBatch() {
       const nextSlice = filteredList.slice(renderedCount, renderedCount + BATCH_SIZE);
 
       nextSlice.forEach((photo, i) => {
         const idx = renderedCount + i; // filteredList 기준 실제 인덱스 (라이트박스 내비게이션용)
-        nextColumn().appendChild(createPhotoCard(photo, idx));
+        placeCardWhenReady(photo, idx);
       });
       renderedCount += nextSlice.length;
-      lucide.createIcons();
     }
 
     // 창 크기 변경으로 컬럼 수 자체가 바뀌어야 할 때만(예: 데스크톱 창 리사이즈,
@@ -269,10 +294,25 @@
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
         if (getColumnCount() === columnEls.length) return;
+
+        // 재구성 전에 이미 로드된 이미지들의 실제 종횡비를 idx 기준으로 캡처
+        // (DOM 순회 순서는 컬럼별로 묶여 있어 filteredList 순서와 다르므로
+        // data-filtered-idx로 정확히 역참조한다)
+        const aspectByIdx = {};
+        document.querySelectorAll('#photoGrid img').forEach((img) => {
+          const idx = Number(img.dataset.filteredIdx);
+          aspectByIdx[idx] = (img.naturalWidth || 4) / (img.naturalHeight || 3);
+        });
+
         const loadedSoFar = filteredList.slice(0, renderedCount);
         buildColumns();
         loadedSoFar.forEach((photo, idx) => {
-          nextColumn().appendChild(createPhotoCard(photo, idx));
+          const aspectRatio = aspectByIdx[idx] || 4 / 3;
+          const colIndex = shortestColumnIndex();
+          const colEl = columnEls[colIndex];
+          const colWidth = colEl.getBoundingClientRect().width;
+          columnHeights[colIndex] += (colWidth / aspectRatio) + COLUMN_GAP;
+          colEl.appendChild(createPhotoCard(photo, idx));
         });
         lucide.createIcons();
       }, 200);
