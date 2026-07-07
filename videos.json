@@ -2,27 +2,32 @@
   {
     "youtubeId": "oTG-O55LIuk",
     "category": "promo",
-    "title": "짐플릭스 진주시청점 — 홍보영상"
+    "title": "짐플릭스 진주시청점 — 홍보영상",
+    "tags": ["헬스·피트니스", "기업"]
   },
   {
     "youtubeId": "6s4Xa_RxfUY",
     "category": "ad",
-    "title": "DASHU 다운텍"
+    "title": "DASHU 다운텍",
+    "tags": ["기업"]
   },
   {
     "youtubeId": "VH4rf1hcCTw",
     "category": "promo",
-    "title": "진주유치원"
+    "title": "진주유치원",
+    "tags": ["교육"]
   },
   {
     "youtubeId": "m5Ro8NW7BbM",
     "category": "event",
-    "title": "진주 로컬크리에이터 워크숍"
+    "title": "진주 로컬크리에이터 워크숍",
+    "tags": ["행사", "관공서·지자체"]
   },
   {
     "youtubeId": "Drm2dK5zhoM",
     "category": "promo",
     "title": "짐플릭스 진주시청점 — 인스타그램 릴스",
-    "vertical": true
+    "vertical": true,
+    "tags": ["헬스·피트니스", "기업", "숏폼"]
   }
 ]

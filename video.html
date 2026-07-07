@@ -105,6 +105,9 @@
         <button data-filter="event" class="filter-btn shrink-0 px-4 py-2.5 text-xs rounded-full border border-studio-border bg-studio-card text-studio-muted hover:border-studio-accent transition-colors duration-300">행사 아카이빙</button>
         <button data-filter="ad" class="filter-btn shrink-0 px-4 py-2.5 text-xs rounded-full border border-studio-border bg-studio-card text-studio-muted hover:border-studio-accent transition-colors duration-300">광고/커머셜</button>
       </div>
+
+      <!-- 2단 태그 필터: 선택된 카테고리에 존재하는 태그만 노출, 다중 선택(AND) -->
+      <div class="hidden flex-nowrap md:flex-wrap justify-start md:justify-center gap-2 max-w-xl mx-auto overflow-x-auto no-scrollbar px-6 -mx-6 md:px-0 md:mx-auto mt-3" id="tagFilterContainer"></div>
     </div>
 
     <!-- 비디오 그리드 -->
@@ -139,18 +142,24 @@
   <script>
     let videoData = [];
     let activeFilter = 'all';
+    let activeTags = new Set(); // 2단 태그 필터 (다중 선택, AND 조건)
+
+    // 태그 후보군 노출 순서 고정
+    const TAG_ORDER = ['기업', '관공서·지자체', '매장·공간', '제품', '인물·프로필', '행사', '드론', '음식', '헬스·피트니스', '교육', '숏폼', '인터뷰'];
 
     // 로컬 환경을 고려한 고품질 영상 데이터 폴백 지원
     const fallbackVideos = [
       {
         "youtubeId": "L3wK6uGe7eI",
         "category": "promo",
-        "title": "브랜드 홍보 필름 예시"
+        "title": "브랜드 홍보 필름 예시",
+        "tags": ["기업"]
       },
       {
         "youtubeId": "tO01V-77v7g",
         "category": "event",
-        "title": "지역 문화제 행사 스케치 예시"
+        "title": "지역 문화제 행사 스케치 예시",
+        "tags": ["행사", "관공서·지자체"]
       }
     ];
 
@@ -167,11 +176,13 @@
       .then(res => res.json())
       .then(data => {
         videoData = shuffleArray(data);
+        renderTagFilter();
         renderVideos();
       })
       .catch(err => {
         console.warn("로컬 환경(CORS) 혹은 videos.json 파일을 찾지 못해 샘플 데이터셋을 로드합니다.", err);
         videoData = shuffleArray(fallbackVideos);
+        renderTagFilter();
         renderVideos();
       });
 
@@ -184,10 +195,60 @@
       return labels[cat] || cat;
     }
 
+    // 카테고리(1단) + 선택된 태그 전부를 만족(AND)하는 항목만 필터링
+    function computeFilteredList() {
+      let list = activeFilter === 'all' ? videoData : videoData.filter(v => v.category === activeFilter);
+      if (activeTags.size > 0) {
+        list = list.filter(v => Array.from(activeTags).every(t => (v.tags || []).includes(t)));
+      }
+      return list;
+    }
+
+    // 현재 선택된 카테고리에 실제로 존재하는 태그만 TAG_ORDER 순서로 추출
+    function getAvailableTags(category) {
+      const pool = category === 'all' ? videoData : videoData.filter(v => v.category === category);
+      const present = new Set();
+      pool.forEach(v => (v.tags || []).forEach(t => present.add(t)));
+      return TAG_ORDER.filter(t => present.has(t));
+    }
+
+    // 2단 태그 필터 렌더링 (카테고리 전환/태그 토글 시마다 다시 그림)
+    function renderTagFilter() {
+      const container = document.getElementById('tagFilterContainer');
+      const available = getAvailableTags(activeFilter);
+
+      if (available.length === 0) {
+        container.classList.add('hidden');
+        container.classList.remove('flex');
+        container.innerHTML = '';
+        return;
+      }
+
+      container.classList.remove('hidden');
+      container.classList.add('flex');
+      container.innerHTML = '';
+      available.forEach((tag) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.textContent = tag;
+        const isActive = activeTags.has(tag);
+        btn.className = isActive
+          ? 'tag-filter-btn shrink-0 px-3 py-1.5 text-[11px] rounded-full border border-studio-accent bg-studio-accent text-white transition-colors duration-300'
+          : 'tag-filter-btn shrink-0 px-3 py-1.5 text-[11px] rounded-full border border-studio-border bg-studio-card text-studio-muted hover:border-studio-accent transition-colors duration-300';
+        btn.addEventListener('click', () => {
+          if (activeTags.has(tag)) activeTags.delete(tag);
+          else activeTags.add(tag);
+          renderTagFilter();
+          renderVideos();
+        });
+        container.appendChild(btn);
+      });
+    }
+
     function renderVideos() {
       const grid = document.getElementById('videoGrid');
       grid.innerHTML = '';
-      const list = activeFilter === 'all' ? videoData : videoData.filter(v => v.category === activeFilter);
+      const list = computeFilteredList();
 
       list.forEach(video => {
         const card = document.createElement('div');
@@ -250,6 +311,19 @@
         subDiv.appendChild(titleH);
         infoDiv.appendChild(subDiv);
 
+        // 태그 뱃지 (연한 배경의 작은 pill, 사이트 톤에 맞춤)
+        if (video.tags && video.tags.length > 0) {
+          const tagRow = document.createElement('div');
+          tagRow.className = 'flex flex-wrap gap-1 mt-3';
+          video.tags.forEach((tag) => {
+            const pill = document.createElement('span');
+            pill.className = 'text-[10px] leading-none px-2 py-1 rounded-full bg-studio-border/60 text-studio-muted whitespace-nowrap';
+            pill.textContent = tag;
+            tagRow.appendChild(pill);
+          });
+          infoDiv.appendChild(tagRow);
+        }
+
         card.appendChild(triggerDiv);
         card.appendChild(infoDiv);
 
@@ -268,6 +342,8 @@
       btn.addEventListener('click', (e) => {
         setActiveFilterBtn(e.target.getAttribute('data-filter'));
         activeFilter = e.target.getAttribute('data-filter');
+        activeTags.clear(); // 카테고리가 바뀌면 이전 카테고리의 태그 선택은 초기화
+        renderTagFilter();
         renderVideos();
       });
     });
