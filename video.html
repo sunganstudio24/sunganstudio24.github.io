@@ -96,18 +96,11 @@
   <main class="flex-grow max-w-6xl mx-auto px-6 py-12 w-full">
     <div class="text-center mb-12">
       <h2 class="text-3xl font-light tracking-widest text-studio-text mb-2">VIDEO PORTFOLIO</h2>
-      <p class="text-xs tracking-widest text-studio-muted uppercase mb-6">홍보 · 행사 · 광고</p>
+      <p class="text-xs tracking-widest text-studio-muted uppercase mb-6" id="tagSubtitle"></p>
 
-      <!-- 카테고리 필터 (모바일은 가로 스크롤 한 줄, md 이상은 중앙 정렬 줄바꿈) -->
-      <div class="flex flex-nowrap md:flex-wrap justify-start md:justify-center gap-2 max-w-xl mx-auto overflow-x-auto no-scrollbar px-6 -mx-6 md:px-0 md:mx-auto">
-        <button data-filter="all" class="filter-btn shrink-0 px-4 py-2.5 text-xs rounded-full border border-studio-accent bg-studio-accent text-white transition-colors duration-300">전체</button>
-        <button data-filter="promo" class="filter-btn shrink-0 px-4 py-2.5 text-xs rounded-full border border-studio-border bg-studio-card text-studio-muted hover:border-studio-accent transition-colors duration-300">홍보</button>
-        <button data-filter="event" class="filter-btn shrink-0 px-4 py-2.5 text-xs rounded-full border border-studio-border bg-studio-card text-studio-muted hover:border-studio-accent transition-colors duration-300">행사 아카이빙</button>
-        <button data-filter="ad" class="filter-btn shrink-0 px-4 py-2.5 text-xs rounded-full border border-studio-border bg-studio-card text-studio-muted hover:border-studio-accent transition-colors duration-300">광고/커머셜</button>
-      </div>
-
-      <!-- 2단 태그 필터: 선택된 카테고리에 존재하는 태그만 노출, 다중 선택(AND) -->
-      <div class="hidden flex-nowrap md:flex-wrap justify-start md:justify-center gap-2 max-w-xl mx-auto overflow-x-auto no-scrollbar px-6 -mx-6 md:px-0 md:mx-auto mt-3" id="tagFilterContainer"></div>
+      <!-- 태그 필터 (단일 필터: 전체 + 태그, 다중 선택 AND. 모바일은 가로 스크롤 한 줄,
+           md 이상은 중앙 정렬 줄바꿈) -->
+      <div class="flex flex-nowrap md:flex-wrap justify-start md:justify-center gap-2 max-w-xl mx-auto overflow-x-auto no-scrollbar px-6 -mx-6 md:px-0 md:mx-auto" id="tagFilterContainer"></div>
     </div>
 
     <!-- 비디오 그리드 -->
@@ -141,8 +134,7 @@
 
   <script>
     let videoData = [];
-    let activeFilter = 'all';
-    let activeTags = new Set(); // 2단 태그 필터 (다중 선택, AND 조건)
+    let activeTags = new Set(); // 태그 필터 (다중 선택, AND 조건)
 
     // 태그 후보군 노출 순서 고정
     const TAG_ORDER = ['기업', '관공서·지자체', '매장·공간', '제품', '인물·프로필', '행사', '드론', '음식', '헬스·피트니스', '교육', '숏폼', '인터뷰'];
@@ -195,38 +187,41 @@
       return labels[cat] || cat;
     }
 
-    // 카테고리(1단) + 선택된 태그 전부를 만족(AND)하는 항목만 필터링
+    // 선택된 태그 전부를 만족(AND)하는 항목만 필터링
     function computeFilteredList() {
-      let list = activeFilter === 'all' ? videoData : videoData.filter(v => v.category === activeFilter);
-      if (activeTags.size > 0) {
-        list = list.filter(v => Array.from(activeTags).every(t => (v.tags || []).includes(t)));
-      }
-      return list;
+      if (activeTags.size === 0) return videoData;
+      return videoData.filter(v => Array.from(activeTags).every(t => (v.tags || []).includes(t)));
     }
 
-    // 현재 선택된 카테고리에 실제로 존재하는 태그만 TAG_ORDER 순서로 추출
-    function getAvailableTags(category) {
-      const pool = category === 'all' ? videoData : videoData.filter(v => v.category === category);
+    // 전체 데이터에 실제로 존재하는 태그만 TAG_ORDER 순서로 추출
+    function getAvailableTags() {
       const present = new Set();
-      pool.forEach(v => (v.tags || []).forEach(t => present.add(t)));
+      videoData.forEach(v => (v.tags || []).forEach(t => present.add(t)));
       return TAG_ORDER.filter(t => present.has(t));
     }
 
-    // 2단 태그 필터 렌더링 (카테고리 전환/태그 토글 시마다 다시 그림)
+    // 태그 필터 렌더링 ("전체" + 태그 버튼, 태그 토글 시마다 다시 그림)
     function renderTagFilter() {
       const container = document.getElementById('tagFilterContainer');
-      const available = getAvailableTags(activeFilter);
+      const available = getAvailableTags();
+      document.getElementById('tagSubtitle').textContent = available.join(' · ');
 
-      if (available.length === 0) {
-        container.classList.add('hidden');
-        container.classList.remove('flex');
-        container.innerHTML = '';
-        return;
-      }
-
-      container.classList.remove('hidden');
-      container.classList.add('flex');
       container.innerHTML = '';
+
+      const allBtn = document.createElement('button');
+      allBtn.type = 'button';
+      allBtn.textContent = '전체';
+      const isAllActive = activeTags.size === 0;
+      allBtn.className = isAllActive
+        ? 'tag-filter-btn shrink-0 px-4 py-2.5 text-xs rounded-full border border-studio-accent bg-studio-accent text-white transition-colors duration-300'
+        : 'tag-filter-btn shrink-0 px-4 py-2.5 text-xs rounded-full border border-studio-border bg-studio-card text-studio-muted hover:border-studio-accent transition-colors duration-300';
+      allBtn.addEventListener('click', () => {
+        activeTags.clear();
+        renderTagFilter();
+        renderVideos();
+      });
+      container.appendChild(allBtn);
+
       available.forEach((tag) => {
         const btn = document.createElement('button');
         btn.type = 'button';
@@ -337,34 +332,11 @@
       lucide.createIcons();
     }
 
-    // 필터 제어
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        setActiveFilterBtn(e.target.getAttribute('data-filter'));
-        activeFilter = e.target.getAttribute('data-filter');
-        activeTags.clear(); // 카테고리가 바뀌면 이전 카테고리의 태그 선택은 초기화
-        renderTagFilter();
-        renderVideos();
-      });
-    });
-
-    function setActiveFilterBtn(filter) {
-      document.querySelectorAll('.filter-btn').forEach(b => {
-        const isActive = b.getAttribute('data-filter') === filter;
-        b.className = isActive
-          ? 'filter-btn shrink-0 px-4 py-2.5 text-xs rounded-full border border-studio-accent bg-studio-accent text-white transition-colors duration-300'
-          : 'filter-btn shrink-0 px-4 py-2.5 text-xs rounded-full border border-studio-border bg-studio-card text-studio-muted hover:border-studio-accent transition-colors duration-300';
-      });
-    }
-
-    // URL 파라미터(?category=)로 전달된 카테고리를 초기 필터로 적용
-    (function applyCategoryFromUrl() {
-      const cat = new URLSearchParams(window.location.search).get('category');
-      if (!cat) return;
-      const btn = Array.from(document.querySelectorAll('.filter-btn')).find(b => b.getAttribute('data-filter') === cat);
-      if (!btn) return;
-      activeFilter = cat;
-      setActiveFilterBtn(cat);
+    // URL 파라미터(?tag=)로 전달된 태그를 초기 필터로 적용
+    (function applyTagFromUrl() {
+      const tag = new URLSearchParams(window.location.search).get('tag');
+      if (!tag) return;
+      activeTags.add(tag);
     })();
 
     const theater = document.getElementById('theater');
