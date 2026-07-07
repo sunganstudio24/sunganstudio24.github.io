@@ -73,94 +73,210 @@
       <p class="text-xs tracking-widest text-studio-muted uppercase">가격 안내</p>
     </div>
 
-    <!-- 섹션 1: 홈페이지·브랜드 사진 촬영 -->
+    <!-- 각 카드 하단 "견적받기/견적 문의" 버튼의 href="#"는 실제 구글폼 URL로
+         교체해야 하는 자리표시자입니다 (.pricing-cta-btn 클래스로 일괄 검색 가능). -->
+
+    <!-- 섹션 1: 사진 촬영 -->
     <section class="mb-24">
       <h3 class="text-xl font-light text-studio-text mb-8 flex items-center gap-2">
         <span>📸</span>
-        <span>홈페이지·브랜드 사진 촬영</span>
+        <span>사진 촬영</span>
       </h3>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
-        <!-- STILL -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-start">
+        <!-- BASIC -->
         <div class="rounded-xl border border-studio-border bg-studio-card p-8 flex flex-col shadow-sm h-full">
-          <span class="text-xs font-semibold tracking-widest text-studio-accent uppercase mb-3">STILL</span>
-          <p class="text-3xl font-light text-studio-text mb-6">₩ 400,000</p>
-          <ul class="text-sm text-studio-muted space-y-4 leading-relaxed">
+          <span class="text-xs font-semibold tracking-widest text-studio-accent uppercase mb-3">BASIC</span>
+          <p class="text-3xl font-light text-studio-text mb-6">₩ 400,000~</p>
+          <ul class="text-sm text-studio-muted space-y-4 leading-relaxed flex-grow">
             <li><span class="block font-medium text-studio-text mb-1">적합 대상</span>소규모 매장·신규 오픈</li>
-            <li><span class="block font-medium text-studio-text mb-1">촬영 범위</span>공간 및 외관</li>
-            <li><span class="block font-medium text-studio-text mb-1">포함 사항</span>대표 이미지 제작 포함</li>
+            <li><span class="block font-medium text-studio-text mb-1">구성</span>공간·외관 촬영, 대표 이미지 제작</li>
           </ul>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="pricing-cta-btn mt-6 inline-flex items-center justify-center border border-studio-accent text-studio-accent text-sm font-medium px-5 py-2.5 rounded-full hover:bg-studio-accent hover:text-white transition-colors duration-300">이 상품 견적받기</a>
         </div>
 
-        <!-- MOMENT (추천) -->
+        <!-- STANDARD (추천) -->
         <div class="relative rounded-xl bg-[#3E3229] ring-1 ring-black/5 p-8 flex flex-col shadow-[0_12px_32px_rgba(0,0,0,0.12)] md:scale-105 z-10 h-full">
           <span class="absolute -top-4 left-1/2 -translate-x-1/2 bg-studio-accent text-white text-sm font-bold tracking-wide px-4 py-1.5 rounded-full whitespace-nowrap shadow-md">⭐ 추천</span>
-          <span class="text-xs font-semibold tracking-widest text-[#D9B98C] uppercase mb-3">MOMENT</span>
-          <p class="text-4xl font-light text-studio-bg mb-6">₩ 700,000</p>
-          <ul class="text-sm text-studio-bg/70 space-y-4 leading-relaxed">
+          <span class="text-xs font-semibold tracking-widest text-[#D9B98C] uppercase mb-3">STANDARD</span>
+          <p class="text-4xl font-light text-studio-bg mb-6">₩ 700,000~</p>
+          <ul class="text-sm text-studio-bg/70 space-y-4 leading-relaxed flex-grow">
             <li><span class="block font-medium text-studio-bg mb-1">적합 대상</span>홈페이지·브랜드 소개용</li>
-            <li><span class="block font-medium text-studio-bg mb-1">촬영 범위</span>공간·외관 + 제품(해당 시) + 업무·서비스 현장</li>
-            <li><span class="block font-medium text-studio-bg mb-1">포함 사항</span>대표 이미지 제작 포함</li>
+            <li><span class="block font-medium text-studio-bg mb-1">구성</span>공간·외관 + 제품(해당 시) + 업무·서비스 현장, 대표 이미지 제작</li>
           </ul>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="pricing-cta-btn mt-6 inline-flex items-center justify-center bg-studio-bg text-studio-text text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-white transition-colors duration-300">이 상품 견적받기</a>
         </div>
 
-        <!-- FULL FRAME -->
+        <!-- PROFESSIONAL -->
         <div class="rounded-xl border border-studio-border bg-studio-card p-8 flex flex-col shadow-sm h-full">
-          <span class="text-xs font-semibold tracking-widest text-studio-accent uppercase mb-3">FULL FRAME</span>
-          <p class="text-3xl font-light text-studio-text mb-6">₩ 1,200,000</p>
-          <ul class="text-sm text-studio-muted space-y-4 leading-relaxed">
+          <span class="text-xs font-semibold tracking-widest text-studio-accent uppercase mb-3">PROFESSIONAL</span>
+          <p class="text-3xl font-light text-studio-text mb-6">₩ 1,200,000~</p>
+          <ul class="text-sm text-studio-muted space-y-4 leading-relaxed flex-grow">
             <li><span class="block font-medium text-studio-text mb-1">적합 대상</span>기관·기업·다점포</li>
-            <li><span class="block font-medium text-studio-text mb-1">촬영 범위</span>공간·외관 + 제품 + 업무·서비스 현장 + 드론 + 직원 프로필 + 디테일 컷</li>
-            <li><span class="block font-medium text-studio-text mb-1">포함 사항</span>대표 이미지 제작 포함</li>
+            <li><span class="block font-medium text-studio-text mb-1">구성</span>공간·외관 + 제품 + 업무·서비스 현장 + 드론 + 직원 프로필 + 디테일 컷, 대표 이미지 제작</li>
           </ul>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="pricing-cta-btn mt-6 inline-flex items-center justify-center border border-studio-accent text-studio-accent text-sm font-medium px-5 py-2.5 rounded-full hover:bg-studio-accent hover:text-white transition-colors duration-300">이 상품 견적받기</a>
+        </div>
+
+        <!-- SPECIAL -->
+        <div class="rounded-xl bg-[#1C1815] border border-studio-accent/20 p-8 flex flex-col shadow-sm h-full">
+          <span class="text-xs font-semibold tracking-widest text-studio-accent uppercase mb-3">SPECIAL</span>
+          <p class="text-3xl font-light text-studio-bg mb-6">₩ 1,500,000~</p>
+          <ul class="text-sm text-studio-bg/60 space-y-4 leading-relaxed flex-grow">
+            <li><span class="block font-medium text-studio-bg mb-1">적합 대상</span>장기·다지점 프로젝트</li>
+            <li><span class="block font-medium text-studio-bg mb-1">구성</span>연간 정기 촬영 계약, 브랜드 사진 자산 구축, 촬영 기획 미팅, 브랜드 무드보드 제작, 원본 전체 제공, 상업적 사용권 포함</li>
+          </ul>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="pricing-cta-btn mt-6 inline-flex items-center justify-center border border-studio-bg/40 text-studio-bg text-sm font-medium px-5 py-2.5 rounded-full hover:bg-studio-bg hover:text-studio-text transition-colors duration-300">견적 문의</a>
         </div>
       </div>
     </section>
 
-    <!-- 섹션 2: 홍보 영상 제작 -->
-    <section class="mb-16">
+    <!-- 섹션 2: 영상 제작 -->
+    <section class="mb-24">
       <h3 class="text-xl font-light text-studio-text mb-8 flex items-center gap-2">
         <span>🎬</span>
-        <span>홍보 영상 제작</span>
+        <span>영상 제작</span>
       </h3>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
-        <!-- STILL -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-start">
+        <!-- BASIC -->
         <div class="rounded-xl border border-studio-border bg-studio-card p-8 flex flex-col shadow-sm h-full">
-          <span class="text-xs font-semibold tracking-widest text-studio-accent uppercase mb-3">STILL</span>
-          <p class="text-3xl font-light text-studio-text mb-6">₩ 600,000</p>
-          <ul class="text-sm text-studio-muted space-y-4 leading-relaxed">
+          <span class="text-xs font-semibold tracking-widest text-studio-accent uppercase mb-3">BASIC</span>
+          <p class="text-3xl font-light text-studio-text mb-6">₩ 600,000~</p>
+          <ul class="text-sm text-studio-muted space-y-4 leading-relaxed flex-grow">
             <li><span class="block font-medium text-studio-text mb-1">적합 대상</span>SNS·홈페이지용 단편 홍보</li>
             <li><span class="block font-medium text-studio-text mb-1">러닝타임</span>30~60초</li>
             <li><span class="block font-medium text-studio-text mb-1">해상도</span>Full HD</li>
-            <li><span class="block font-medium text-studio-text mb-1">포함 사항</span>색보정, BGM 삽입</li>
+            <li><span class="block font-medium text-studio-text mb-1">구성</span>색보정, BGM 삽입</li>
           </ul>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="pricing-cta-btn mt-6 inline-flex items-center justify-center border border-studio-accent text-studio-accent text-sm font-medium px-5 py-2.5 rounded-full hover:bg-studio-accent hover:text-white transition-colors duration-300">이 상품 견적받기</a>
         </div>
 
-        <!-- MOMENT (추천) -->
+        <!-- STANDARD (추천) -->
         <div class="relative rounded-xl bg-[#3E3229] ring-1 ring-black/5 p-8 flex flex-col shadow-[0_12px_32px_rgba(0,0,0,0.12)] md:scale-105 z-10 h-full">
           <span class="absolute -top-4 left-1/2 -translate-x-1/2 bg-studio-accent text-white text-sm font-bold tracking-wide px-4 py-1.5 rounded-full whitespace-nowrap shadow-md">⭐ 추천</span>
-          <span class="text-xs font-semibold tracking-widest text-[#D9B98C] uppercase mb-3">MOMENT</span>
-          <p class="text-4xl font-light text-studio-bg mb-6">₩ 1,300,000</p>
-          <ul class="text-sm text-studio-bg/70 space-y-4 leading-relaxed">
+          <span class="text-xs font-semibold tracking-widest text-[#D9B98C] uppercase mb-3">STANDARD</span>
+          <p class="text-4xl font-light text-studio-bg mb-6">₩ 1,300,000~</p>
+          <ul class="text-sm text-studio-bg/70 space-y-4 leading-relaxed flex-grow">
             <li><span class="block font-medium text-studio-bg mb-1">적합 대상</span>브랜드 메인 홍보영상</li>
             <li><span class="block font-medium text-studio-bg mb-1">러닝타임</span>60~90초</li>
             <li><span class="block font-medium text-studio-bg mb-1">해상도</span>4K</li>
-            <li><span class="block font-medium text-studio-bg mb-1">포함 사항</span>스토리 구성, 색보정, BGM 삽입, 자막 제작, 썸네일 제작</li>
+            <li><span class="block font-medium text-studio-bg mb-1">구성</span>스토리 구성, 색보정, BGM 삽입, 자막 제작, 썸네일 제작</li>
           </ul>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="pricing-cta-btn mt-6 inline-flex items-center justify-center bg-studio-bg text-studio-text text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-white transition-colors duration-300">이 상품 견적받기</a>
         </div>
 
-        <!-- FULL FRAME -->
+        <!-- PROFESSIONAL -->
         <div class="rounded-xl border border-studio-border bg-studio-card p-8 flex flex-col shadow-sm h-full">
-          <span class="text-xs font-semibold tracking-widest text-studio-accent uppercase mb-3">FULL FRAME</span>
-          <p class="text-3xl font-light text-studio-text mb-6">₩ 2,500,000</p>
-          <ul class="text-sm text-studio-muted space-y-4 leading-relaxed">
-            <li><span class="block font-medium text-studio-text mb-1">적합 대상</span>기업·기관 전용 프리미엄 영상</li>
+          <span class="text-xs font-semibold tracking-widest text-studio-accent uppercase mb-3">PROFESSIONAL</span>
+          <p class="text-3xl font-light text-studio-text mb-6">₩ 2,500,000~</p>
+          <ul class="text-sm text-studio-muted space-y-4 leading-relaxed flex-grow">
+            <li><span class="block font-medium text-studio-text mb-1">적합 대상</span>기업·기관 프리미엄 영상</li>
             <li><span class="block font-medium text-studio-text mb-1">러닝타임</span>2~3분</li>
             <li><span class="block font-medium text-studio-text mb-1">해상도</span>4K</li>
-            <li><span class="block font-medium text-studio-text mb-1">포함 사항</span>기획 회의, 콘티 제작, 스토리 구성, 색보정, BGM 삽입, 자막 제작, 썸네일 제작, 인터뷰 촬영, 드론 촬영</li>
+            <li><span class="block font-medium text-studio-text mb-1">구성</span>기획 회의, 콘티 제작, 스토리 구성, 색보정, BGM 삽입, 자막 제작, 썸네일 제작, 인터뷰 촬영, 드론 촬영</li>
           </ul>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="pricing-cta-btn mt-6 inline-flex items-center justify-center border border-studio-accent text-studio-accent text-sm font-medium px-5 py-2.5 rounded-full hover:bg-studio-accent hover:text-white transition-colors duration-300">이 상품 견적받기</a>
         </div>
+
+        <!-- SPECIAL -->
+        <div class="rounded-xl bg-[#1C1815] border border-studio-accent/20 p-8 flex flex-col shadow-sm h-full">
+          <span class="text-xs font-semibold tracking-widest text-studio-accent uppercase mb-3">SPECIAL</span>
+          <p class="text-3xl font-light text-studio-bg mb-6">₩ 4,000,000~</p>
+          <ul class="text-sm text-studio-bg/60 space-y-4 leading-relaxed flex-grow">
+            <li><span class="block font-medium text-studio-bg mb-1">적합 대상</span>브랜드 필름·캠페인</li>
+            <li><span class="block font-medium text-studio-bg mb-1">러닝타임</span>3~5분 또는 시리즈 구성</li>
+            <li><span class="block font-medium text-studio-bg mb-1">해상도</span>4K</li>
+            <li><span class="block font-medium text-studio-bg mb-1">구성</span>기획 단계 참여, 콘티 제작, 인터뷰 촬영, 드론 촬영, 원본 제공, 상업적 사용권 포함</li>
+          </ul>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="pricing-cta-btn mt-6 inline-flex items-center justify-center border border-studio-bg/40 text-studio-bg text-sm font-medium px-5 py-2.5 rounded-full hover:bg-studio-bg hover:text-studio-text transition-colors duration-300">견적 문의</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 섹션 3: 사진+영상 패키지 -->
+    <section class="mb-24">
+      <h3 class="text-xl font-light text-studio-text mb-8 flex items-center gap-2">
+        <span>📦</span>
+        <span>사진+영상 패키지</span>
+      </h3>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-start">
+        <!-- BASIC -->
+        <div class="rounded-xl border border-studio-border bg-studio-card p-8 flex flex-col shadow-sm h-full">
+          <span class="text-xs font-semibold tracking-widest text-studio-accent uppercase mb-3">BASIC</span>
+          <p class="text-3xl font-light text-studio-text mb-6">₩ 900,000~</p>
+          <ul class="text-sm text-studio-muted space-y-4 leading-relaxed flex-grow">
+            <li><span class="block font-medium text-studio-text mb-1">구성</span>사진 BASIC + 영상 BASIC</li>
+          </ul>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="pricing-cta-btn mt-6 inline-flex items-center justify-center border border-studio-accent text-studio-accent text-sm font-medium px-5 py-2.5 rounded-full hover:bg-studio-accent hover:text-white transition-colors duration-300">이 상품 견적받기</a>
+        </div>
+
+        <!-- STANDARD (추천) -->
+        <div class="relative rounded-xl bg-[#3E3229] ring-1 ring-black/5 p-8 flex flex-col shadow-[0_12px_32px_rgba(0,0,0,0.12)] md:scale-105 z-10 h-full">
+          <span class="absolute -top-4 left-1/2 -translate-x-1/2 bg-studio-accent text-white text-sm font-bold tracking-wide px-4 py-1.5 rounded-full whitespace-nowrap shadow-md">⭐ 추천</span>
+          <span class="text-xs font-semibold tracking-widest text-[#D9B98C] uppercase mb-3">STANDARD</span>
+          <p class="text-4xl font-light text-studio-bg mb-6">₩ 1,800,000~</p>
+          <ul class="text-sm text-studio-bg/70 space-y-4 leading-relaxed flex-grow">
+            <li><span class="block font-medium text-studio-bg mb-1">구성</span>사진 STANDARD + 영상 STANDARD</li>
+          </ul>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="pricing-cta-btn mt-6 inline-flex items-center justify-center bg-studio-bg text-studio-text text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-white transition-colors duration-300">이 상품 견적받기</a>
+        </div>
+
+        <!-- PROFESSIONAL -->
+        <div class="rounded-xl border border-studio-border bg-studio-card p-8 flex flex-col shadow-sm h-full">
+          <span class="text-xs font-semibold tracking-widest text-studio-accent uppercase mb-3">PROFESSIONAL</span>
+          <p class="text-3xl font-light text-studio-text mb-6">₩ 3,300,000~</p>
+          <ul class="text-sm text-studio-muted space-y-4 leading-relaxed flex-grow">
+            <li><span class="block font-medium text-studio-text mb-1">구성</span>사진 PROFESSIONAL + 영상 PROFESSIONAL</li>
+          </ul>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="pricing-cta-btn mt-6 inline-flex items-center justify-center border border-studio-accent text-studio-accent text-sm font-medium px-5 py-2.5 rounded-full hover:bg-studio-accent hover:text-white transition-colors duration-300">이 상품 견적받기</a>
+        </div>
+
+        <!-- SPECIAL -->
+        <div class="rounded-xl bg-[#1C1815] border border-studio-accent/20 p-8 flex flex-col shadow-sm h-full">
+          <span class="text-xs font-semibold tracking-widest text-studio-accent uppercase mb-3">SPECIAL</span>
+          <p class="text-3xl font-light text-studio-bg mb-6">별도 견적</p>
+          <ul class="text-sm text-studio-bg/60 space-y-4 leading-relaxed flex-grow">
+            <li><span class="block font-medium text-studio-bg mb-1">구성</span>연간 계약·통합 브랜딩 프로젝트</li>
+          </ul>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="pricing-cta-btn mt-6 inline-flex items-center justify-center border border-studio-bg/40 text-studio-bg text-sm font-medium px-5 py-2.5 rounded-full hover:bg-studio-bg hover:text-studio-text transition-colors duration-300">견적 문의</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 섹션 4: 숏폼·인터뷰 라인 (회차제 테이블) -->
+    <section class="mb-16">
+      <h3 class="text-xl font-light text-studio-text mb-8 flex items-center gap-2">
+        <span>🎞️</span>
+        <span>숏폼·인터뷰 라인</span>
+      </h3>
+
+      <div class="overflow-x-auto rounded-xl border border-studio-border">
+        <table class="w-full min-w-[560px] text-sm text-left border-collapse">
+          <thead>
+            <tr class="bg-studio-card">
+              <th class="px-6 py-4 font-semibold text-studio-text border-b border-studio-border">상품</th>
+              <th class="px-6 py-4 font-semibold text-studio-text border-b border-studio-border">1회</th>
+              <th class="px-6 py-4 font-semibold text-studio-text border-b border-studio-border">3회</th>
+              <th class="px-6 py-4 font-semibold text-studio-text border-b border-studio-border">6회</th>
+            </tr>
+          </thead>
+          <tbody class="text-studio-muted">
+            <tr>
+              <td class="px-6 py-4 font-medium text-studio-text border-b border-studio-border">숏폼(릴스·쇼츠, ~30초)</td>
+              <td class="px-6 py-4 border-b border-studio-border">₩ 250,000</td>
+              <td class="px-6 py-4 border-b border-studio-border">₩ 675,000 <span class="text-xs text-studio-accent">(10% 할인)</span></td>
+              <td class="px-6 py-4 border-b border-studio-border">₩ 1,200,000 <span class="text-xs text-studio-accent">(20% 할인)</span></td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 font-medium text-studio-text">인터뷰 영상(1~2분)</td>
+              <td class="px-6 py-4">₩ 350,000</td>
+              <td class="px-6 py-4">₩ 945,000 <span class="text-xs text-studio-accent">(10% 할인)</span></td>
+              <td class="px-6 py-4">₩ 1,680,000 <span class="text-xs text-studio-accent">(20% 할인)</span></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </section>
 
