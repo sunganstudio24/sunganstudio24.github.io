@@ -88,16 +88,16 @@
   <main class="flex-grow max-w-6xl mx-auto px-6 py-12 w-full">
     <div class="text-center mb-12">
       <h2 class="text-3xl font-light tracking-widest text-studio-text mb-2">PHOTO PORTFOLIO</h2>
-      <p class="text-xs tracking-widest text-studio-muted uppercase mb-6">행사 · 프로필 · 제품 · 인테리어 · 음식</p>
+      <p class="text-xs tracking-widest text-studio-muted uppercase mb-6">프로필 · 제품 · 인테리어 · 음식 · 공간·풍경</p>
 
       <!-- 카테고리 필터 (모바일은 가로 스크롤 한 줄, md 이상은 중앙 정렬 줄바꿈) -->
       <div class="flex flex-nowrap md:flex-wrap justify-start md:justify-center gap-2 max-w-2xl mx-auto overflow-x-auto no-scrollbar px-6 -mx-6 md:px-0 md:mx-auto" id="filterContainer">
         <button data-filter="all" class="filter-btn shrink-0 px-4 py-2.5 text-xs rounded-full border border-studio-accent bg-studio-accent text-white transition-colors duration-300">전체</button>
-        <button data-filter="homepage" class="filter-btn shrink-0 px-4 py-2.5 text-xs rounded-full border border-studio-border bg-studio-card text-studio-muted hover:border-studio-accent transition-colors duration-300">홈페이지</button>
         <button data-filter="profile" class="filter-btn shrink-0 px-4 py-2.5 text-xs rounded-full border border-studio-border bg-studio-card text-studio-muted hover:border-studio-accent transition-colors duration-300">프로필</button>
         <button data-filter="product" class="filter-btn shrink-0 px-4 py-2.5 text-xs rounded-full border border-studio-border bg-studio-card text-studio-muted hover:border-studio-accent transition-colors duration-300">제품</button>
         <button data-filter="interior" class="filter-btn shrink-0 px-4 py-2.5 text-xs rounded-full border border-studio-border bg-studio-card text-studio-muted hover:border-studio-accent transition-colors duration-300">인테리어</button>
         <button data-filter="food" class="filter-btn shrink-0 px-4 py-2.5 text-xs rounded-full border border-studio-border bg-studio-card text-studio-muted hover:border-studio-accent transition-colors duration-300">음식</button>
+        <button data-filter="scenery" class="filter-btn shrink-0 px-4 py-2.5 text-xs rounded-full border border-studio-border bg-studio-card text-studio-muted hover:border-studio-accent transition-colors duration-300">공간·풍경</button>
       </div>
 
       <!-- 2단 태그 필터: 선택된 카테고리에 존재하는 태그만 노출, 다중 선택(AND) -->
@@ -157,8 +157,8 @@
     const fallbackImages = [
       {
         "file": "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80",
-        "category": "homepage",
-        "title": "홈페이지 대표 예시",
+        "category": "scenery",
+        "title": "공간·풍경 대표 예시",
         "tags": ["관공서·지자체"]
       },
       {
