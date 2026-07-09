@@ -3,8 +3,8 @@
 // (다른 페이지 스크립트가 lightbox/theater 모달을 열고 닫는 로직은 건드리지
 // 않고, 해당 요소의 style 변화를 관찰만 해서 모달이 열려 있는 동안 숨긴다.)
 (() => {
-  // TODO: 실제 구글폼 URL로 교체하세요.
-  const QUOTE_FORM_URL = 'https://forms.gle/REPLACE_WITH_REAL_FORM_URL';
+  // 문의 폼이 아직 없어 임시로 이메일 링크로 연결 (폼 준비되면 교체)
+  const QUOTE_FORM_URL = 'mailto:dj7013@naver.com';
 
   // 모바일에서 버튼이 콘텐츠(특히 갤러리 하단)를 가리지 않도록 페이지
   // 하단에 여백을 확보 (버튼 자체 높이 + 여백만큼)

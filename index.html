@@ -101,7 +101,7 @@
 
         <a href="photo.html" class="group relative aspect-[3/2] overflow-hidden rounded-xl border border-studio-border bg-studio-border/30 shadow-sm hover:shadow-md transition-all duration-500">
           <div class="absolute inset-0 bg-black/10 group-hover:bg-black/20 z-10 transition-colors duration-500"></div>
-          <img id="coverPhotoImg" src="images/cover_photo.jpg" alt="사진 포트폴리오 대표 이미지"
+          <img id="coverPhotoImg" src="images/profile/profile_019.jpg" alt="사진 포트폴리오 대표 이미지"
                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                loading="lazy" draggable="false">
           <div class="absolute bottom-0 left-0 right-0 p-8 z-20 flex justify-between items-end text-white">
@@ -119,7 +119,7 @@
 
         <a href="video.html" class="group relative aspect-[3/2] overflow-hidden rounded-xl border border-studio-border bg-studio-border/30 shadow-sm hover:shadow-md transition-all duration-500">
           <div class="absolute inset-0 bg-black/15 group-hover:bg-black/25 z-10 transition-colors duration-500"></div>
-          <img id="coverVideoImg" src="images/cover_video.jpg" alt="영상 포트폴리오 대표 이미지"
+          <img id="coverVideoImg" src="https://img.youtube.com/vi/oTG-O55LIuk/hqdefault.jpg" alt="영상 포트폴리오 대표 이미지"
                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                loading="lazy" draggable="false">
           <div class="absolute bottom-0 left-0 right-0 p-8 z-20 flex justify-between items-end text-white">
@@ -196,18 +196,21 @@
       (data) => (Array.isArray(data) && data.length > 0) ? `https://img.youtube.com/vi/${data[0].youtubeId}/hqdefault.jpg` : null
     );
 
-    // 작업 분야 요약: photo.html/video.html의 필터 라벨과 동일한 문구를 사용
-    const PHOTO_CATEGORY_META = {
-      profile: { label: '프로필', icon: 'user' },
-      product: { label: '제품', icon: 'package' },
-      interior: { label: '인테리어', icon: 'home' },
-      food: { label: '음식', icon: 'utensils' },
-      scenery: { label: '공간·풍경', icon: 'mountain' }
-    };
-    const VIDEO_CATEGORY_META = {
-      promo: { label: '홍보', icon: 'megaphone' },
-      event: { label: '행사 아카이빙', icon: 'calendar-days' },
-      ad: { label: '광고/커머셜', icon: 'clapperboard' }
+    // 작업 분야 요약: photo.html/video.html의 태그 필터와 동일한 어휘·순서를 사용
+    const TAG_ORDER = ['기업', '관공서·지자체', '매장·공간', '제품', '인물·프로필', '행사', '드론', '음식', '헬스·피트니스', '교육', '숏폼', '인터뷰'];
+    const TAG_ICONS = {
+      '기업': 'briefcase',
+      '관공서·지자체': 'landmark',
+      '매장·공간': 'store',
+      '제품': 'package',
+      '인물·프로필': 'user',
+      '행사': 'calendar-days',
+      '드론': 'plane',
+      '음식': 'utensils',
+      '헬스·피트니스': 'dumbbell',
+      '교육': 'graduation-cap',
+      '숏폼': 'smartphone',
+      '인터뷰': 'mic'
     };
 
     let summaryPhotoData = null;
@@ -216,14 +219,22 @@
     function renderCategorySummary() {
       if (summaryPhotoData === null || summaryVideoData === null) return;
 
+      const photoTags = new Set();
+      summaryPhotoData.forEach(p => (p.tags || []).forEach(t => photoTags.add(t)));
+      const videoTags = new Set();
+      summaryVideoData.forEach(v => (v.tags || []).forEach(t => videoTags.add(t)));
+
+      // 같은 태그가 사진·영상 양쪽에 모두 있으면 항목이 중복 표시되므로
+      // 영상 쪽 라벨에 "· 영상"을 붙여 두 타일을 구분한다.
       const items = [];
-      Object.keys(PHOTO_CATEGORY_META).forEach((key) => {
-        const has = summaryPhotoData.some(p => p.category === key);
-        if (has) items.push({ href: `photo.html?category=${key}`, ...PHOTO_CATEGORY_META[key] });
-      });
-      Object.keys(VIDEO_CATEGORY_META).forEach((key) => {
-        const has = summaryVideoData.some(v => v.category === key);
-        if (has) items.push({ href: `video.html?category=${key}`, ...VIDEO_CATEGORY_META[key] });
+      TAG_ORDER.forEach((tag) => {
+        if (photoTags.has(tag)) {
+          items.push({ href: `photo.html?tag=${encodeURIComponent(tag)}`, label: tag, icon: TAG_ICONS[tag] });
+        }
+        if (videoTags.has(tag)) {
+          const label = photoTags.has(tag) ? `${tag} · 영상` : tag;
+          items.push({ href: `video.html?tag=${encodeURIComponent(tag)}`, label, icon: TAG_ICONS[tag] });
+        }
       });
 
       const container = document.getElementById('categorySummary');
