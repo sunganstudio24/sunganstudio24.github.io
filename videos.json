@@ -1,9 +1,28 @@
 [
   {
-    "youtubeId": "oTG-O55LIuk",
+    "youtubeId": "AZxAu4Go2P0",
     "category": "promo",
     "title": "짐플릭스 진주시청점 — 홍보영상",
     "tags": ["헬스·피트니스", "기업"]
+  },
+  {
+    "youtubeId": "KA0Pon9wFoI",
+    "category": "promo",
+    "title": "황재윤 트레이너 인터뷰",
+    "tags": ["헬스·피트니스", "기업", "인터뷰"]
+  },
+  {
+    "youtubeId": "ed2SoqrKY4Q",
+    "category": "promo",
+    "title": "김지훈 트레이너 인터뷰",
+    "tags": ["헬스·피트니스", "기업", "인터뷰"]
+  },
+  {
+    "youtubeId": "QRXIzlthbxE",
+    "category": "promo",
+    "title": "짐플릭스 진주시청점 — 인스타그램 릴스",
+    "tags": ["헬스·피트니스", "기업", "숏폼"],
+    "vertical": true
   },
   {
     "youtubeId": "6s4Xa_RxfUY",
@@ -22,12 +41,5 @@
     "category": "event",
     "title": "진주 로컬크리에이터 워크숍",
     "tags": ["행사", "관공서·지자체"]
-  },
-  {
-    "youtubeId": "Drm2dK5zhoM",
-    "category": "promo",
-    "title": "짐플릭스 진주시청점 — 인스타그램 릴스",
-    "vertical": true,
-    "tags": ["헬스·피트니스", "기업", "숏폼"]
   }
 ]
