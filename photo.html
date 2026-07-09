@@ -100,6 +100,8 @@
          새 항목이 추가될 때마다 전체 컬럼 배분을 다시 계산해 이미 렌더된 카드까지
          다른 컬럼으로 옮겨버리는 문제가 있어(무한 스크롤과 근본적으로 상충) 사용하지 않는다. -->
     <div id="photoGrid" class="flex gap-4 items-start"></div>
+    <!-- 선택한 태그에 해당하는 항목이 없을 때의 빈 상태 안내 -->
+    <p id="emptyState" class="hidden text-center text-sm text-studio-muted py-20">해당 태그의 작업이 없습니다.</p>
     <!-- 무한 스크롤 트리거용 sentinel (IntersectionObserver 관찰 대상) -->
     <div id="scrollSentinel" class="h-1 w-full"></div>
   </main>
@@ -117,8 +119,10 @@
       <div id="lbImgShield" class="img-shield absolute inset-0 z-10"></div>
       <button id="nextLbBtn" class="absolute right-1 md:right-0 z-20 w-11 h-11 flex items-center justify-center text-white/60 hover:text-white bg-black/30 rounded-full focus:outline-none" aria-label="다음 이미지"><i data-lucide="chevron-right" class="w-6 h-6"></i></button>
     </div>
-    <!-- 상단 바와 대칭을 맞추기 위한 여백용 빈 요소 -->
-    <div class="h-10 invisible"></div>
+    <!-- 하단 캡션: 사진 제목 + 인덱스(상단 인덱스와 별개로 하단에도 함께 표시) -->
+    <div class="text-center text-white px-6">
+      <p id="lbCaption" class="text-sm font-light tracking-wide"></p>
+    </div>
   </div>
 
   <footer class="bg-studio-card border-t border-studio-border py-8 transition-all duration-300">
@@ -160,13 +164,10 @@
       }
     ];
 
-    // Fisher-Yates 셔플 (페이지 로드 시 한 번만 적용)
-    function shuffleArray(arr) {
-      for (let i = arr.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [arr[i], arr[j]] = [arr[j], arr[i]];
-      }
-      return arr;
+    // featured: true 항목을 앞으로 보내고, 나머지는 JSON에 저장된 순서 그대로 유지
+    // (Array.prototype.sort는 안정 정렬이므로 동일 우선순위 내에서는 원래 순서가 보존된다)
+    function sortFeaturedFirst(arr) {
+      return [...arr].sort((a, b) => (a.featured ? 0 : 1) - (b.featured ? 0 : 1));
     }
 
     // 태그 사전 + 이미지 데이터를 함께 로드한 뒤 렌더링 (둘 다 준비된 시점에 한 번만 그림)
@@ -179,10 +180,10 @@
 
     const photoDataPromise = fetch('images.json')
       .then(res => res.json())
-      .then(data => shuffleArray(data))
+      .then(data => sortFeaturedFirst(data))
       .catch(err => {
         console.warn("로컬 환경(CORS) 혹은 images.json 파일을 찾지 못해 원활한 테스트를 위한 샘플 이미지를 로드합니다.", err);
-        return shuffleArray(fallbackImages);
+        return sortFeaturedFirst(fallbackImages);
       });
 
     Promise.all([tagDictPromise, photoDataPromise]).then(([dict, data]) => {
@@ -305,6 +306,13 @@
       filteredList = computeFilteredList();
       renderedCount = 0;
       buildColumns();
+
+      const emptyState = document.getElementById('emptyState');
+      if (filteredList.length === 0) {
+        emptyState.classList.remove('hidden');
+        return;
+      }
+      emptyState.classList.add('hidden');
       appendNextBatch();
     }
 
@@ -448,6 +456,7 @@
     const lb = document.getElementById('lightbox');
     const lbImg = document.getElementById('lbImg');
     const lbIndex = document.getElementById('lbIndex');
+    const lbCaption = document.getElementById('lbCaption');
 
     function openLb(idx) {
       currentLbIndex = idx;
@@ -482,6 +491,7 @@
       if (!item) return;
       lbImg.src = item.file;
       lbIndex.textContent = `${currentLbIndex + 1} / ${filteredList.length}`;
+      lbCaption.textContent = `${item.title} · ${currentLbIndex + 1} / ${filteredList.length}`;
     }
 
     // 라이트박스 리스너 등록
