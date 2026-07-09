@@ -2,7 +2,7 @@
   {
     "file": "images/food/food_001.jpg",
     "category": "food",
-    "title": "음식 - 궁중수라간 - 20250412 궁중수라간 도시락 수정본",
+    "title": "음식 - 궁중수라간 - 궁중수라간 도시락 촬영",
     "tags": [
       "음식"
     ]
@@ -10,7 +10,7 @@
   {
     "file": "images/food/food_002.jpg",
     "category": "food",
-    "title": "음식 - 궁중수라간 - 20250412 궁중수라간 도시락 수정본",
+    "title": "음식 - 궁중수라간 - 궁중수라간 도시락 촬영",
     "tags": [
       "음식"
     ]
@@ -18,7 +18,7 @@
   {
     "file": "images/food/food_003.jpg",
     "category": "food",
-    "title": "음식 - 궁중수라간 - 20250412 궁중수라간 도시락 촬영",
+    "title": "음식 - 궁중수라간 - 궁중수라간 도시락 촬영",
     "tags": [
       "음식"
     ]
@@ -26,7 +26,7 @@
   {
     "file": "images/food/food_004.jpg",
     "category": "food",
-    "title": "음식 - 궁중수라간 - 20250412 궁중수라간 도시락 촬영",
+    "title": "음식 - 궁중수라간 - 궁중수라간 도시락 촬영",
     "tags": [
       "음식"
     ]
@@ -122,7 +122,7 @@
   {
     "file": "images/food/food_016.jpg",
     "category": "food",
-    "title": "음식 - 문산 선지국 - 항공",
+    "title": "음식 - 문산 선지국 - 전체 상차림",
     "tags": [
       "음식"
     ]
@@ -443,49 +443,37 @@
     "file": "images/homepage/homepage_001.jpg",
     "category": "scenery",
     "title": "홈페이지 - 마을 - 계곡",
-    "tags": [
-      "관공서·지자체"
-    ]
+    "tags": []
   },
   {
     "file": "images/homepage/homepage_002.jpg",
     "category": "scenery",
     "title": "홈페이지 - 마을 - 계곡",
-    "tags": [
-      "관공서·지자체"
-    ]
+    "tags": []
   },
   {
     "file": "images/homepage/homepage_003.jpg",
     "category": "scenery",
     "title": "홈페이지 - 마을 - 계곡",
-    "tags": [
-      "관공서·지자체"
-    ]
+    "tags": []
   },
   {
     "file": "images/homepage/homepage_004.jpg",
     "category": "scenery",
     "title": "홈페이지 - 마을 - 계곡",
-    "tags": [
-      "관공서·지자체"
-    ]
+    "tags": []
   },
   {
     "file": "images/homepage/homepage_005.jpg",
     "category": "scenery",
     "title": "홈페이지 - 마을 - 계곡",
-    "tags": [
-      "관공서·지자체"
-    ]
+    "tags": []
   },
   {
     "file": "images/homepage/homepage_006.jpg",
     "category": "scenery",
     "title": "홈페이지 - 마을 - 계곡",
-    "tags": [
-      "관공서·지자체"
-    ]
+    "tags": []
   },
   {
     "file": "images/homepage/homepage_007.jpg",
@@ -544,7 +532,6 @@
     "category": "food",
     "title": "홈페이지 - 마을 - 바베큐",
     "tags": [
-      "관공서·지자체",
       "음식"
     ]
   },
@@ -553,7 +540,6 @@
     "category": "food",
     "title": "홈페이지 - 마을 - 바베큐",
     "tags": [
-      "관공서·지자체",
       "음식"
     ]
   },
@@ -561,32 +547,25 @@
     "file": "images/homepage/homepage_015.jpg",
     "category": "scenery",
     "title": "홈페이지 - 마을 - 바베큐",
-    "tags": [
-      "관공서·지자체"
-    ]
+    "tags": []
   },
   {
     "file": "images/homepage/homepage_016.jpg",
     "category": "scenery",
     "title": "홈페이지 - 마을 - 바베큐",
-    "tags": [
-      "관공서·지자체"
-    ]
+    "tags": []
   },
   {
     "file": "images/homepage/homepage_017.jpg",
     "category": "scenery",
     "title": "홈페이지 - 마을 - 바베큐",
-    "tags": [
-      "관공서·지자체"
-    ]
+    "tags": []
   },
   {
     "file": "images/homepage/homepage_018.jpg",
     "category": "food",
     "title": "홈페이지 - 마을 - 바베큐",
     "tags": [
-      "관공서·지자체",
       "음식"
     ]
   },
@@ -595,7 +574,6 @@
     "category": "food",
     "title": "홈페이지 - 마을 - 바베큐",
     "tags": [
-      "관공서·지자체",
       "음식"
     ]
   },
@@ -603,57 +581,43 @@
     "file": "images/homepage/homepage_020.jpg",
     "category": "scenery",
     "title": "홈페이지 - 마을 - 바베큐",
-    "tags": [
-      "관공서·지자체"
-    ]
+    "tags": []
   },
   {
     "file": "images/homepage/homepage_021.jpg",
     "category": "scenery",
     "title": "홈페이지 - 마을 - 바베큐",
-    "tags": [
-      "관공서·지자체"
-    ]
+    "tags": []
   },
   {
     "file": "images/homepage/homepage_022.jpg",
     "category": "scenery",
     "title": "홈페이지 - 마을 - 바베큐",
-    "tags": [
-      "관공서·지자체"
-    ]
+    "tags": []
   },
   {
     "file": "images/homepage/homepage_023.jpg",
     "category": "scenery",
     "title": "홈페이지 - 마을 - 바베큐",
-    "tags": [
-      "관공서·지자체"
-    ]
+    "tags": []
   },
   {
     "file": "images/homepage/homepage_024.jpg",
     "category": "scenery",
     "title": "홈페이지 - 마을 - 바베큐",
-    "tags": [
-      "관공서·지자체"
-    ]
+    "tags": []
   },
   {
     "file": "images/homepage/homepage_025.jpg",
     "category": "scenery",
     "title": "홈페이지 - 마을 - 바베큐",
-    "tags": [
-      "관공서·지자체"
-    ]
+    "tags": []
   },
   {
     "file": "images/homepage/homepage_026.jpg",
     "category": "scenery",
     "title": "홈페이지 - 마을 - 바베큐",
-    "tags": [
-      "관공서·지자체"
-    ]
+    "tags": []
   },
   {
     "file": "images/homepage/homepage_028.jpg",
@@ -687,7 +651,6 @@
     "category": "interior",
     "title": "홈페이지 - 마을 - 주변 볼거리 - 다래 와인갤러리",
     "tags": [
-      "관공서·지자체",
       "매장·공간"
     ]
   },
@@ -696,7 +659,6 @@
     "category": "interior",
     "title": "홈페이지 - 마을 - 주변 볼거리 - 다래 와인갤러리",
     "tags": [
-      "관공서·지자체",
       "매장·공간"
     ]
   },
@@ -705,7 +667,6 @@
     "category": "interior",
     "title": "홈페이지 - 마을 - 주변 볼거리 - 다래 와인갤러리",
     "tags": [
-      "관공서·지자체",
       "매장·공간"
     ]
   },
@@ -714,7 +675,6 @@
     "category": "interior",
     "title": "홈페이지 - 마을 - 주변 볼거리 - 다래 와인갤러리",
     "tags": [
-      "관공서·지자체",
       "매장·공간"
     ]
   },
@@ -723,7 +683,6 @@
     "category": "interior",
     "title": "홈페이지 - 마을 - 주변 볼거리 - 다래 와인갤러리",
     "tags": [
-      "관공서·지자체",
       "매장·공간"
     ]
   },
@@ -732,7 +691,6 @@
     "category": "interior",
     "title": "홈페이지 - 마을 - 주변 볼거리 - 다래 와인갤러리",
     "tags": [
-      "관공서·지자체",
       "매장·공간"
     ]
   },
@@ -741,7 +699,6 @@
     "category": "interior",
     "title": "홈페이지 - 마을 - 주변 볼거리 - 다래 와인갤러리",
     "tags": [
-      "관공서·지자체",
       "매장·공간"
     ]
   },
@@ -750,7 +707,6 @@
     "category": "interior",
     "title": "홈페이지 - 마을 - 주변 볼거리 - 다래 와인갤러리",
     "tags": [
-      "관공서·지자체",
       "매장·공간"
     ]
   },
@@ -759,7 +715,6 @@
     "category": "interior",
     "title": "홈페이지 - 마을 - 주변 볼거리 - 다래 와인갤러리",
     "tags": [
-      "관공서·지자체",
       "매장·공간"
     ]
   },
@@ -768,7 +723,6 @@
     "category": "interior",
     "title": "홈페이지 - 마을 - 주변 볼거리 - 다래 와인갤러리",
     "tags": [
-      "관공서·지자체",
       "매장·공간"
     ]
   },
@@ -776,177 +730,133 @@
     "file": "images/homepage/homepage_041.jpg",
     "category": "scenery",
     "title": "홈페이지 - 마을 - 주변 볼거리 - 다솔사",
-    "tags": [
-      "관공서·지자체"
-    ]
+    "tags": []
   },
   {
     "file": "images/homepage/homepage_042.jpg",
     "category": "scenery",
     "title": "홈페이지 - 마을 - 주변 볼거리 - 다솔사",
-    "tags": [
-      "관공서·지자체"
-    ]
+    "tags": []
   },
   {
     "file": "images/homepage/homepage_043.jpg",
     "category": "scenery",
     "title": "홈페이지 - 마을 - 주변 볼거리 - 다솔사",
-    "tags": [
-      "관공서·지자체"
-    ]
+    "tags": []
   },
   {
     "file": "images/homepage/homepage_044.jpg",
     "category": "scenery",
     "title": "홈페이지 - 마을 - 주변 볼거리 - 다솔사",
-    "tags": [
-      "관공서·지자체"
-    ]
+    "tags": []
   },
   {
     "file": "images/homepage/homepage_045.jpg",
     "category": "scenery",
     "title": "홈페이지 - 마을 - 주변 볼거리 - 다솔사",
-    "tags": [
-      "관공서·지자체"
-    ]
+    "tags": []
   },
   {
     "file": "images/homepage/homepage_046.jpg",
     "category": "scenery",
     "title": "홈페이지 - 마을 - 주변 볼거리 - 다솔사",
-    "tags": [
-      "관공서·지자체"
-    ]
+    "tags": []
   },
   {
     "file": "images/homepage/homepage_047.jpg",
     "category": "scenery",
     "title": "홈페이지 - 마을 - 주변 볼거리 - 다솔사",
-    "tags": [
-      "관공서·지자체"
-    ]
+    "tags": []
   },
   {
     "file": "images/homepage/homepage_048.jpg",
     "category": "scenery",
     "title": "홈페이지 - 마을 - 주변 볼거리 - 다솔사",
-    "tags": [
-      "관공서·지자체"
-    ]
+    "tags": []
   },
   {
     "file": "images/homepage/homepage_049.jpg",
     "category": "scenery",
     "title": "홈페이지 - 마을 - 주변 볼거리 - 다솔사",
-    "tags": [
-      "관공서·지자체"
-    ]
+    "tags": []
   },
   {
     "file": "images/homepage/homepage_050.jpg",
     "category": "scenery",
     "title": "홈페이지 - 마을 - 주변 볼거리 - 다솔사",
-    "tags": [
-      "관공서·지자체"
-    ]
+    "tags": []
   },
   {
     "file": "images/homepage/homepage_051.jpg",
     "category": "scenery",
     "title": "홈페이지 - 마을 - 주변 볼거리 - 서봉암",
-    "tags": [
-      "관공서·지자체"
-    ]
+    "tags": []
   },
   {
     "file": "images/homepage/homepage_052.jpg",
     "category": "scenery",
     "title": "홈페이지 - 마을 - 주변 볼거리 - 서봉암",
-    "tags": [
-      "관공서·지자체"
-    ]
+    "tags": []
   },
   {
     "file": "images/homepage/homepage_053.jpg",
     "category": "scenery",
     "title": "홈페이지 - 마을 - 주변 볼거리 - 서봉암",
-    "tags": [
-      "관공서·지자체"
-    ]
+    "tags": []
   },
   {
     "file": "images/homepage/homepage_054.jpg",
     "category": "scenery",
     "title": "홈페이지 - 마을 - 주변 볼거리 - 서봉암",
-    "tags": [
-      "관공서·지자체"
-    ]
+    "tags": []
   },
   {
     "file": "images/homepage/homepage_055.jpg",
     "category": "scenery",
     "title": "홈페이지 - 마을 - 주변 볼거리 - 서봉암",
-    "tags": [
-      "관공서·지자체"
-    ]
+    "tags": []
   },
   {
     "file": "images/homepage/homepage_056.jpg",
     "category": "scenery",
     "title": "홈페이지 - 마을 - 주변 볼거리 - 서봉암",
-    "tags": [
-      "관공서·지자체"
-    ]
+    "tags": []
   },
   {
     "file": "images/homepage/homepage_057.jpg",
     "category": "scenery",
     "title": "홈페이지 - 마을 - 주변 볼거리 - 신해사",
-    "tags": [
-      "관공서·지자체"
-    ]
+    "tags": []
   },
   {
     "file": "images/homepage/homepage_058.jpg",
     "category": "scenery",
     "title": "홈페이지 - 마을 - 주변 볼거리 - 신해사",
-    "tags": [
-      "관공서·지자체"
-    ]
+    "tags": []
   },
   {
     "file": "images/homepage/homepage_059.jpg",
     "category": "scenery",
     "title": "홈페이지 - 마을 - 주변 볼거리 - 신해사",
-    "tags": [
-      "관공서·지자체"
-    ]
+    "tags": []
   },
   {
     "file": "images/homepage/homepage_060.jpg",
     "category": "scenery",
     "title": "홈페이지 - 마을 - 주변 볼거리 - 신해사",
-    "tags": [
-      "관공서·지자체"
-    ]
+    "tags": []
   },
   {
     "file": "images/homepage/homepage_061.jpg",
     "category": "scenery",
     "title": "홈페이지 - 마을 - 주변 볼거리 - 신해사",
-    "tags": [
-      "관공서·지자체"
-    ]
+    "tags": []
   },
   {
     "file": "images/homepage/homepage_062.jpg",
     "category": "scenery",
     "title": "홈페이지 - 마을 - 주변 볼거리 - 신해사",
-    "tags": [
-      "관공서·지자체"
-    ]
+    "tags": []
   },
   {
     "file": "images/homepage/homepage_063.jpg",
@@ -962,31 +872,19 @@
     "file": "images/homepage/homepage_064.jpg",
     "category": "scenery",
     "title": "홈페이지 - 마을 - 주변 볼거리 - 양귀비 축제",
-    "tags": [
-      "관공서·지자체",
-      "행사",
-      "드론"
-    ]
+    "tags": []
   },
   {
     "file": "images/homepage/homepage_065.jpg",
     "category": "scenery",
     "title": "홈페이지 - 마을 - 주변 볼거리 - 양귀비 축제",
-    "tags": [
-      "관공서·지자체",
-      "행사",
-      "드론"
-    ]
+    "tags": []
   },
   {
     "file": "images/homepage/homepage_066.jpg",
     "category": "scenery",
     "title": "홈페이지 - 마을 - 주변 볼거리 - 양귀비 축제",
-    "tags": [
-      "관공서·지자체",
-      "행사",
-      "드론"
-    ]
+    "tags": []
   },
   {
     "file": "images/homepage/homepage_067.jpg",
@@ -1060,7 +958,6 @@
     "title": "홈페이지 - 마을 - 축제장",
     "tags": [
       "관공서·지자체",
-      "행사",
       "드론"
     ]
   },
@@ -1070,7 +967,6 @@
     "title": "홈페이지 - 마을 - 축제장",
     "tags": [
       "관공서·지자체",
-      "행사",
       "드론"
     ]
   },
@@ -1080,7 +976,6 @@
     "title": "홈페이지 - 마을 - 축제장",
     "tags": [
       "관공서·지자체",
-      "행사",
       "드론"
     ]
   },
@@ -1088,9 +983,7 @@
     "file": "images/homepage/homepage_078.jpg",
     "category": "scenery",
     "title": "홈페이지 - 마을 - 편백숲",
-    "tags": [
-      "관공서·지자체"
-    ]
+    "tags": []
   },
   {
     "file": "images/interior/interior_001.jpg",

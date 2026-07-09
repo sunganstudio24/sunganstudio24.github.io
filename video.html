@@ -136,8 +136,9 @@
     let videoData = [];
     let activeTags = new Set(); // 태그 필터 (다중 선택, AND 조건)
 
-    // 태그 후보군 노출 순서 고정
-    const TAG_ORDER = ['기업', '관공서·지자체', '매장·공간', '제품', '인물·프로필', '행사', '드론', '음식', '헬스·피트니스', '교육', '숏폼', '인터뷰'];
+    // 태그 후보군 노출 순서 고정. photo.html/video.html이 공유하는
+    // data/tag-dictionary.json에서 불러온다.
+    let TAG_ORDER = [];
 
     // 로컬 환경을 고려한 고품질 영상 데이터 폴백 지원
     const fallbackVideos = [
@@ -164,19 +165,28 @@
       return arr;
     }
 
-    fetch('videos.json')
+    // 태그 사전 + 영상 데이터를 함께 로드한 뒤 렌더링 (둘 다 준비된 시점에 한 번만 그림)
+    const tagDictPromise = fetch('data/tag-dictionary.json')
       .then(res => res.json())
-      .then(data => {
-        videoData = shuffleArray(data);
-        renderTagFilter();
-        renderVideos();
-      })
+      .catch(err => {
+        console.warn("data/tag-dictionary.json을 불러오지 못해 태그 정렬 순서 없이 진행합니다.", err);
+        return [];
+      });
+
+    const videoDataPromise = fetch('videos.json')
+      .then(res => res.json())
+      .then(data => shuffleArray(data))
       .catch(err => {
         console.warn("로컬 환경(CORS) 혹은 videos.json 파일을 찾지 못해 샘플 데이터셋을 로드합니다.", err);
-        videoData = shuffleArray(fallbackVideos);
-        renderTagFilter();
-        renderVideos();
+        return shuffleArray(fallbackVideos);
       });
+
+    Promise.all([tagDictPromise, videoDataPromise]).then(([dict, data]) => {
+      TAG_ORDER = dict;
+      videoData = data;
+      renderTagFilter();
+      renderVideos();
+    });
 
     function getCategoryLabel(cat) {
       const labels = {
