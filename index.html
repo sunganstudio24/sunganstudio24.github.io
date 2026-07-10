@@ -121,9 +121,9 @@
 
         <a href="photo.html" class="group relative aspect-[3/2] overflow-hidden rounded-xl border border-studio-border bg-studio-border/30 shadow-sm hover:shadow-md transition-all duration-500">
           <div class="absolute inset-0 bg-black/10 group-hover:bg-black/20 z-10 transition-colors duration-500"></div>
-          <img id="coverPhotoImg" src="images/profile/profile_019.jpg" alt="사진 포트폴리오 대표 이미지"
+          <img id="coverPhotoImg" src="images/food/food_055.jpg" alt="사진 포트폴리오 대표 이미지"
                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-               loading="lazy" draggable="false">
+               loading="eager" fetchpriority="high" draggable="false">
           <div class="absolute bottom-0 left-0 right-0 p-8 z-20 flex justify-between items-end text-white">
             <div class="text-left">
               <span class="text-xs tracking-[0.2em] opacity-80 uppercase block mb-1">Photo</span>
@@ -139,9 +139,9 @@
 
         <a href="video.html" class="group relative aspect-[3/2] overflow-hidden rounded-xl border border-studio-border bg-studio-border/30 shadow-sm hover:shadow-md transition-all duration-500">
           <div class="absolute inset-0 bg-black/15 group-hover:bg-black/25 z-10 transition-colors duration-500"></div>
-          <img id="coverVideoImg" src="https://img.youtube.com/vi/oTG-O55LIuk/hqdefault.jpg" alt="영상 포트폴리오 대표 이미지"
+          <img id="coverVideoImg" src="" alt="영상 포트폴리오 대표 이미지"
                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-               loading="lazy" draggable="false">
+               loading="eager" fetchpriority="high" draggable="false">
           <div class="absolute bottom-0 left-0 right-0 p-8 z-20 flex justify-between items-end text-white">
             <div class="text-left">
               <span class="text-xs tracking-[0.2em] opacity-80 uppercase block mb-1">Film</span>
@@ -185,36 +185,34 @@
       }
     });
 
-    // 커버 이미지가 없을 때 실제 콘텐츠(최신 사진/첫 영상 썸네일)로 대체,
-    // 그마저 실패하면 그라디언트 배경이 그대로 보이도록 이미지를 숨김
-    function setupCoverFallback(imgEl, jsonPath, pickSrc) {
-      imgEl.onerror = () => {
-        imgEl.onerror = () => { imgEl.style.display = 'none'; };
-        fetch(jsonPath)
-          .then(res => res.json())
-          .then(data => {
-            const src = pickSrc(data);
-            if (src) {
-              imgEl.src = src;
-            } else {
-              imgEl.style.display = 'none';
-            }
-          })
-          .catch(() => { imgEl.style.display = 'none'; });
-      };
-    }
+    // 사진 커버가 로드 실패할 때만 최신 사진으로 대체, 그마저 실패하면
+    // 그라디언트 배경이 그대로 보이도록 이미지를 숨김
+    const coverPhotoImg = document.getElementById('coverPhotoImg');
+    coverPhotoImg.onerror = () => {
+      coverPhotoImg.onerror = () => { coverPhotoImg.style.display = 'none'; };
+      fetch('images.json')
+        .then(res => res.json())
+        .then(data => {
+          if (Array.isArray(data) && data.length > 0) coverPhotoImg.src = data[data.length - 1].file;
+          else coverPhotoImg.style.display = 'none';
+        })
+        .catch(() => { coverPhotoImg.style.display = 'none'; });
+    };
 
-    setupCoverFallback(
-      document.getElementById('coverPhotoImg'),
-      'images.json',
-      (data) => (Array.isArray(data) && data.length > 0) ? data[data.length - 1].file : null
-    );
-
-    setupCoverFallback(
-      document.getElementById('coverVideoImg'),
-      'videos.json',
-      (data) => (Array.isArray(data) && data.length > 0) ? `https://img.youtube.com/vi/${data[0].youtubeId}/hqdefault.jpg` : null
-    );
+    // 영상 커버: 유튜브는 삭제된 영상도 회색 기본 썸네일을 정상 응답(200)으로
+    // 돌려주기 때문에 <img onerror>가 절대 발동하지 않는다. 하드코딩 대신
+    // videos.json을 fetch해서 첫 번째 영상의 썸네일을 항상 동적으로 채운다.
+    const coverVideoImg = document.getElementById('coverVideoImg');
+    fetch('videos.json')
+      .then(res => res.json())
+      .then(data => {
+        if (Array.isArray(data) && data.length > 0) {
+          coverVideoImg.src = `https://img.youtube.com/vi/${data[0].youtubeId}/hqdefault.jpg`;
+        } else {
+          coverVideoImg.style.display = 'none';
+        }
+      })
+      .catch(() => { coverVideoImg.style.display = 'none'; });
 
     // 작업 분야 요약: photo.html/video.html의 태그 필터와 동일한 어휘·순서를 사용
     const TAG_ORDER = ['기업', '관공서·지자체', '매장·공간', '제품', '인물·프로필', '행사', '드론', '음식', '헬스·피트니스', '교육', '숏폼', '인터뷰'];
