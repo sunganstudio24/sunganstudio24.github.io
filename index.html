@@ -104,19 +104,23 @@
     <!-- 히어로 -->
     <section class="py-20 md:py-28 flex flex-col items-center text-center px-6">
       <div class="max-w-3xl">
-        <span class="text-xs font-semibold tracking-[0.3em] text-studio-accent uppercase mb-4 block">Sungan Studio Portfolio</span>
+        <span class="text-xs font-semibold tracking-[0.3em] text-studio-accent uppercase mb-4 block">SUNGAN STUDIO — JINJU</span>
         <h1 class="text-4xl md:text-6xl font-light tracking-tight leading-tight mb-6">
           순간, 스튜디오
         </h1>
-        <p class="text-studio-muted text-sm md:text-base leading-relaxed max-w-lg mx-auto font-light">
-          진주에서 활동하고 있는 스튜디오입니다.<br>
-          사진과 영상으로 순간을 기록합니다.
+        <p class="text-studio-muted text-sm md:text-base leading-relaxed max-w-lg mx-auto font-light mb-8">
+          기업·기관·매장을 위한 출장 사진·영상 스튜디오.<br class="hidden md:block">
+          진주를 기반으로 경남 어디든 갑니다.
         </p>
+        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+          <a href="photo.html" class="inline-flex items-center justify-center gap-2 bg-studio-accent text-white text-sm font-medium px-7 py-3.5 rounded-full hover:bg-studio-text transition-colors duration-300">사진 포트폴리오</a>
+          <a href="pricing.html" class="inline-flex items-center justify-center gap-2 border border-studio-accent text-studio-accent text-sm font-medium px-7 py-3.5 rounded-full hover:bg-studio-accent hover:text-white transition-colors duration-300">가격 안내</a>
+        </div>
       </div>
     </section>
 
     <!-- 두 갈래 진입 -->
-    <section class="max-w-6xl mx-auto px-6 pb-24 w-full">
+    <section class="max-w-6xl mx-auto px-6 pb-20 md:pb-24 w-full">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 
         <a href="photo.html" class="group relative aspect-[3/2] overflow-hidden rounded-xl border border-studio-border bg-studio-border/30 shadow-sm hover:shadow-md transition-all duration-500">
@@ -155,9 +159,122 @@
         </a>
 
       </div>
+    </section>
 
-      <!-- 작업 분야 요약 (실제 등록된 카테고리만 동적으로 표시) -->
-      <div id="categorySummary" class="mt-16 pt-12 border-t border-studio-border grid grid-cols-2 md:grid-cols-4 gap-8 text-center"></div>
+    <!-- 대표 작업 (Featured Works) -->
+    <section class="max-w-6xl mx-auto px-6 pb-20 md:pb-24 w-full">
+      <div class="flex items-end justify-between mb-8">
+        <div>
+          <span class="text-xs font-semibold tracking-[0.3em] text-studio-accent uppercase mb-2 block">Featured Works</span>
+          <h2 class="text-2xl md:text-3xl font-light tracking-wide text-studio-text">대표 작업</h2>
+        </div>
+        <a href="photo.html" class="shrink-0 text-sm text-studio-muted hover:text-studio-accent transition-colors whitespace-nowrap">전체 보기 →</a>
+      </div>
+      <div id="featuredGrid" class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4"></div>
+    </section>
+
+    <!-- 서비스 요약 -->
+    <section class="max-w-6xl mx-auto px-6 pb-20 md:pb-24 w-full">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <a href="pricing.html#photo" class="group rounded-xl border border-studio-border bg-studio-card p-8 shadow-sm hover:shadow-md transition-all duration-300">
+          <i data-lucide="camera" class="w-7 h-7 text-studio-accent mb-4"></i>
+          <h3 class="text-lg font-medium text-studio-text mb-1">사진 촬영</h3>
+          <p class="text-xs text-studio-accent font-semibold mb-3">₩400,000~ · 최소 시작가</p>
+          <p class="text-sm text-studio-muted leading-relaxed">소규모 매장·신규 오픈에 적합한 공간·외관 촬영</p>
+        </a>
+        <a href="pricing.html#video" class="group rounded-xl border border-studio-border bg-studio-card p-8 shadow-sm hover:shadow-md transition-all duration-300">
+          <i data-lucide="clapperboard" class="w-7 h-7 text-studio-accent mb-4"></i>
+          <h3 class="text-lg font-medium text-studio-text mb-1">영상 제작</h3>
+          <p class="text-xs text-studio-accent font-semibold mb-3">₩600,000~ · 최소 시작가</p>
+          <p class="text-sm text-studio-muted leading-relaxed">SNS·홈페이지용 짧은 홍보 영상 제작</p>
+        </a>
+        <a href="pricing.html#session" class="group rounded-xl border border-studio-border bg-studio-card p-8 shadow-sm hover:shadow-md transition-all duration-300">
+          <i data-lucide="smartphone" class="w-7 h-7 text-studio-accent mb-4"></i>
+          <h3 class="text-lg font-medium text-studio-text mb-1">숏폼·인터뷰</h3>
+          <p class="text-xs text-studio-accent font-semibold mb-3">₩300,000~ · 최소 시작가</p>
+          <p class="text-sm text-studio-muted leading-relaxed">릴스·쇼츠 등 세로 숏폼 영상, 1~2분 인터뷰 촬영</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- 신뢰 스트립 -->
+    <section class="max-w-6xl mx-auto px-6 pb-20 md:pb-24 w-full">
+      <div class="rounded-xl border border-studio-border bg-studio-card px-8 py-10">
+        <p id="trustCount" class="text-center text-base font-medium text-studio-text mb-8">&nbsp;</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-studio-muted">
+          <div class="flex items-center justify-center gap-2 text-center"><i data-lucide="car" class="w-4 h-4 text-studio-accent shrink-0"></i>진주 전역 무료 출장 · 경남 전 지역 촬영</div>
+          <div class="flex items-center justify-center gap-2 text-center"><i data-lucide="file-check" class="w-4 h-4 text-studio-accent shrink-0"></i>전자세금계산서 발행 · 관공서 지출증빙 대응</div>
+          <div class="flex items-center justify-center gap-2 text-center"><i data-lucide="refresh-cw" class="w-4 h-4 text-studio-accent shrink-0"></i>보정·편집 수정 2회 무료</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 진행 프로세스 -->
+    <section class="max-w-6xl mx-auto px-6 pb-20 md:pb-24 w-full">
+      <div class="text-center mb-12">
+        <span class="text-xs font-semibold tracking-[0.3em] text-studio-accent uppercase mb-2 block">Process</span>
+        <h2 class="text-2xl md:text-3xl font-light tracking-wide text-studio-text">진행 프로세스</h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+        <div class="text-center">
+          <div class="w-12 h-12 mx-auto mb-4 rounded-full bg-studio-accent/10 flex items-center justify-center"><i data-lucide="phone-call" class="w-5 h-5 text-studio-accent"></i></div>
+          <p class="text-xs text-studio-accent font-semibold mb-1">STEP 1</p>
+          <h4 class="text-sm font-medium text-studio-text mb-1">문의</h4>
+          <p class="text-xs text-studio-muted leading-relaxed">전화·이메일로 촬영 내용 전달</p>
+        </div>
+        <div class="text-center">
+          <div class="w-12 h-12 mx-auto mb-4 rounded-full bg-studio-accent/10 flex items-center justify-center"><i data-lucide="clipboard-list" class="w-5 h-5 text-studio-accent"></i></div>
+          <p class="text-xs text-studio-accent font-semibold mb-1">STEP 2</p>
+          <h4 class="text-sm font-medium text-studio-text mb-1">상담·견적</h4>
+          <p class="text-xs text-studio-muted leading-relaxed">범위 확인 후 맞춤 견적 안내</p>
+        </div>
+        <div class="text-center">
+          <div class="w-12 h-12 mx-auto mb-4 rounded-full bg-studio-accent/10 flex items-center justify-center"><i data-lucide="aperture" class="w-5 h-5 text-studio-accent"></i></div>
+          <p class="text-xs text-studio-accent font-semibold mb-1">STEP 3</p>
+          <h4 class="text-sm font-medium text-studio-text mb-1">촬영</h4>
+          <p class="text-xs text-studio-muted leading-relaxed">일정 협의 후 출장 촬영 진행</p>
+        </div>
+        <div class="text-center">
+          <div class="w-12 h-12 mx-auto mb-4 rounded-full bg-studio-accent/10 flex items-center justify-center"><i data-lucide="package-check" class="w-5 h-5 text-studio-accent"></i></div>
+          <p class="text-xs text-studio-accent font-semibold mb-1">STEP 4</p>
+          <h4 class="text-sm font-medium text-studio-text mb-1">보정·납품</h4>
+          <p class="text-xs text-studio-muted leading-relaxed">결과물 전달, 수정 2회 무료</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 작업 분야 -->
+    <section class="max-w-6xl mx-auto px-6 pb-20 md:pb-24 w-full">
+      <div class="text-center mb-10">
+        <span class="text-xs font-semibold tracking-[0.3em] text-studio-accent uppercase mb-2 block">Fields</span>
+        <h2 class="text-2xl md:text-3xl font-light tracking-wide text-studio-text">작업 분야</h2>
+      </div>
+      <div class="space-y-10">
+        <div>
+          <p class="text-sm font-semibold text-studio-text mb-4">사진</p>
+          <div id="photoFieldsGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3"></div>
+        </div>
+        <div>
+          <p class="text-sm font-semibold text-studio-text mb-4">영상</p>
+          <div id="videoFieldsGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 문의 -->
+    <section class="max-w-6xl mx-auto px-6 pb-24 w-full text-center border-t border-studio-border pt-16">
+      <h2 class="text-2xl md:text-3xl font-light tracking-wide text-studio-text mb-8">촬영 문의</h2>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center mb-6">
+        <a href="tel:010-2506-4076" class="inline-flex items-center justify-center gap-2 bg-studio-accent text-white text-sm font-medium px-7 py-3.5 rounded-full hover:bg-studio-text transition-colors duration-300">
+          <i data-lucide="phone" class="w-4 h-4"></i>010-2506-4076 전화하기
+        </a>
+        <a href="mailto:dj7013@naver.com" class="inline-flex items-center justify-center gap-2 border border-studio-accent text-studio-accent text-sm font-medium px-7 py-3.5 rounded-full hover:bg-studio-accent hover:text-white transition-colors duration-300">
+          <i data-lucide="mail" class="w-4 h-4"></i>이메일 문의
+        </a>
+      </div>
+      <p class="text-sm text-studio-muted">
+        <a href="https://instagram.com/sungan__studio" target="_blank" rel="noopener noreferrer" class="hover:text-studio-accent transition-colors">@sungan__studio</a>
+      </p>
     </section>
   </main>
 
@@ -169,6 +286,7 @@
         ·
         <a href="https://instagram.com/sungan__studio" target="_blank" rel="noopener noreferrer" class="hover:text-studio-accent transition-colors">@sungan__studio</a>
       </p>
+      <p class="mt-2 text-xs text-studio-muted/60">순간, 스튜디오 · 경남 진주시 봉곡동 474-39, 101호 · 010-2506-4076</p>
     </div>
   </footer>
 
@@ -214,8 +332,8 @@
       })
       .catch(() => { coverVideoImg.style.display = 'none'; });
 
-    // 작업 분야 요약: photo.html/video.html의 태그 필터와 동일한 어휘·순서를 사용
-    const TAG_ORDER = ['기업', '관공서·지자체', '매장·공간', '제품', '인물·프로필', '행사', '드론', '음식', '헬스·피트니스', '교육', '숏폼', '인터뷰'];
+    // 아이콘 매핑은 photo.html/video.html의 태그 필터와 동일한 어휘를 사용하되,
+    // 순서는 data/tag-dictionary.json에서 동적으로 가져온다 (하드코딩 배열 제거).
     const TAG_ICONS = {
       '기업': 'briefcase',
       '관공서·지자체': 'landmark',
@@ -231,61 +349,86 @@
       '인터뷰': 'mic'
     };
 
-    let summaryPhotoData = null;
-    let summaryVideoData = null;
+    function fieldTile(tag, href) {
+      const a = document.createElement('a');
+      a.href = href;
+      a.className = 'group flex flex-col items-center justify-center gap-2 rounded-xl border border-studio-border bg-studio-card py-6 px-2 hover:border-studio-accent hover:shadow-sm transition-all duration-300';
 
-    function renderCategorySummary() {
-      if (summaryPhotoData === null || summaryVideoData === null) return;
+      const icon = document.createElement('i');
+      icon.setAttribute('data-lucide', TAG_ICONS[tag] || 'tag');
+      icon.className = 'w-5 h-5 text-studio-accent';
 
-      const photoTags = new Set();
-      summaryPhotoData.forEach(p => (p.tags || []).forEach(t => photoTags.add(t)));
-      const videoTags = new Set();
-      summaryVideoData.forEach(v => (v.tags || []).forEach(t => videoTags.add(t)));
+      const label = document.createElement('p');
+      label.className = 'text-xs font-medium text-studio-text text-center group-hover:text-studio-accent transition-colors duration-300';
+      label.textContent = tag;
 
-      // 같은 태그가 사진·영상 양쪽에 모두 있으면 항목이 중복 표시되므로
-      // 영상 쪽 라벨에 "· 영상"을 붙여 두 타일을 구분한다.
-      const items = [];
-      TAG_ORDER.forEach((tag) => {
-        if (photoTags.has(tag)) {
-          items.push({ href: `photo.html?tag=${encodeURIComponent(tag)}`, label: tag, icon: TAG_ICONS[tag] });
-        }
-        if (videoTags.has(tag)) {
-          const label = photoTags.has(tag) ? `${tag} · 영상` : tag;
-          items.push({ href: `video.html?tag=${encodeURIComponent(tag)}`, label, icon: TAG_ICONS[tag] });
-        }
-      });
+      a.appendChild(icon);
+      a.appendChild(label);
+      return a;
+    }
 
-      const container = document.getElementById('categorySummary');
-      container.innerHTML = '';
-      items.forEach((item) => {
+    // 대표 작업 그리드: featured:true 항목을 첫 장이 크게 잡히는 모자이크형으로 렌더
+    function renderFeatured(images) {
+      const grid = document.getElementById('featuredGrid');
+      grid.innerHTML = '';
+      const featured = images.filter(p => p.featured).slice(0, 8);
+      featured.forEach((item, idx) => {
         const a = document.createElement('a');
-        a.href = item.href;
-        a.className = 'group block';
+        a.href = 'photo.html';
+        const sizeClasses = idx === 0
+          ? 'col-span-2 aspect-[16/9] md:aspect-[16/10]'
+          : 'aspect-square';
+        a.className = `group relative block overflow-hidden rounded-xl border border-studio-border bg-studio-border/30 ${sizeClasses}`;
 
-        const icon = document.createElement('i');
-        icon.setAttribute('data-lucide', item.icon);
-        icon.className = 'w-6 h-6 text-studio-accent mx-auto mb-3';
+        const img = document.createElement('img');
+        img.src = item.file;
+        img.alt = item.title;
+        img.loading = 'lazy';
+        img.draggable = false;
+        img.className = 'w-full h-full object-cover transition-transform duration-500 group-hover:scale-105';
 
-        const label = document.createElement('p');
-        label.className = 'text-sm font-medium text-studio-text group-hover:text-studio-accent transition-colors duration-300';
-        label.textContent = item.label;
-
-        a.appendChild(icon);
-        a.appendChild(label);
-        container.appendChild(a);
+        a.appendChild(img);
+        grid.appendChild(a);
       });
       lucide.createIcons();
     }
 
-    fetch('images.json')
-      .then(res => res.json())
-      .then(data => { summaryPhotoData = data; renderCategorySummary(); })
-      .catch(() => { summaryPhotoData = []; renderCategorySummary(); });
+    // 신뢰 스트립: 실제 데이터 건수를 계산해 표시 (하드코딩 금지)
+    function renderTrustCount(photoCount, videoCount) {
+      document.getElementById('trustCount').textContent = `사진 작업 ${photoCount}컷 · 영상 ${videoCount}편`;
+    }
 
-    fetch('videos.json')
-      .then(res => res.json())
-      .then(data => { summaryVideoData = data; renderCategorySummary(); })
-      .catch(() => { summaryVideoData = []; renderCategorySummary(); });
+    // 작업 분야 그리드: tag-dictionary 순서를 따르되, 사진/영상 각 매체에
+    // 실제로 존재하는 태그만 그룹별로 표시
+    function renderFields(tagOrder, photoData, videoData) {
+      const photoTags = new Set();
+      photoData.forEach(p => (p.tags || []).forEach(t => photoTags.add(t)));
+      const videoTags = new Set();
+      videoData.forEach(v => (v.tags || []).forEach(t => videoTags.add(t)));
+
+      const photoGrid = document.getElementById('photoFieldsGrid');
+      const videoGrid = document.getElementById('videoFieldsGrid');
+      photoGrid.innerHTML = '';
+      videoGrid.innerHTML = '';
+
+      tagOrder.forEach((tag) => {
+        if (photoTags.has(tag)) photoGrid.appendChild(fieldTile(tag, `photo.html?tag=${encodeURIComponent(tag)}`));
+      });
+      tagOrder.forEach((tag) => {
+        if (videoTags.has(tag)) videoGrid.appendChild(fieldTile(tag, `video.html?tag=${encodeURIComponent(tag)}`));
+      });
+      lucide.createIcons();
+    }
+
+    Promise.all([
+      fetch('data/tag-dictionary.json').then(res => res.json()).catch(() => []),
+      fetch('images.json').then(res => res.json()).catch(() => []),
+      fetch('videos.json').then(res => res.json()).catch(() => [])
+    ]).then(([tagOrder, photoData, videoData]) => {
+      renderFeatured(photoData);
+      renderTrustCount(photoData.length, videoData.length);
+      renderFields(tagOrder, photoData, videoData);
+    });
   </script>
   <script src="floating-cta.js"></script>
 </body>
