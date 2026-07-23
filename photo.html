@@ -15,100 +15,76 @@
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@0.263.0"></script>
+  <link rel="stylesheet" href="assets/theme.css">
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            studio: {
-              bg: '#FAF7F2',
-              text: '#2B2420',
-              muted: '#5C534E',
-              accent: '#8C7A6B',
-              border: '#EBE5DC',
-              card: '#FFFFFF'
-            }
+            bg: 'var(--bg)', card: 'var(--card)', tint: 'var(--tint)',
+            ink: 'var(--ink)', muted: 'var(--muted)',
+            gold: 'var(--gold)', goldlight: 'var(--gold-light)', goldhover: 'var(--gold-hover)',
+            border: 'var(--border)', footerbg: 'var(--footer-bg)', footertext: 'var(--footer-text)'
           },
           fontFamily: { sans: ['Pretendard', 'sans-serif'] }
         }
       }
     }
   </script>
-  <style>
-    body {
-      font-family: 'Pretendard', sans-serif;
-      background-color: #FAF7F2;
-      color: #2B2420;
-    }
-    ::-webkit-scrollbar { width: 5px; }
-    ::-webkit-scrollbar-thumb { background: #8C7A6B; }
-
-    /* 모바일 필터 가로 스크롤 시 스크롤바 숨김 */
-    .no-scrollbar::-webkit-scrollbar { display: none; }
-    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
-    /* 이미지 보호: 드래그 및 선택 방지 */
-    img {
-      -webkit-user-drag: none;
-      -khtml-user-drag: none;
-      -moz-user-drag: none;
-      -o-user-drag: none;
-      user-select: none;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-    }
-  </style>
 </head>
-<body class="min-h-screen flex flex-col">
-  <header class="bg-studio-bg border-b border-studio-border/50 sticky top-0 z-40">
+<body class="min-h-screen flex flex-col bg-bg text-ink">
+  <header id="siteHeader" class="site-header">
     <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
-      <a href="index.html" class="flex flex-col">
-        <span class="text-xl font-bold tracking-widest">순간, 스튜디오</span>
-        <span class="text-[10px] tracking-widest text-studio-muted">SUNGAN STUDIO</span>
+      <a href="index.html" class="flex flex-col leading-none">
+        <span class="text-lg md:text-xl font-bold tracking-widest">순간, 스튜디오</span>
+        <span class="site-header-sub text-[10px] tracking-widest">SUNGAN STUDIO</span>
       </a>
       <nav class="hidden md:flex space-x-10 text-sm font-medium">
-        <a href="photo.html" class="text-studio-text border-b border-studio-accent pb-1">사진</a>
-        <a href="video.html" class="text-studio-muted hover:text-studio-text">영상</a>
-        <a href="pricing.html" class="text-studio-muted hover:text-studio-text">가격 안내</a>
-        <a href="about.html" class="text-studio-muted hover:text-studio-text">소개</a>
+        <a href="photo.html" class="nav-link active">사진</a>
+        <a href="video.html" class="nav-link">영상</a>
+        <a href="pricing.html" class="nav-link">가격 안내</a>
+        <a href="about.html" class="nav-link">소개</a>
       </nav>
-      <!-- 모바일 토글 버튼 -->
-      <button id="mobileMenuBtn" class="md:hidden text-studio-text focus:outline-none" aria-label="메뉴 열기">
+      <button id="mobileMenuBtn" class="md:hidden focus:outline-none" aria-label="메뉴 열기">
         <i data-lucide="menu" class="w-6 h-6"></i>
       </button>
     </div>
-    <!-- 모바일 드롭다운 메뉴 -->
-    <div id="mobileMenu" class="hidden md:hidden bg-studio-bg border-b border-studio-border px-6 py-6 space-y-4 shadow-sm">
-      <a href="photo.html" class="block text-base font-medium text-studio-text py-2">사진</a>
-      <a href="video.html" class="block text-base font-medium text-studio-muted hover:text-studio-text py-2">영상</a>
-      <a href="pricing.html" class="block text-base font-medium text-studio-muted hover:text-studio-text py-2">가격 안내</a>
-      <a href="about.html" class="block text-base font-medium text-studio-muted hover:text-studio-text py-2">소개</a>
+    <div id="mobileMenu" class="mobile-menu-panel hidden md:hidden px-6 py-6 space-y-4">
+      <a href="photo.html" class="block text-base font-medium py-2 active">사진</a>
+      <a href="video.html" class="block text-base font-medium py-2">영상</a>
+      <a href="pricing.html" class="block text-base font-medium py-2">가격 안내</a>
+      <a href="about.html" class="block text-base font-medium py-2">소개</a>
     </div>
   </header>
 
-  <main class="flex-grow max-w-6xl mx-auto px-6 py-12 w-full">
-    <div class="text-center mb-12">
-      <h2 class="text-3xl font-light tracking-widest text-studio-text mb-2">PHOTO PORTFOLIO</h2>
-      <p class="text-xs tracking-widest text-studio-muted uppercase mb-6" id="tagSubtitle"></p>
-
-      <!-- 태그 필터 (단일 필터: 전체 + 태그, 다중 선택 AND. 모바일은 가로 스크롤 한 줄,
-           md 이상은 중앙 정렬 줄바꿈) -->
-      <div class="flex flex-nowrap md:flex-wrap justify-start md:justify-center gap-2 max-w-2xl mx-auto overflow-x-auto no-scrollbar px-6 -mx-6 md:px-0 md:mx-auto" id="tagFilterContainer"></div>
+  <main class="flex-grow w-full">
+    <div class="page-header-band pt-32 pb-12 px-6 text-center">
+      <span class="page-header-eyebrow block mb-3">Photo</span>
+      <h1 class="page-header-title">사진 포트폴리오</h1>
     </div>
 
-    <!-- Masonry Grid: CSS columns 대신 JS가 각 컬럼의 실제 높이를 추적해 새 카드를
-         항상 가장 짧은 컬럼에만 append하는 방식(컬럼 div들의 flex 행). CSS columns는
-         새 항목이 추가될 때마다 전체 컬럼 배분을 다시 계산해 이미 렌더된 카드까지
-         다른 컬럼으로 옮겨버리는 문제가 있어(무한 스크롤과 근본적으로 상충) 사용하지 않는다. -->
-    <div id="photoGrid" class="flex gap-4 items-start"></div>
-    <!-- 선택한 태그에 해당하는 항목이 없을 때의 빈 상태 안내 -->
-    <p id="emptyState" class="hidden text-center text-sm text-studio-muted py-20">해당 태그의 작업이 없습니다.</p>
-    <!-- 무한 스크롤 트리거용 sentinel (IntersectionObserver 관찰 대상) -->
-    <div id="scrollSentinel" class="h-1 w-full"></div>
+    <div class="max-w-6xl mx-auto px-6 py-12 w-full">
+      <div class="text-center mb-12">
+        <p class="text-xs tracking-widest text-muted uppercase mb-6" id="tagSubtitle"></p>
+
+        <!-- 태그 필터 (단일 필터: 전체 + 태그, 다중 선택 AND. 모바일은 가로 스크롤 한 줄,
+             md 이상은 중앙 정렬 줄바꿈) -->
+        <div class="flex flex-nowrap md:flex-wrap justify-start md:justify-center gap-2 max-w-2xl mx-auto overflow-x-auto no-scrollbar px-6 -mx-6 md:px-0 md:mx-auto" id="tagFilterContainer"></div>
+      </div>
+
+      <!-- Masonry Grid: CSS columns 대신 JS가 각 컬럼의 실제 높이를 추적해 새 카드를
+           항상 가장 짧은 컬럼에만 append하는 방식(컬럼 div들의 flex 행). CSS columns는
+           새 항목이 추가될 때마다 전체 컬럼 배분을 다시 계산해 이미 렌더된 카드까지
+           다른 컬럼으로 옮겨버리는 문제가 있어(무한 스크롤과 근본적으로 상충) 사용하지 않는다. -->
+      <div id="photoGrid" class="flex gap-4 items-start"></div>
+      <!-- 선택한 태그에 해당하는 항목이 없을 때의 빈 상태 안내 -->
+      <p id="emptyState" class="hidden text-center text-sm text-muted py-20">해당 태그의 작업이 없습니다.</p>
+      <!-- 무한 스크롤 트리거용 sentinel (IntersectionObserver 관찰 대상) -->
+      <div id="scrollSentinel" class="h-1 w-full"></div>
+    </div>
   </main>
 
-  <!-- Lightbox (hidden과 flex가 동시 할당되지 않으며 display 속성으로 노출을 완전히 제어합니다) -->
+  <!-- Lightbox: 사진 감상 표준에 맞춰 다크 유지 (라이트 테마 적용 대상 아님) -->
   <div id="lightbox" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-sm flex flex-col justify-between items-center p-6" style="display: none;">
     <div class="w-full flex justify-between items-center text-white/85 text-xs">
       <span id="lbIndex"></span>
@@ -127,18 +103,29 @@
     </div>
   </div>
 
-  <footer class="bg-studio-card border-t border-studio-border py-8 transition-all duration-300">
-    <div class="max-w-6xl mx-auto px-6 text-center text-xs text-studio-muted">
-      <p>© 순간, 스튜디오</p>
-      <p class="mt-1 text-sm text-studio-muted/70">
-        <a href="mailto:dj7013@naver.com" class="hover:text-studio-accent transition-colors">dj7013@naver.com</a>
+  <footer class="bg-footerbg border-t border-white/5 py-10">
+    <div class="max-w-6xl mx-auto px-6 text-center text-xs text-footertext">
+      <p class="text-white/70">&copy; 순간, 스튜디오</p>
+      <p class="mt-2">
+        <a href="mailto:dj7013@naver.com" class="hover:text-goldlight transition-colors">dj7013@naver.com</a>
         ·
-        <a href="https://instagram.com/sungan__studio" target="_blank" rel="noopener noreferrer" class="hover:text-studio-accent transition-colors">@sungan__studio</a>
+        <a href="https://instagram.com/sungan__studio" target="_blank" rel="noopener noreferrer" class="hover:text-goldlight transition-colors">@sungan__studio</a>
       </p>
     </div>
   </footer>
 
+  <a id="floatingMailBtn" href="mailto:dj7013@naver.com" aria-label="이메일 문의"
+     class="floating-mail-btn fixed bottom-5 right-5 md:bottom-8 md:right-8 z-[9999] w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center opacity-0 pointer-events-none">
+    <i data-lucide="mail" class="w-5 h-5 md:w-6 md:h-6"></i>
+  </a>
+
+  <script src="assets/theme.js"></script>
   <script>
+    Theme.initHeader();
+    Theme.initMobileMenu();
+    Theme.initImageProtection();
+    Theme.initFloatingButton();
+
     let photoData = [];
     let activeTags = new Set(); // 태그 필터 (다중 선택, AND 조건). 비어 있으면 "전체"
     let filteredList = [];
@@ -242,18 +229,37 @@
 
     function createPhotoCard(photo, idx) {
       const card = document.createElement('div');
-      card.className = 'gallery-card overflow-hidden rounded-xl border border-studio-border/50 bg-studio-card cursor-pointer';
+      card.className = 'gallery-card card-surface group overflow-hidden rounded-xl cursor-pointer';
 
-      // 이미지 태그 (hover:scale-105 바인딩)
+      // 이미지 래퍼: hover 시 index 대표작과 동일한 확대 + 어두운 그라데이션 +
+      // 태그명 페이드인 오버레이를 적용한다.
+      const imgWrap = document.createElement('div');
+      imgWrap.className = 'relative overflow-hidden';
+
       const img = document.createElement('img');
       img.src = photo.file;
       img.alt = photo.title;
-      img.className = 'w-full h-auto object-cover transition duration-500 hover:scale-105';
+      img.className = 'w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105';
       img.loading = 'lazy';
       img.draggable = false;
       img.dataset.filteredIdx = idx; // 리사이즈 재배치 시 실제 종횡비를 idx로 역참조하기 위함
+      imgWrap.appendChild(img);
 
-      card.appendChild(img);
+      const overlay = document.createElement('div');
+      overlay.className = 'gallery-hover-overlay absolute inset-0 pointer-events-none';
+      imgWrap.appendChild(overlay);
+
+      if (photo.tags && photo.tags.length > 0) {
+        const hoverTagWrap = document.createElement('div');
+        hoverTagWrap.className = 'gallery-hover-tag absolute bottom-0 left-0 right-0 p-3 pointer-events-none';
+        const hoverTagLabel = document.createElement('span');
+        hoverTagLabel.className = 'text-xs text-white font-medium';
+        hoverTagLabel.textContent = photo.tags[0];
+        hoverTagWrap.appendChild(hoverTagLabel);
+        imgWrap.appendChild(hoverTagWrap);
+      }
+
+      card.appendChild(imgWrap);
 
       // 태그 뱃지 (연한 배경의 작은 pill, 사이트 톤에 맞춤)
       if (photo.tags && photo.tags.length > 0) {
@@ -261,7 +267,7 @@
         tagRow.className = 'flex flex-wrap gap-1 p-2';
         photo.tags.forEach((tag) => {
           const pill = document.createElement('span');
-          pill.className = 'text-[10px] leading-none px-2 py-1 rounded-full bg-studio-border/60 text-studio-muted whitespace-nowrap';
+          pill.className = 'text-[10px] leading-none px-2 py-1 rounded-full bg-tint text-muted whitespace-nowrap';
           pill.textContent = tag;
           tagRow.appendChild(pill);
         });
@@ -339,9 +345,7 @@
       allBtn.type = 'button';
       allBtn.textContent = '전체';
       const isAllActive = activeTags.size === 0;
-      allBtn.className = isAllActive
-        ? 'tag-filter-btn shrink-0 px-3 py-1.5 text-[11px] rounded-full border border-studio-accent bg-studio-accent text-white transition-colors duration-300'
-        : 'tag-filter-btn shrink-0 px-3 py-1.5 text-[11px] rounded-full border border-studio-border bg-studio-card text-studio-muted hover:border-studio-accent transition-colors duration-300';
+      allBtn.className = 'tag-filter-btn shrink-0 px-3 py-1.5 text-[11px] rounded-full transition-colors duration-300' + (isAllActive ? ' is-active' : '');
       allBtn.addEventListener('click', () => {
         activeTags.clear();
         renderTagFilter();
@@ -354,9 +358,7 @@
         btn.type = 'button';
         btn.textContent = tag;
         const isActive = activeTags.has(tag);
-        btn.className = isActive
-          ? 'tag-filter-btn shrink-0 px-3 py-1.5 text-[11px] rounded-full border border-studio-accent bg-studio-accent text-white transition-colors duration-300'
-          : 'tag-filter-btn shrink-0 px-3 py-1.5 text-[11px] rounded-full border border-studio-border bg-studio-card text-studio-muted hover:border-studio-accent transition-colors duration-300';
+        btn.className = 'tag-filter-btn shrink-0 px-3 py-1.5 text-[11px] rounded-full transition-colors duration-300' + (isActive ? ' is-active' : '');
         btn.addEventListener('click', () => {
           if (activeTags.has(tag)) activeTags.delete(tag);
           else activeTags.add(tag);
@@ -538,13 +540,6 @@
       }
     }, { passive: true });
 
-    // 이미지(및 보호 오버레이)에만 우클릭 방지 적용, 일반 텍스트 영역은 우클릭 유지
-    document.addEventListener('contextmenu', (e) => {
-      if (e.target.tagName === 'IMG' || e.target.classList.contains('img-shield')) {
-        e.preventDefault();
-      }
-    });
-
     // ESC 및 좌우 키 바인딩
     window.addEventListener('keydown', (e) => {
       if (lb.style.display === 'none') return;
@@ -559,14 +554,7 @@
       }
     });
 
-    // 모바일 햄버거 토글
-    document.getElementById('mobileMenuBtn').addEventListener('click', () => {
-      const m = document.getElementById('mobileMenu');
-      m.classList.toggle('hidden');
-    });
-
     lucide.createIcons();
   </script>
-  <script src="floating-cta.js"></script>
 </body>
 </html>
