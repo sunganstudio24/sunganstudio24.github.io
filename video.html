@@ -15,101 +15,69 @@
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@0.263.0"></script>
+  <link rel="stylesheet" href="assets/theme.css">
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            studio: {
-              bg: '#FAF7F2',
-              text: '#2B2420',
-              muted: '#5C534E',
-              accent: '#8C7A6B',
-              border: '#EBE5DC',
-              card: '#FFFFFF'
-            }
+            bg: 'var(--bg)', card: 'var(--card)', tint: 'var(--tint)',
+            ink: 'var(--ink)', muted: 'var(--muted)',
+            gold: 'var(--gold)', goldlight: 'var(--gold-light)', goldhover: 'var(--gold-hover)',
+            border: 'var(--border)', footerbg: 'var(--footer-bg)', footertext: 'var(--footer-text)'
           },
           fontFamily: { sans: ['Pretendard', 'sans-serif'] }
         }
       }
     }
   </script>
-  <style>
-    body {
-      font-family: 'Pretendard', sans-serif;
-      background-color: #FAF7F2;
-      color: #2B2420;
-    }
-    ::-webkit-scrollbar { width: 5px; }
-    ::-webkit-scrollbar-thumb { background: #8C7A6B; }
-
-    /* 모바일 필터 가로 스크롤 시 스크롤바 숨김 */
-    .no-scrollbar::-webkit-scrollbar { display: none; }
-    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
-    /* 세로(쇼츠) 영상 썸네일을 90도 회전시켜 16:9 카드 박스를 여백 없이 채우는 트릭.
-       container-type: size로 박스 크기를 고정한 뒤, 회전 전 이미지의 width/height를
-       컨테이너의 height/width(cqh/cqw)로 서로 바꿔치기하면 90도 회전 후 정확히
-       원래 박스 크기(16:9)를 가득 채우게 된다. */
-    .v-thumb-box { container-type: size; }
-    .v-thumb-img {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 100cqh;
-      height: 100cqw;
-      max-width: none;
-      object-fit: cover;
-      transform: translate(-50%, -50%) rotate(-90deg);
-      transition: transform 0.5s;
-    }
-    .group:hover .v-thumb-img {
-      transform: translate(-50%, -50%) rotate(-90deg) scale(1.05);
-    }
-  </style>
 </head>
-<body class="bg-studio-bg text-studio-text min-h-screen flex flex-col">
-  <header class="bg-studio-bg border-b border-studio-border/50 sticky top-0 z-40">
+<body class="min-h-screen flex flex-col bg-bg text-ink">
+  <header id="siteHeader" class="site-header">
     <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
-      <a href="index.html" class="flex flex-col">
-        <span class="text-xl font-bold tracking-widest">순간, 스튜디오</span>
-        <span class="text-[10px] tracking-widest text-studio-muted">SUNGAN STUDIO</span>
+      <a href="index.html" class="flex flex-col leading-none">
+        <span class="text-lg md:text-xl font-bold tracking-widest">순간, 스튜디오</span>
+        <span class="site-header-sub text-[10px] tracking-widest">SUNGAN STUDIO</span>
       </a>
       <nav class="hidden md:flex space-x-10 text-sm font-medium">
-        <a href="photo.html" class="text-studio-muted hover:text-studio-text">사진</a>
-        <a href="video.html" class="text-studio-text border-b border-studio-accent pb-1">영상</a>
-        <a href="pricing.html" class="text-studio-muted hover:text-studio-text">가격 안내</a>
-        <a href="about.html" class="text-studio-muted hover:text-studio-text">소개</a>
+        <a href="photo.html" class="nav-link">사진</a>
+        <a href="video.html" class="nav-link active">영상</a>
+        <a href="pricing.html" class="nav-link">가격 안내</a>
+        <a href="about.html" class="nav-link">소개</a>
       </nav>
-      <!-- 모바일 토글 버튼 -->
-      <button id="mobileMenuBtn" class="md:hidden text-studio-text focus:outline-none" aria-label="메뉴 열기">
+      <button id="mobileMenuBtn" class="md:hidden focus:outline-none" aria-label="메뉴 열기">
         <i data-lucide="menu" class="w-6 h-6"></i>
       </button>
     </div>
-    <!-- 모바일 드롭다운 메뉴 -->
-    <div id="mobileMenu" class="hidden md:hidden bg-studio-bg border-b border-studio-border px-6 py-6 space-y-4 shadow-sm">
-      <a href="photo.html" class="block text-base font-medium text-studio-muted hover:text-studio-text py-2">사진</a>
-      <a href="video.html" class="block text-base font-medium text-studio-text py-2">영상</a>
-      <a href="pricing.html" class="block text-base font-medium text-studio-muted hover:text-studio-text py-2">가격 안내</a>
-      <a href="about.html" class="block text-base font-medium text-studio-muted hover:text-studio-text py-2">소개</a>
+    <div id="mobileMenu" class="mobile-menu-panel hidden md:hidden px-6 py-6 space-y-4">
+      <a href="photo.html" class="block text-base font-medium py-2">사진</a>
+      <a href="video.html" class="block text-base font-medium py-2 active">영상</a>
+      <a href="pricing.html" class="block text-base font-medium py-2">가격 안내</a>
+      <a href="about.html" class="block text-base font-medium py-2">소개</a>
     </div>
   </header>
 
-  <main class="flex-grow max-w-6xl mx-auto px-6 py-12 w-full">
-    <div class="text-center mb-12">
-      <h2 class="text-3xl font-light tracking-widest text-studio-text mb-2">VIDEO PORTFOLIO</h2>
-      <p class="text-xs tracking-widest text-studio-muted uppercase mb-6" id="tagSubtitle"></p>
-
-      <!-- 태그 필터 (단일 필터: 전체 + 태그, 다중 선택 AND. 모바일은 가로 스크롤 한 줄,
-           md 이상은 중앙 정렬 줄바꿈) -->
-      <div class="flex flex-nowrap md:flex-wrap justify-start md:justify-center gap-2 max-w-xl mx-auto overflow-x-auto no-scrollbar px-6 -mx-6 md:px-0 md:mx-auto" id="tagFilterContainer"></div>
+  <main class="flex-grow w-full">
+    <div class="page-header-band pt-32 pb-12 px-6 text-center">
+      <span class="page-header-eyebrow block mb-3">Video</span>
+      <h1 class="page-header-title">영상 포트폴리오</h1>
     </div>
 
-    <!-- 비디오 그리드 -->
-    <div id="videoGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    <div class="max-w-6xl mx-auto px-6 py-12 w-full">
+      <div class="text-center mb-12">
+        <p class="text-xs tracking-widest text-muted uppercase mb-6" id="tagSubtitle"></p>
+
+        <!-- 태그 필터 (단일 필터: 전체 + 태그, 다중 선택 AND. 모바일은 가로 스크롤 한 줄,
+             md 이상은 중앙 정렬 줄바꿈) -->
+        <div class="flex flex-nowrap md:flex-wrap justify-start md:justify-center gap-2 max-w-xl mx-auto overflow-x-auto no-scrollbar px-6 -mx-6 md:px-0 md:mx-auto" id="tagFilterContainer"></div>
+      </div>
+
+      <!-- 비디오 그리드 -->
+      <div id="videoGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </div>
   </main>
 
-  <!-- 극장 재생기 모달 (hidden 대신 display: none 레이아웃 설계로 충돌 제거) -->
+  <!-- 극장 재생기 모달: 유튜브 재생 표준에 맞춰 다크 유지 (라이트 테마 적용 대상 아님) -->
   <div id="theater" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-sm flex flex-col justify-between items-center p-3 md:p-6" style="display: none;">
     <div class="w-full flex justify-between items-center text-white/80 text-[10px] uppercase">
       <span>Cinema Theater</span>
@@ -123,18 +91,29 @@
     </div>
   </div>
 
-  <footer class="bg-studio-card border-t border-studio-border py-8 transition-all duration-300">
-    <div class="max-w-6xl mx-auto px-6 text-center text-xs text-studio-muted">
-      <p>© 순간, 스튜디오</p>
-      <p class="mt-1 text-sm text-studio-muted/70">
-        <a href="mailto:dj7013@naver.com" class="hover:text-studio-accent transition-colors">dj7013@naver.com</a>
+  <footer class="bg-footerbg border-t border-white/5 py-10">
+    <div class="max-w-6xl mx-auto px-6 text-center text-xs text-footertext">
+      <p class="text-white/70">&copy; 순간, 스튜디오</p>
+      <p class="mt-2">
+        <a href="mailto:dj7013@naver.com" class="hover:text-goldlight transition-colors">dj7013@naver.com</a>
         ·
-        <a href="https://instagram.com/sungan__studio" target="_blank" rel="noopener noreferrer" class="hover:text-studio-accent transition-colors">@sungan__studio</a>
+        <a href="https://instagram.com/sungan__studio" target="_blank" rel="noopener noreferrer" class="hover:text-goldlight transition-colors">@sungan__studio</a>
       </p>
     </div>
   </footer>
 
+  <a id="floatingMailBtn" href="mailto:dj7013@naver.com" aria-label="이메일 문의"
+     class="floating-mail-btn fixed bottom-5 right-5 md:bottom-8 md:right-8 z-[9999] w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center opacity-0 pointer-events-none">
+    <i data-lucide="mail" class="w-5 h-5 md:w-6 md:h-6"></i>
+  </a>
+
+  <script src="assets/theme.js"></script>
   <script>
+    Theme.initHeader();
+    Theme.initMobileMenu();
+    Theme.initImageProtection();
+    Theme.initFloatingButton();
+
     let videoData = [];
     let activeTags = new Set(); // 태그 필터 (다중 선택, AND 조건)
 
@@ -224,9 +203,7 @@
       allBtn.type = 'button';
       allBtn.textContent = '전체';
       const isAllActive = activeTags.size === 0;
-      allBtn.className = isAllActive
-        ? 'tag-filter-btn shrink-0 px-4 py-2.5 text-xs rounded-full border border-studio-accent bg-studio-accent text-white transition-colors duration-300'
-        : 'tag-filter-btn shrink-0 px-4 py-2.5 text-xs rounded-full border border-studio-border bg-studio-card text-studio-muted hover:border-studio-accent transition-colors duration-300';
+      allBtn.className = 'tag-filter-btn shrink-0 px-4 py-2.5 text-xs rounded-full transition-colors duration-300' + (isAllActive ? ' is-active' : '');
       allBtn.addEventListener('click', () => {
         activeTags.clear();
         renderTagFilter();
@@ -239,9 +216,7 @@
         btn.type = 'button';
         btn.textContent = tag;
         const isActive = activeTags.has(tag);
-        btn.className = isActive
-          ? 'tag-filter-btn shrink-0 px-3 py-1.5 text-[11px] rounded-full border border-studio-accent bg-studio-accent text-white transition-colors duration-300'
-          : 'tag-filter-btn shrink-0 px-3 py-1.5 text-[11px] rounded-full border border-studio-border bg-studio-card text-studio-muted hover:border-studio-accent transition-colors duration-300';
+        btn.className = 'tag-filter-btn shrink-0 px-3 py-1.5 text-[11px] rounded-full transition-colors duration-300' + (isActive ? ' is-active' : '');
         btn.addEventListener('click', () => {
           if (activeTags.has(tag)) activeTags.delete(tag);
           else activeTags.add(tag);
@@ -259,7 +234,7 @@
 
       list.forEach(video => {
         const card = document.createElement('div');
-        card.className = 'group relative overflow-hidden bg-studio-card border border-studio-border rounded-xl shadow-sm flex flex-col';
+        card.className = 'group relative card-surface overflow-hidden rounded-xl flex flex-col';
         const hqThumbUrl = `https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`;
         // 세로(쇼츠) 영상은 검은 띠 없는 세로 원본 썸네일(oar2)을 우선 사용
         const thumbUrl = video.vertical ? `https://i.ytimg.com/vi/${video.youtubeId}/oar2.jpg` : hqThumbUrl;
@@ -267,8 +242,8 @@
         // 썸네일 노드 생성 (카드 박스는 vertical 여부와 관계없이 16:9로 통일)
         const triggerDiv = document.createElement('div');
         triggerDiv.className = video.vertical
-          ? 'relative aspect-video overflow-hidden bg-black cursor-pointer v-thumb-box'
-          : 'relative aspect-video overflow-hidden bg-black cursor-pointer';
+          ? 'relative aspect-video overflow-hidden bg-ink cursor-pointer v-thumb-box'
+          : 'relative aspect-video overflow-hidden bg-ink cursor-pointer';
 
         const img = document.createElement('img');
         img.src = thumbUrl;
@@ -276,7 +251,7 @@
         // 세로 영상은 썸네일을 90도 회전시켜 눕힌 뒤 16:9 박스를 여백 없이 채움
         img.className = video.vertical
           ? 'v-thumb-img opacity-95'
-          : 'w-full h-full object-cover opacity-95 transition duration-500 hover:scale-105';
+          : 'w-full h-full object-cover opacity-95 transition duration-500 group-hover:scale-105';
         img.loading = 'lazy';
         if (video.vertical) {
           // oar2 썸네일이 없는 영상일 경우 hqdefault로 폴백 (1회만 시도)
@@ -290,7 +265,7 @@
         playOverlay.className = 'absolute inset-0 flex items-center justify-center';
 
         const playBtn = document.createElement('div');
-        playBtn.className = 'w-12 h-12 rounded-full bg-studio-text/80 backdrop-blur-sm border border-white/20 text-white flex items-center justify-center group-hover:bg-studio-accent transition duration-300';
+        playBtn.className = 'w-12 h-12 rounded-full bg-gold text-white shadow-lg flex items-center justify-center group-hover:bg-goldhover group-hover:scale-105 transition duration-300';
 
         const playIcon = document.createElement('i');
         playIcon.setAttribute('data-lucide', 'play');
@@ -307,11 +282,11 @@
 
         const subDiv = document.createElement('div');
         const catSpan = document.createElement('span');
-        catSpan.className = 'text-[9px] text-studio-accent font-medium uppercase mb-1 block';
+        catSpan.className = 'text-[9px] text-gold font-semibold uppercase mb-1 block';
         catSpan.textContent = getCategoryLabel(video.category);
 
         const titleH = document.createElement('h4');
-        titleH.className = 'text-sm font-semibold text-studio-text tracking-wide';
+        titleH.className = 'text-sm font-semibold text-ink tracking-wide';
         titleH.textContent = video.title;
 
         subDiv.appendChild(catSpan);
@@ -324,7 +299,7 @@
           tagRow.className = 'flex flex-wrap gap-1 mt-3';
           video.tags.forEach((tag) => {
             const pill = document.createElement('span');
-            pill.className = 'text-[10px] leading-none px-2 py-1 rounded-full bg-studio-border/60 text-studio-muted whitespace-nowrap';
+            pill.className = 'text-[10px] leading-none px-2 py-1 rounded-full bg-tint text-muted whitespace-nowrap';
             pill.textContent = tag;
             tagRow.appendChild(pill);
           });
@@ -412,14 +387,7 @@
       }
     });
 
-    // 모바일 햄버거 토글
-    document.getElementById('mobileMenuBtn').addEventListener('click', () => {
-      const m = document.getElementById('mobileMenu');
-      m.classList.toggle('hidden');
-    });
-
     lucide.createIcons();
   </script>
-  <script src="floating-cta.js"></script>
 </body>
 </html>
