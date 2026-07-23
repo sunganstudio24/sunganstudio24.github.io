@@ -15,458 +15,439 @@
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@0.263.0"></script>
+  <link rel="stylesheet" href="assets/theme.css">
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            studio: {
-              bg: '#FAF7F2',
-              text: '#2B2420',
-              muted: '#5C534E',
-              accent: '#8C7A6B',
-              border: '#EBE5DC',
-              card: '#FFFFFF'
-            }
+            bg: 'var(--bg)', card: 'var(--card)', tint: 'var(--tint)',
+            ink: 'var(--ink)', muted: 'var(--muted)',
+            gold: 'var(--gold)', goldlight: 'var(--gold-light)', goldhover: 'var(--gold-hover)',
+            border: 'var(--border)', footerbg: 'var(--footer-bg)', footertext: 'var(--footer-text)'
           },
           fontFamily: { sans: ['Pretendard', 'sans-serif'] }
         }
       }
     }
   </script>
-  <style>
-    body {
-      font-family: 'Pretendard', sans-serif;
-      background-color: #FAF7F2;
-      color: #2B2420;
-    }
-
-    /* 가격 탭: Tailwind CDN은 런타임에 추가되는 arbitrary 클래스를 생성하지
-       못하므로, 활성 상태 스타일은 JS의 클래스 조작이 아니라 aria-selected
-       속성 선택자로만 처리한다 (레이아웃/여백 등 정적 클래스는 Tailwind 유지). */
-    .price-tab { color: #5C534E; }
-    .price-tab:hover { color: #2B2420; }
-    .price-tab[aria-selected="true"] {
-      background-color: #3E3229;
-      color: #FAF7F2;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    }
-    .price-panel { display: none; }
-    .price-panel.active { display: block; animation: panelIn .35s ease; }
-    @keyframes panelIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @media (prefers-reduced-motion: reduce) { .price-panel.active { animation: none; } }
-  </style>
 </head>
-<body class="bg-studio-bg text-studio-text min-h-screen flex flex-col">
-  <header class="bg-studio-bg border-b border-studio-border/50 sticky top-0 z-40">
+<body class="min-h-screen flex flex-col bg-bg text-ink">
+  <header id="siteHeader" class="site-header">
     <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
-      <a href="index.html" class="flex flex-col">
-        <span class="text-xl font-bold tracking-widest">순간, 스튜디오</span>
-        <span class="text-[10px] tracking-widest text-studio-muted">SUNGAN STUDIO</span>
+      <a href="index.html" class="flex flex-col leading-none">
+        <span class="text-lg md:text-xl font-bold tracking-widest">순간, 스튜디오</span>
+        <span class="site-header-sub text-[10px] tracking-widest">SUNGAN STUDIO</span>
       </a>
       <nav class="hidden md:flex space-x-10 text-sm font-medium">
-        <a href="photo.html" class="text-studio-muted hover:text-studio-text">사진</a>
-        <a href="video.html" class="text-studio-muted hover:text-studio-text">영상</a>
-        <a href="pricing.html" class="text-studio-text border-b border-studio-accent pb-1">가격 안내</a>
-        <a href="about.html" class="text-studio-muted hover:text-studio-text">소개</a>
+        <a href="photo.html" class="nav-link">사진</a>
+        <a href="video.html" class="nav-link">영상</a>
+        <a href="pricing.html" class="nav-link active">가격 안내</a>
+        <a href="about.html" class="nav-link">소개</a>
       </nav>
-      <!-- 모바일 토글 버튼 -->
-      <button id="mobileMenuBtn" class="md:hidden text-studio-text focus:outline-none" aria-label="메뉴 열기">
+      <button id="mobileMenuBtn" class="md:hidden focus:outline-none" aria-label="메뉴 열기">
         <i data-lucide="menu" class="w-6 h-6"></i>
       </button>
     </div>
-    <!-- 모바일 드롭다운 메뉴 -->
-    <div id="mobileMenu" class="hidden md:hidden bg-studio-bg border-b border-studio-border px-6 py-6 space-y-4 shadow-sm">
-      <a href="photo.html" class="block text-base font-medium text-studio-muted hover:text-studio-text py-2">사진</a>
-      <a href="video.html" class="block text-base font-medium text-studio-muted hover:text-studio-text py-2">영상</a>
-      <a href="pricing.html" class="block text-base font-medium text-studio-text py-2">가격 안내</a>
-      <a href="about.html" class="block text-base font-medium text-studio-muted hover:text-studio-text py-2">소개</a>
+    <div id="mobileMenu" class="mobile-menu-panel hidden md:hidden px-6 py-6 space-y-4">
+      <a href="photo.html" class="block text-base font-medium py-2">사진</a>
+      <a href="video.html" class="block text-base font-medium py-2">영상</a>
+      <a href="pricing.html" class="block text-base font-medium py-2 active">가격 안내</a>
+      <a href="about.html" class="block text-base font-medium py-2">소개</a>
     </div>
   </header>
 
-  <main class="flex-grow max-w-6xl mx-auto px-6 py-12 w-full">
-    <div class="text-center mb-10">
-      <h2 class="text-3xl font-light tracking-widest text-studio-text mb-2">PRICING</h2>
-      <p class="text-xs tracking-widest text-studio-muted uppercase mb-4">가격 안내</p>
-      <p class="text-sm text-studio-muted max-w-xl mx-auto leading-relaxed">모든 촬영은 출장으로 진행되며, 표기 금액은 최소 시작 가격입니다. 촬영 범위·장소에 따라 상담 후 맞춤 견적을 안내드립니다.</p>
+  <main class="flex-grow w-full">
+    <div class="page-header-band pt-32 pb-12 px-6 text-center">
+      <span class="page-header-eyebrow block mb-3">Pricing</span>
+      <h1 class="page-header-title">가격 안내</h1>
     </div>
 
-    <!-- 각 카드 하단 "견적받기/견적 문의" 버튼: 문의 폼이 아직 없어 임시로
-         이메일 링크로 연결 (.pricing-cta-btn 클래스로 일괄 검색 가능). -->
-
-    <!-- 가격 탭 -->
-    <div class="flex justify-center mb-16">
-      <div role="tablist" class="inline-flex flex-wrap justify-center gap-1 bg-studio-card border border-studio-border rounded-full p-1.5">
-        <button type="button" class="price-tab flex items-center gap-1.5 px-5 py-2.5 rounded-full text-sm font-medium transition-colors duration-300" data-panel="photo" role="tab" aria-selected="true">
-          <span>📸</span><span>사진 촬영</span>
-        </button>
-        <button type="button" class="price-tab flex items-center gap-1.5 px-5 py-2.5 rounded-full text-sm font-medium transition-colors duration-300" data-panel="video" role="tab" aria-selected="false">
-          <span>🎬</span><span>영상 제작</span>
-        </button>
-        <button type="button" class="price-tab flex items-center gap-1.5 px-5 py-2.5 rounded-full text-sm font-medium transition-colors duration-300" data-panel="package" role="tab" aria-selected="false">
-          <span>📦</span><span>사진+영상 패키지</span>
-        </button>
-        <button type="button" class="price-tab flex items-center gap-1.5 px-5 py-2.5 rounded-full text-sm font-medium transition-colors duration-300" data-panel="session" role="tab" aria-selected="false">
-          <span>🎞️</span><span>숏폼·인터뷰</span>
-        </button>
+    <div class="max-w-6xl mx-auto px-6 py-12 w-full">
+      <div class="text-center mb-10">
+        <p class="text-sm text-muted max-w-xl mx-auto leading-relaxed">모든 촬영은 출장으로 진행되며, 표기 금액은 최소 시작 가격입니다. 촬영 범위·장소에 따라 상담 후 맞춤 견적을 안내드립니다.</p>
       </div>
+
+      <!-- 각 카드 하단 "견적받기/견적 문의" 버튼: 문의 폼이 아직 없어 임시로
+           이메일 링크로 연결 (.pricing-cta-btn 클래스로 일괄 검색 가능). -->
+
+      <!-- 가격 탭: JS는 aria-selected 속성만 토글하고, 색상은 assets/theme.css의
+           .price-tab[aria-selected] 셀렉터가 전담한다 (classList 기반 전환 아님). -->
+      <div class="flex justify-center mb-16">
+        <div role="tablist" class="inline-flex flex-wrap justify-center gap-1 bg-card border border-border rounded-full p-1.5">
+          <button type="button" class="price-tab flex items-center gap-1.5 px-5 py-2.5 rounded-full text-sm font-medium transition-colors duration-300" data-panel="photo" role="tab" aria-selected="true">
+            <span>📸</span><span>사진 촬영</span>
+          </button>
+          <button type="button" class="price-tab flex items-center gap-1.5 px-5 py-2.5 rounded-full text-sm font-medium transition-colors duration-300" data-panel="video" role="tab" aria-selected="false">
+            <span>🎬</span><span>영상 제작</span>
+          </button>
+          <button type="button" class="price-tab flex items-center gap-1.5 px-5 py-2.5 rounded-full text-sm font-medium transition-colors duration-300" data-panel="package" role="tab" aria-selected="false">
+            <span>📦</span><span>사진+영상 패키지</span>
+          </button>
+          <button type="button" class="price-tab flex items-center gap-1.5 px-5 py-2.5 rounded-full text-sm font-medium transition-colors duration-300" data-panel="session" role="tab" aria-selected="false">
+            <span>🎞️</span><span>숏폼·인터뷰</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 패널: 사진 촬영 (출장) -->
+      <section id="panel-photo" class="price-panel mb-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-start">
+          <!-- BASIC -->
+          <div class="card-surface rounded-xl p-8 flex flex-col h-full">
+            <span class="text-xs font-semibold tracking-widest text-gold uppercase mb-1">BASIC</span>
+            <p class="text-sm text-muted mb-4">소규모 매장·신규 오픈</p>
+            <p class="text-3xl font-light text-ink mb-6">₩ 400,000~</p>
+            <div class="border-t border-border mb-4"></div>
+            <ul class="text-sm text-muted space-y-3 leading-relaxed flex-grow">
+              <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-gold shrink-0 mt-0.5"></i><span>공간·외관 촬영</span></li>
+              <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-gold shrink-0 mt-0.5"></i><span>색감 보정</span></li>
+              <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-gold shrink-0 mt-0.5"></i><span>대표 이미지 제작</span></li>
+              <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-gold shrink-0 mt-0.5"></i><span>웹용 파일 제공</span></li>
+            </ul>
+            <a href="mailto:dj7013@naver.com" target="_blank" rel="noopener noreferrer" class="pricing-cta-btn btn-secondary mt-6">이 상품 견적받기</a>
+          </div>
+
+          <!-- STANDARD (추천) -->
+          <div class="relative card-surface price-card-featured rounded-xl p-8 flex flex-col h-full lg:scale-105 z-10">
+            <span class="price-card-badge absolute -top-4 left-1/2 -translate-x-1/2 text-sm font-bold tracking-wide px-4 py-1.5 rounded-full whitespace-nowrap">⭐ 추천</span>
+            <span class="text-xs font-semibold tracking-widest text-gold uppercase mb-1">STANDARD</span>
+            <p class="text-sm text-muted mb-4">홈페이지 제작·브랜드 소개</p>
+            <p class="text-4xl font-light text-ink mb-6">₩ 700,000~</p>
+            <div class="border-t border-border mb-4"></div>
+            <span class="inline-flex items-center gap-1 self-start text-[11px] font-medium text-white bg-gold px-2.5 py-1 rounded-full mb-3">
+              <i data-lucide="corner-down-right" class="w-3.5 h-3.5"></i>
+              BASIC 구성 전체 포함
+            </span>
+            <ul class="text-sm text-muted space-y-3 leading-relaxed flex-grow">
+              <li class="flex items-start gap-2"><i data-lucide="plus" class="w-4 h-4 text-gold shrink-0 mt-0.5"></i><span>제품·메뉴 촬영(해당 시)</span></li>
+              <li class="flex items-start gap-2"><i data-lucide="plus" class="w-4 h-4 text-gold shrink-0 mt-0.5"></i><span>일하는 모습·서비스 현장 촬영</span></li>
+              <li class="flex items-start gap-2"><i data-lucide="plus" class="w-4 h-4 text-gold shrink-0 mt-0.5"></i><span>홈페이지 화면에 맞춘 구도 촬영(메인 배너·소개 영역)</span></li>
+              <li class="flex items-start gap-2"><i data-lucide="plus" class="w-4 h-4 text-gold shrink-0 mt-0.5"></i><span>인쇄용 고해상도 파일 제공</span></li>
+            </ul>
+            <a href="mailto:dj7013@naver.com" target="_blank" rel="noopener noreferrer" class="pricing-cta-btn btn-primary mt-6">이 상품 견적받기</a>
+          </div>
+
+          <!-- PROFESSIONAL -->
+          <div class="card-surface rounded-xl p-8 flex flex-col h-full">
+            <span class="text-xs font-semibold tracking-widest text-gold uppercase mb-1">PROFESSIONAL</span>
+            <p class="text-sm text-muted mb-4">기관·기업·여러 지점 운영 업체</p>
+            <p class="text-3xl font-light text-ink mb-6">₩ 1,200,000~</p>
+            <div class="border-t border-border mb-4"></div>
+            <span class="inline-flex items-center gap-1 self-start text-[11px] font-medium text-white bg-gold px-2.5 py-1 rounded-full mb-3">
+              <i data-lucide="corner-down-right" class="w-3.5 h-3.5"></i>
+              STANDARD 구성 전체 포함
+            </span>
+            <ul class="text-sm text-muted space-y-3 leading-relaxed flex-grow">
+              <li class="flex items-start gap-2"><i data-lucide="plus" class="w-4 h-4 text-gold shrink-0 mt-0.5"></i><span>드론 촬영</span></li>
+              <li class="flex items-start gap-2"><i data-lucide="plus" class="w-4 h-4 text-gold shrink-0 mt-0.5"></i><span>직원 프로필 촬영</span></li>
+              <li class="flex items-start gap-2"><i data-lucide="plus" class="w-4 h-4 text-gold shrink-0 mt-0.5"></i><span>디테일 컷 촬영</span></li>
+            </ul>
+            <a href="mailto:dj7013@naver.com" target="_blank" rel="noopener noreferrer" class="pricing-cta-btn btn-secondary mt-6">이 상품 견적받기</a>
+          </div>
+
+          <!-- SPECIAL -->
+          <div class="card-surface rounded-xl p-8 flex flex-col h-full">
+            <span class="text-xs font-semibold tracking-widest text-gold uppercase mb-1">SPECIAL</span>
+            <p class="text-sm text-muted mb-4">마을·관광지 기록, 기관 연간 사업 등 대형 프로젝트</p>
+            <p class="text-3xl font-light text-ink mb-6">₩ 1,500,000~</p>
+            <div class="border-t border-border mb-4"></div>
+            <span class="inline-flex items-center gap-1 self-start text-[11px] font-medium text-white bg-gold px-2.5 py-1 rounded-full mb-3">
+              <i data-lucide="corner-down-right" class="w-3.5 h-3.5"></i>
+              PROFESSIONAL 구성 전체 포함
+            </span>
+            <ul class="text-sm text-muted space-y-3 leading-relaxed flex-grow">
+              <li class="flex items-start gap-2"><i data-lucide="plus" class="w-4 h-4 text-gold shrink-0 mt-0.5"></i><span>사전 기획 미팅</span></li>
+              <li class="flex items-start gap-2"><i data-lucide="plus" class="w-4 h-4 text-gold shrink-0 mt-0.5"></i><span>촬영 기획안 제공(촬영 리스트·구성안)</span></li>
+              <li class="flex items-start gap-2"><i data-lucide="plus" class="w-4 h-4 text-gold shrink-0 mt-0.5"></i><span>사용 범위 제한 없는 상업적 사용권</span></li>
+            </ul>
+            <a href="mailto:dj7013@naver.com" target="_blank" rel="noopener noreferrer" class="pricing-cta-btn btn-secondary mt-6">견적 문의</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- 패널: 영상 제작 (출장) -->
+      <section id="panel-video" class="price-panel mb-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-start">
+          <!-- BASIC -->
+          <div class="card-surface rounded-xl p-8 flex flex-col h-full">
+            <span class="text-xs font-semibold tracking-widest text-gold uppercase mb-1">BASIC</span>
+            <p class="text-sm text-muted mb-4">SNS·홈페이지용 짧은 홍보 영상</p>
+            <p class="text-3xl font-light text-ink mb-1">₩ 600,000~</p>
+            <p class="flex items-center gap-1.5 text-xs text-muted mb-6"><i data-lucide="clock" class="w-3.5 h-3.5"></i>30~60초 · Full HD</p>
+            <div class="border-t border-border mb-4"></div>
+            <ul class="text-sm text-muted space-y-3 leading-relaxed flex-grow">
+              <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-gold shrink-0 mt-0.5"></i><span>컷편집</span></li>
+              <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-gold shrink-0 mt-0.5"></i><span>색보정</span></li>
+              <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-gold shrink-0 mt-0.5"></i><span>배경음악</span></li>
+            </ul>
+            <a href="mailto:dj7013@naver.com" target="_blank" rel="noopener noreferrer" class="pricing-cta-btn btn-secondary mt-6">이 상품 견적받기</a>
+          </div>
+
+          <!-- STANDARD (추천) -->
+          <div class="relative card-surface price-card-featured rounded-xl p-8 flex flex-col h-full lg:scale-105 z-10">
+            <span class="price-card-badge absolute -top-4 left-1/2 -translate-x-1/2 text-sm font-bold tracking-wide px-4 py-1.5 rounded-full whitespace-nowrap">⭐ 추천</span>
+            <span class="text-xs font-semibold tracking-widest text-gold uppercase mb-1">STANDARD</span>
+            <p class="text-sm text-muted mb-4">브랜드 대표 홍보영상</p>
+            <p class="text-4xl font-light text-ink mb-1">₩ 1,300,000~</p>
+            <p class="flex items-center gap-1.5 text-xs text-muted mb-6"><i data-lucide="clock" class="w-3.5 h-3.5"></i>60~90초 · 4K</p>
+            <div class="border-t border-border mb-4"></div>
+            <span class="inline-flex items-center gap-1 self-start text-[11px] font-medium text-white bg-gold px-2.5 py-1 rounded-full mb-3">
+              <i data-lucide="corner-down-right" class="w-3.5 h-3.5"></i>
+              BASIC 구성 전체 포함
+            </span>
+            <ul class="text-sm text-muted space-y-3 leading-relaxed flex-grow">
+              <li class="flex items-start gap-2"><i data-lucide="plus" class="w-4 h-4 text-gold shrink-0 mt-0.5"></i><span>스토리 구성</span></li>
+              <li class="flex items-start gap-2"><i data-lucide="plus" class="w-4 h-4 text-gold shrink-0 mt-0.5"></i><span>자막</span></li>
+              <li class="flex items-start gap-2"><i data-lucide="plus" class="w-4 h-4 text-gold shrink-0 mt-0.5"></i><span>썸네일 제작</span></li>
+            </ul>
+            <a href="mailto:dj7013@naver.com" target="_blank" rel="noopener noreferrer" class="pricing-cta-btn btn-primary mt-6">이 상품 견적받기</a>
+          </div>
+
+          <!-- PROFESSIONAL -->
+          <div class="card-surface rounded-xl p-8 flex flex-col h-full">
+            <span class="text-xs font-semibold tracking-widest text-gold uppercase mb-1">PROFESSIONAL</span>
+            <p class="text-sm text-muted mb-4">기업·기관 프리미엄 영상</p>
+            <p class="text-3xl font-light text-ink mb-1">₩ 2,500,000~</p>
+            <p class="flex items-center gap-1.5 text-xs text-muted mb-6"><i data-lucide="clock" class="w-3.5 h-3.5"></i>2~3분 · 4K</p>
+            <div class="border-t border-border mb-4"></div>
+            <span class="inline-flex items-center gap-1 self-start text-[11px] font-medium text-white bg-gold px-2.5 py-1 rounded-full mb-3">
+              <i data-lucide="corner-down-right" class="w-3.5 h-3.5"></i>
+              STANDARD 구성 전체 포함
+            </span>
+            <ul class="text-sm text-muted space-y-3 leading-relaxed flex-grow">
+              <li class="flex items-start gap-2"><i data-lucide="plus" class="w-4 h-4 text-gold shrink-0 mt-0.5"></i><span>사전 기획 회의</span></li>
+              <li class="flex items-start gap-2"><i data-lucide="plus" class="w-4 h-4 text-gold shrink-0 mt-0.5"></i><span>촬영 대본(콘티) 제작</span></li>
+              <li class="flex items-start gap-2"><i data-lucide="plus" class="w-4 h-4 text-gold shrink-0 mt-0.5"></i><span>인터뷰 촬영</span></li>
+              <li class="flex items-start gap-2"><i data-lucide="plus" class="w-4 h-4 text-gold shrink-0 mt-0.5"></i><span>드론 촬영</span></li>
+              <li class="flex items-start gap-2"><i data-lucide="plus" class="w-4 h-4 text-gold shrink-0 mt-0.5"></i><span>SNS용 숏폼 재편집 1편</span></li>
+            </ul>
+            <a href="mailto:dj7013@naver.com" target="_blank" rel="noopener noreferrer" class="pricing-cta-btn btn-secondary mt-6">이 상품 견적받기</a>
+          </div>
+
+          <!-- SPECIAL -->
+          <div class="card-surface rounded-xl p-8 flex flex-col h-full">
+            <span class="text-xs font-semibold tracking-widest text-gold uppercase mb-1">SPECIAL</span>
+            <p class="text-sm text-muted mb-4">브랜드 필름·캠페인·시리즈 영상</p>
+            <p class="text-3xl font-light text-ink mb-1">₩ 4,000,000~</p>
+            <p class="flex items-center gap-1.5 text-xs text-muted mb-6"><i data-lucide="clock" class="w-3.5 h-3.5"></i>3~5분 또는 시리즈 · 4K</p>
+            <div class="border-t border-border mb-4"></div>
+            <span class="inline-flex items-center gap-1 self-start text-[11px] font-medium text-white bg-gold px-2.5 py-1 rounded-full mb-3">
+              <i data-lucide="corner-down-right" class="w-3.5 h-3.5"></i>
+              PROFESSIONAL 구성 전체 포함
+            </span>
+            <ul class="text-sm text-muted space-y-3 leading-relaxed flex-grow">
+              <li class="flex items-start gap-2"><i data-lucide="plus" class="w-4 h-4 text-gold shrink-0 mt-0.5"></i><span>기획 단계부터 참여</span></li>
+              <li class="flex items-start gap-2"><i data-lucide="plus" class="w-4 h-4 text-gold shrink-0 mt-0.5"></i><span>SNS용 숏폼 재편집 3편</span></li>
+              <li class="flex items-start gap-2"><i data-lucide="plus" class="w-4 h-4 text-gold shrink-0 mt-0.5"></i><span>사용 범위 제한 없는 상업적 사용권</span></li>
+            </ul>
+            <a href="mailto:dj7013@naver.com" target="_blank" rel="noopener noreferrer" class="pricing-cta-btn btn-secondary mt-6">견적 문의</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- 패널: 사진+영상 패키지 -->
+      <section id="panel-package" class="price-panel mb-8">
+        <p class="text-sm text-muted text-center mb-8">사진과 영상을 함께 진행하면 개별 신청 대비 약 10% 할인됩니다.</p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-start">
+          <!-- BASIC -->
+          <div class="card-surface rounded-xl p-8 flex flex-col h-full">
+            <span class="text-xs font-semibold tracking-widest text-gold uppercase mb-1">BASIC</span>
+            <p class="text-sm text-muted mb-4">사진 BASIC + 영상 BASIC</p>
+            <p class="text-3xl font-light text-ink mb-1">₩ 900,000~</p>
+            <p class="text-xs text-muted/70 line-through mb-6">개별 신청 시 ₩ 1,000,000~</p>
+            <div class="flex-grow"></div>
+            <a href="mailto:dj7013@naver.com" target="_blank" rel="noopener noreferrer" class="pricing-cta-btn btn-secondary mt-6">이 상품 견적받기</a>
+          </div>
+
+          <!-- STANDARD (추천) -->
+          <div class="relative card-surface price-card-featured rounded-xl p-8 flex flex-col h-full lg:scale-105 z-10">
+            <span class="price-card-badge absolute -top-4 left-1/2 -translate-x-1/2 text-sm font-bold tracking-wide px-4 py-1.5 rounded-full whitespace-nowrap">⭐ 추천</span>
+            <span class="text-xs font-semibold tracking-widest text-gold uppercase mb-1">STANDARD</span>
+            <p class="text-sm text-muted mb-4">사진 STANDARD + 영상 STANDARD</p>
+            <p class="text-4xl font-light text-ink mb-1">₩ 1,800,000~</p>
+            <p class="text-xs text-muted/60 line-through mb-6">개별 신청 시 ₩ 2,000,000~</p>
+            <div class="flex-grow"></div>
+            <a href="mailto:dj7013@naver.com" target="_blank" rel="noopener noreferrer" class="pricing-cta-btn btn-primary mt-6">이 상품 견적받기</a>
+          </div>
+
+          <!-- PROFESSIONAL -->
+          <div class="card-surface rounded-xl p-8 flex flex-col h-full">
+            <span class="text-xs font-semibold tracking-widest text-gold uppercase mb-1">PROFESSIONAL</span>
+            <p class="text-sm text-muted mb-4">사진 PROFESSIONAL + 영상 PROFESSIONAL</p>
+            <p class="text-3xl font-light text-ink mb-1">₩ 3,300,000~</p>
+            <p class="text-xs text-muted/70 line-through mb-6">개별 신청 시 ₩ 3,700,000~</p>
+            <div class="flex-grow"></div>
+            <a href="mailto:dj7013@naver.com" target="_blank" rel="noopener noreferrer" class="pricing-cta-btn btn-secondary mt-6">이 상품 견적받기</a>
+          </div>
+
+          <!-- SPECIAL -->
+          <div class="card-surface rounded-xl p-8 flex flex-col h-full">
+            <span class="text-xs font-semibold tracking-widest text-gold uppercase mb-1">SPECIAL</span>
+            <p class="text-sm text-muted mb-4">대형·통합 프로젝트</p>
+            <p class="text-3xl font-light text-ink mb-1">별도 견적</p>
+            <p class="text-xs text-muted/60 mb-6">프로젝트 규모에 맞춰 상담 후 안내</p>
+            <div class="flex-grow"></div>
+            <a href="mailto:dj7013@naver.com" target="_blank" rel="noopener noreferrer" class="pricing-cta-btn btn-secondary mt-6">견적 문의</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- 패널: 숏폼·인터뷰 (회차제) -->
+      <section id="panel-session" class="price-panel mb-8">
+        <p class="text-sm text-muted text-center mb-8">회차권으로 구매할수록 저렴해집니다. 결제일로부터 6개월간 사용 가능합니다.</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto items-start">
+          <!-- 숏폼 -->
+          <div class="card-surface rounded-xl p-8 flex flex-col h-full">
+            <h4 class="text-lg font-medium text-ink mb-1">숏폼</h4>
+            <p class="text-sm text-muted mb-6">릴스·쇼츠, 1분 내외 세로 영상</p>
+            <div class="space-y-3 flex-grow">
+              <div class="flex items-center justify-between border-b border-border pb-3">
+                <span class="text-sm text-muted">1회</span>
+                <span class="text-base font-medium text-ink">₩ 300,000</span>
+              </div>
+              <div class="flex items-center justify-between border-b border-border pb-3">
+                <span class="text-sm text-muted">3회 <span class="text-xs text-gold">(10% 할인)</span></span>
+                <span class="text-right">
+                  <span class="block text-base font-medium text-ink">₩ 810,000</span>
+                  <span class="block text-xs text-muted">회당 ₩ 270,000</span>
+                </span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-sm text-muted">6회 <span class="text-xs text-gold">(20% 할인)</span></span>
+                <span class="text-right">
+                  <span class="block text-base font-medium text-ink">₩ 1,440,000</span>
+                  <span class="block text-xs text-muted">회당 ₩ 240,000</span>
+                </span>
+              </div>
+            </div>
+            <a href="mailto:dj7013@naver.com" target="_blank" rel="noopener noreferrer" class="pricing-cta-btn btn-secondary mt-6">이 상품 견적받기</a>
+          </div>
+
+          <!-- 인터뷰 영상 -->
+          <div class="card-surface rounded-xl p-8 flex flex-col h-full">
+            <h4 class="text-lg font-medium text-ink mb-1">인터뷰 영상</h4>
+            <p class="text-sm text-muted mb-6">1~2분 · 1인 출연 · 한 장소 · 1회 촬영 기준</p>
+            <div class="space-y-3 flex-grow">
+              <div class="flex items-center justify-between border-b border-border pb-3">
+                <span class="text-sm text-muted">1회</span>
+                <span class="text-base font-medium text-ink">₩ 350,000</span>
+              </div>
+              <div class="flex items-center justify-between border-b border-border pb-3">
+                <span class="text-sm text-muted">3회 <span class="text-xs text-gold">(10% 할인)</span></span>
+                <span class="text-right">
+                  <span class="block text-base font-medium text-ink">₩ 945,000</span>
+                  <span class="block text-xs text-muted">회당 ₩ 315,000</span>
+                </span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-sm text-muted">6회 <span class="text-xs text-gold">(20% 할인)</span></span>
+                <span class="text-right">
+                  <span class="block text-base font-medium text-ink">₩ 1,680,000</span>
+                  <span class="block text-xs text-muted">회당 ₩ 280,000</span>
+                </span>
+              </div>
+            </div>
+            <a href="mailto:dj7013@naver.com" target="_blank" rel="noopener noreferrer" class="pricing-cta-btn btn-secondary mt-6">이 상품 견적받기</a>
+          </div>
+        </div>
+        <p class="text-xs text-muted text-center mt-6">출연 인원·장소 추가 시 별도 협의</p>
+      </section>
+
+      <!-- 공통 안내 (탭과 무관하게 항상 노출) -->
+      <section class="border-t border-border pt-12 mb-16">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-10">
+          <div class="flex gap-3">
+            <i data-lucide="map-pin" class="w-5 h-5 text-gold shrink-0"></i>
+            <div>
+              <p class="text-sm font-medium text-ink mb-1">출장 지역</p>
+              <p class="text-xs text-muted leading-relaxed">진주시 전역 무료 / 서부경남(사천·하동·산청·함안·의령·고성·남해) +50,000원 / 경남 기타 지역 +100,000원 / 그 외 지역 별도 협의</p>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <i data-lucide="refresh-cw" class="w-5 h-5 text-gold shrink-0"></i>
+            <div>
+              <p class="text-sm font-medium text-ink mb-1">수정 정책</p>
+              <p class="text-xs text-muted leading-relaxed">보정·편집 수정은 2회까지 무료이며, 3회부터 회당 추가 비용이 발생합니다.</p>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <i data-lucide="calculator" class="w-5 h-5 text-gold shrink-0"></i>
+            <div>
+              <p class="text-sm font-medium text-ink mb-1">맞춤 견적</p>
+              <p class="text-xs text-muted leading-relaxed">모든 촬영은 촬영 시간, 장소, 범위, 편집 난이도에 따라 견적이 달라질 수 있습니다. 상담 후 맞춤 견적을 안내드립니다.</p>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <i data-lucide="image" class="w-5 h-5 text-gold shrink-0"></i>
+            <div>
+              <p class="text-sm font-medium text-ink mb-1">포트폴리오 사용</p>
+              <p class="text-xs text-muted leading-relaxed">촬영 결과물 일부는 순간 스튜디오 포트폴리오(홈페이지·SNS)에 사용될 수 있으며, 원치 않으실 경우 사전에 말씀해 주세요.</p>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <i data-lucide="calendar" class="w-5 h-5 text-gold shrink-0"></i>
+            <div>
+              <p class="text-sm font-medium text-ink mb-1">정기 촬영</p>
+              <p class="text-xs text-muted leading-relaxed">월 1회 이상 정기 촬영 계약은 별도 요율로 안내드립니다.</p>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <i data-lucide="file-check" class="w-5 h-5 text-gold shrink-0"></i>
+            <div>
+              <p class="text-sm font-medium text-ink mb-1">증빙 대응</p>
+              <p class="text-xs text-muted leading-relaxed">전자세금계산서 발행 및 관공서·기관 지출증빙 대응이 가능합니다.</p>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <i data-lucide="user" class="w-5 h-5 text-gold shrink-0"></i>
+            <div>
+              <p class="text-sm font-medium text-ink mb-1">개인 프로필 촬영</p>
+              <p class="text-xs text-muted leading-relaxed">개인 프로필 촬영은 별도 문의로 진행합니다. 야외·현장 촬영 기반이며, 실내 스튜디오 촬영은 대여 스튜디오 이용 시 가능합니다(대여비 별도).</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 문의 CTA -->
+      <section class="text-center border-t border-border pt-16">
+        <h4 class="text-lg font-light text-ink mb-6">촬영 및 제작 문의</h4>
+        <a href="mailto:dj7013@naver.com" class="btn-primary">
+          <i data-lucide="mail" class="w-4 h-4"></i>
+          촬영 문의하기
+        </a>
+        <p class="mt-5 text-sm text-muted">
+          <a href="https://instagram.com/sungan__studio" target="_blank" rel="noopener noreferrer" class="hover:text-gold transition-colors">@sungan__studio</a>
+        </p>
+      </section>
     </div>
-
-    <!-- 패널: 사진 촬영 (출장) -->
-    <section id="panel-photo" class="price-panel mb-8">
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-start">
-        <!-- BASIC -->
-        <div class="rounded-xl border border-studio-border bg-studio-card p-8 flex flex-col shadow-sm h-full">
-          <span class="text-xs font-semibold tracking-widest text-studio-accent uppercase mb-1">BASIC</span>
-          <p class="text-sm text-studio-muted mb-4">소규모 매장·신규 오픈</p>
-          <p class="text-3xl font-light text-studio-text mb-6">₩ 400,000~</p>
-          <div class="border-t border-studio-border mb-4"></div>
-          <ul class="text-sm text-studio-muted space-y-3 leading-relaxed flex-grow">
-            <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-studio-accent shrink-0 mt-0.5"></i><span>공간·외관 촬영</span></li>
-            <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-studio-accent shrink-0 mt-0.5"></i><span>색감 보정</span></li>
-            <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-studio-accent shrink-0 mt-0.5"></i><span>대표 이미지 제작</span></li>
-            <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-studio-accent shrink-0 mt-0.5"></i><span>웹용 파일 제공</span></li>
-          </ul>
-          <a href="mailto:dj7013@naver.com" target="_blank" rel="noopener noreferrer" class="pricing-cta-btn mt-6 inline-flex items-center justify-center border border-studio-accent text-studio-accent text-sm font-medium px-5 py-2.5 rounded-full hover:bg-studio-accent hover:text-white transition-colors duration-300">이 상품 견적받기</a>
-        </div>
-
-        <!-- STANDARD (추천) -->
-        <div class="relative rounded-xl bg-[#3E3229] ring-1 ring-black/5 p-8 flex flex-col shadow-[0_12px_32px_rgba(0,0,0,0.12)] lg:scale-105 z-10 h-full">
-          <span class="absolute -top-4 left-1/2 -translate-x-1/2 bg-studio-accent text-white text-sm font-bold tracking-wide px-4 py-1.5 rounded-full whitespace-nowrap shadow-md">⭐ 추천</span>
-          <span class="text-xs font-semibold tracking-widest text-[#D9B98C] uppercase mb-1">STANDARD</span>
-          <p class="text-sm text-studio-bg/70 mb-4">홈페이지 제작·브랜드 소개</p>
-          <p class="text-4xl font-light text-studio-bg mb-6">₩ 700,000~</p>
-          <div class="border-t border-white/10 mb-4"></div>
-          <span class="inline-flex items-center gap-1 self-start text-[11px] font-medium text-white bg-studio-accent px-2.5 py-1 rounded-full mb-3">
-            <i data-lucide="corner-down-right" class="w-3.5 h-3.5"></i>
-            BASIC 구성 전체 포함
-          </span>
-          <ul class="text-sm text-studio-bg/70 space-y-3 leading-relaxed flex-grow">
-            <li class="flex items-start gap-2"><i data-lucide="plus" class="w-4 h-4 text-studio-accent shrink-0 mt-0.5"></i><span>제품·메뉴 촬영(해당 시)</span></li>
-            <li class="flex items-start gap-2"><i data-lucide="plus" class="w-4 h-4 text-studio-accent shrink-0 mt-0.5"></i><span>일하는 모습·서비스 현장 촬영</span></li>
-            <li class="flex items-start gap-2"><i data-lucide="plus" class="w-4 h-4 text-studio-accent shrink-0 mt-0.5"></i><span>홈페이지 화면에 맞춘 구도 촬영(메인 배너·소개 영역)</span></li>
-            <li class="flex items-start gap-2"><i data-lucide="plus" class="w-4 h-4 text-studio-accent shrink-0 mt-0.5"></i><span>인쇄용 고해상도 파일 제공</span></li>
-          </ul>
-          <a href="mailto:dj7013@naver.com" target="_blank" rel="noopener noreferrer" class="pricing-cta-btn mt-6 inline-flex items-center justify-center bg-studio-bg text-studio-text text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-white transition-colors duration-300">이 상품 견적받기</a>
-        </div>
-
-        <!-- PROFESSIONAL -->
-        <div class="rounded-xl border border-studio-border bg-studio-card p-8 flex flex-col shadow-sm h-full">
-          <span class="text-xs font-semibold tracking-widest text-studio-accent uppercase mb-1">PROFESSIONAL</span>
-          <p class="text-sm text-studio-muted mb-4">기관·기업·여러 지점 운영 업체</p>
-          <p class="text-3xl font-light text-studio-text mb-6">₩ 1,200,000~</p>
-          <div class="border-t border-studio-border mb-4"></div>
-          <span class="inline-flex items-center gap-1 self-start text-[11px] font-medium text-white bg-studio-accent px-2.5 py-1 rounded-full mb-3">
-            <i data-lucide="corner-down-right" class="w-3.5 h-3.5"></i>
-            STANDARD 구성 전체 포함
-          </span>
-          <ul class="text-sm text-studio-muted space-y-3 leading-relaxed flex-grow">
-            <li class="flex items-start gap-2"><i data-lucide="plus" class="w-4 h-4 text-studio-accent shrink-0 mt-0.5"></i><span>드론 촬영</span></li>
-            <li class="flex items-start gap-2"><i data-lucide="plus" class="w-4 h-4 text-studio-accent shrink-0 mt-0.5"></i><span>직원 프로필 촬영</span></li>
-            <li class="flex items-start gap-2"><i data-lucide="plus" class="w-4 h-4 text-studio-accent shrink-0 mt-0.5"></i><span>디테일 컷 촬영</span></li>
-          </ul>
-          <a href="mailto:dj7013@naver.com" target="_blank" rel="noopener noreferrer" class="pricing-cta-btn mt-6 inline-flex items-center justify-center border border-studio-accent text-studio-accent text-sm font-medium px-5 py-2.5 rounded-full hover:bg-studio-accent hover:text-white transition-colors duration-300">이 상품 견적받기</a>
-        </div>
-
-        <!-- SPECIAL -->
-        <div class="rounded-xl bg-[#1C1815] border border-studio-accent/20 p-8 flex flex-col shadow-sm h-full">
-          <span class="text-xs font-semibold tracking-widest text-studio-accent uppercase mb-1">SPECIAL</span>
-          <p class="text-sm text-studio-bg/60 mb-4">마을·관광지 기록, 기관 연간 사업 등 대형 프로젝트</p>
-          <p class="text-3xl font-light text-studio-bg mb-6">₩ 1,500,000~</p>
-          <div class="border-t border-white/10 mb-4"></div>
-          <span class="inline-flex items-center gap-1 self-start text-[11px] font-medium text-white bg-studio-accent px-2.5 py-1 rounded-full mb-3">
-            <i data-lucide="corner-down-right" class="w-3.5 h-3.5"></i>
-            PROFESSIONAL 구성 전체 포함
-          </span>
-          <ul class="text-sm text-studio-bg/60 space-y-3 leading-relaxed flex-grow">
-            <li class="flex items-start gap-2"><i data-lucide="plus" class="w-4 h-4 text-studio-accent shrink-0 mt-0.5"></i><span>사전 기획 미팅</span></li>
-            <li class="flex items-start gap-2"><i data-lucide="plus" class="w-4 h-4 text-studio-accent shrink-0 mt-0.5"></i><span>촬영 기획안 제공(촬영 리스트·구성안)</span></li>
-            <li class="flex items-start gap-2"><i data-lucide="plus" class="w-4 h-4 text-studio-accent shrink-0 mt-0.5"></i><span>사용 범위 제한 없는 상업적 사용권</span></li>
-          </ul>
-          <a href="mailto:dj7013@naver.com" target="_blank" rel="noopener noreferrer" class="pricing-cta-btn mt-6 inline-flex items-center justify-center border border-studio-bg/40 text-studio-bg text-sm font-medium px-5 py-2.5 rounded-full hover:bg-studio-bg hover:text-studio-text transition-colors duration-300">견적 문의</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- 패널: 영상 제작 (출장) -->
-    <section id="panel-video" class="price-panel mb-8">
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-start">
-        <!-- BASIC -->
-        <div class="rounded-xl border border-studio-border bg-studio-card p-8 flex flex-col shadow-sm h-full">
-          <span class="text-xs font-semibold tracking-widest text-studio-accent uppercase mb-1">BASIC</span>
-          <p class="text-sm text-studio-muted mb-4">SNS·홈페이지용 짧은 홍보 영상</p>
-          <p class="text-3xl font-light text-studio-text mb-1">₩ 600,000~</p>
-          <p class="flex items-center gap-1.5 text-xs text-studio-muted mb-6"><i data-lucide="clock" class="w-3.5 h-3.5"></i>30~60초 · Full HD</p>
-          <div class="border-t border-studio-border mb-4"></div>
-          <ul class="text-sm text-studio-muted space-y-3 leading-relaxed flex-grow">
-            <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-studio-accent shrink-0 mt-0.5"></i><span>컷편집</span></li>
-            <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-studio-accent shrink-0 mt-0.5"></i><span>색보정</span></li>
-            <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-studio-accent shrink-0 mt-0.5"></i><span>배경음악</span></li>
-          </ul>
-          <a href="mailto:dj7013@naver.com" target="_blank" rel="noopener noreferrer" class="pricing-cta-btn mt-6 inline-flex items-center justify-center border border-studio-accent text-studio-accent text-sm font-medium px-5 py-2.5 rounded-full hover:bg-studio-accent hover:text-white transition-colors duration-300">이 상품 견적받기</a>
-        </div>
-
-        <!-- STANDARD (추천) -->
-        <div class="relative rounded-xl bg-[#3E3229] ring-1 ring-black/5 p-8 flex flex-col shadow-[0_12px_32px_rgba(0,0,0,0.12)] lg:scale-105 z-10 h-full">
-          <span class="absolute -top-4 left-1/2 -translate-x-1/2 bg-studio-accent text-white text-sm font-bold tracking-wide px-4 py-1.5 rounded-full whitespace-nowrap shadow-md">⭐ 추천</span>
-          <span class="text-xs font-semibold tracking-widest text-[#D9B98C] uppercase mb-1">STANDARD</span>
-          <p class="text-sm text-studio-bg/70 mb-4">브랜드 대표 홍보영상</p>
-          <p class="text-4xl font-light text-studio-bg mb-1">₩ 1,300,000~</p>
-          <p class="flex items-center gap-1.5 text-xs text-studio-bg/70 mb-6"><i data-lucide="clock" class="w-3.5 h-3.5"></i>60~90초 · 4K</p>
-          <div class="border-t border-white/10 mb-4"></div>
-          <span class="inline-flex items-center gap-1 self-start text-[11px] font-medium text-white bg-studio-accent px-2.5 py-1 rounded-full mb-3">
-            <i data-lucide="corner-down-right" class="w-3.5 h-3.5"></i>
-            BASIC 구성 전체 포함
-          </span>
-          <ul class="text-sm text-studio-bg/70 space-y-3 leading-relaxed flex-grow">
-            <li class="flex items-start gap-2"><i data-lucide="plus" class="w-4 h-4 text-studio-accent shrink-0 mt-0.5"></i><span>스토리 구성</span></li>
-            <li class="flex items-start gap-2"><i data-lucide="plus" class="w-4 h-4 text-studio-accent shrink-0 mt-0.5"></i><span>자막</span></li>
-            <li class="flex items-start gap-2"><i data-lucide="plus" class="w-4 h-4 text-studio-accent shrink-0 mt-0.5"></i><span>썸네일 제작</span></li>
-          </ul>
-          <a href="mailto:dj7013@naver.com" target="_blank" rel="noopener noreferrer" class="pricing-cta-btn mt-6 inline-flex items-center justify-center bg-studio-bg text-studio-text text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-white transition-colors duration-300">이 상품 견적받기</a>
-        </div>
-
-        <!-- PROFESSIONAL -->
-        <div class="rounded-xl border border-studio-border bg-studio-card p-8 flex flex-col shadow-sm h-full">
-          <span class="text-xs font-semibold tracking-widest text-studio-accent uppercase mb-1">PROFESSIONAL</span>
-          <p class="text-sm text-studio-muted mb-4">기업·기관 프리미엄 영상</p>
-          <p class="text-3xl font-light text-studio-text mb-1">₩ 2,500,000~</p>
-          <p class="flex items-center gap-1.5 text-xs text-studio-muted mb-6"><i data-lucide="clock" class="w-3.5 h-3.5"></i>2~3분 · 4K</p>
-          <div class="border-t border-studio-border mb-4"></div>
-          <span class="inline-flex items-center gap-1 self-start text-[11px] font-medium text-white bg-studio-accent px-2.5 py-1 rounded-full mb-3">
-            <i data-lucide="corner-down-right" class="w-3.5 h-3.5"></i>
-            STANDARD 구성 전체 포함
-          </span>
-          <ul class="text-sm text-studio-muted space-y-3 leading-relaxed flex-grow">
-            <li class="flex items-start gap-2"><i data-lucide="plus" class="w-4 h-4 text-studio-accent shrink-0 mt-0.5"></i><span>사전 기획 회의</span></li>
-            <li class="flex items-start gap-2"><i data-lucide="plus" class="w-4 h-4 text-studio-accent shrink-0 mt-0.5"></i><span>촬영 대본(콘티) 제작</span></li>
-            <li class="flex items-start gap-2"><i data-lucide="plus" class="w-4 h-4 text-studio-accent shrink-0 mt-0.5"></i><span>인터뷰 촬영</span></li>
-            <li class="flex items-start gap-2"><i data-lucide="plus" class="w-4 h-4 text-studio-accent shrink-0 mt-0.5"></i><span>드론 촬영</span></li>
-            <li class="flex items-start gap-2"><i data-lucide="plus" class="w-4 h-4 text-studio-accent shrink-0 mt-0.5"></i><span>SNS용 숏폼 재편집 1편</span></li>
-          </ul>
-          <a href="mailto:dj7013@naver.com" target="_blank" rel="noopener noreferrer" class="pricing-cta-btn mt-6 inline-flex items-center justify-center border border-studio-accent text-studio-accent text-sm font-medium px-5 py-2.5 rounded-full hover:bg-studio-accent hover:text-white transition-colors duration-300">이 상품 견적받기</a>
-        </div>
-
-        <!-- SPECIAL -->
-        <div class="rounded-xl bg-[#1C1815] border border-studio-accent/20 p-8 flex flex-col shadow-sm h-full">
-          <span class="text-xs font-semibold tracking-widest text-studio-accent uppercase mb-1">SPECIAL</span>
-          <p class="text-sm text-studio-bg/60 mb-4">브랜드 필름·캠페인·시리즈 영상</p>
-          <p class="text-3xl font-light text-studio-bg mb-1">₩ 4,000,000~</p>
-          <p class="flex items-center gap-1.5 text-xs text-studio-bg/60 mb-6"><i data-lucide="clock" class="w-3.5 h-3.5"></i>3~5분 또는 시리즈 · 4K</p>
-          <div class="border-t border-white/10 mb-4"></div>
-          <span class="inline-flex items-center gap-1 self-start text-[11px] font-medium text-white bg-studio-accent px-2.5 py-1 rounded-full mb-3">
-            <i data-lucide="corner-down-right" class="w-3.5 h-3.5"></i>
-            PROFESSIONAL 구성 전체 포함
-          </span>
-          <ul class="text-sm text-studio-bg/60 space-y-3 leading-relaxed flex-grow">
-            <li class="flex items-start gap-2"><i data-lucide="plus" class="w-4 h-4 text-studio-accent shrink-0 mt-0.5"></i><span>기획 단계부터 참여</span></li>
-            <li class="flex items-start gap-2"><i data-lucide="plus" class="w-4 h-4 text-studio-accent shrink-0 mt-0.5"></i><span>SNS용 숏폼 재편집 3편</span></li>
-            <li class="flex items-start gap-2"><i data-lucide="plus" class="w-4 h-4 text-studio-accent shrink-0 mt-0.5"></i><span>사용 범위 제한 없는 상업적 사용권</span></li>
-          </ul>
-          <a href="mailto:dj7013@naver.com" target="_blank" rel="noopener noreferrer" class="pricing-cta-btn mt-6 inline-flex items-center justify-center border border-studio-bg/40 text-studio-bg text-sm font-medium px-5 py-2.5 rounded-full hover:bg-studio-bg hover:text-studio-text transition-colors duration-300">견적 문의</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- 패널: 사진+영상 패키지 -->
-    <section id="panel-package" class="price-panel mb-8">
-      <p class="text-sm text-studio-muted text-center mb-8">사진과 영상을 함께 진행하면 개별 신청 대비 약 10% 할인됩니다.</p>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-start">
-        <!-- BASIC -->
-        <div class="rounded-xl border border-studio-border bg-studio-card p-8 flex flex-col shadow-sm h-full">
-          <span class="text-xs font-semibold tracking-widest text-studio-accent uppercase mb-1">BASIC</span>
-          <p class="text-sm text-studio-muted mb-4">사진 BASIC + 영상 BASIC</p>
-          <p class="text-3xl font-light text-studio-text mb-1">₩ 900,000~</p>
-          <p class="text-xs text-studio-muted/70 line-through mb-6">개별 신청 시 ₩ 1,000,000~</p>
-          <div class="flex-grow"></div>
-          <a href="mailto:dj7013@naver.com" target="_blank" rel="noopener noreferrer" class="pricing-cta-btn mt-6 inline-flex items-center justify-center border border-studio-accent text-studio-accent text-sm font-medium px-5 py-2.5 rounded-full hover:bg-studio-accent hover:text-white transition-colors duration-300">이 상품 견적받기</a>
-        </div>
-
-        <!-- STANDARD (추천) -->
-        <div class="relative rounded-xl bg-[#3E3229] ring-1 ring-black/5 p-8 flex flex-col shadow-[0_12px_32px_rgba(0,0,0,0.12)] lg:scale-105 z-10 h-full">
-          <span class="absolute -top-4 left-1/2 -translate-x-1/2 bg-studio-accent text-white text-sm font-bold tracking-wide px-4 py-1.5 rounded-full whitespace-nowrap shadow-md">⭐ 추천</span>
-          <span class="text-xs font-semibold tracking-widest text-[#D9B98C] uppercase mb-1">STANDARD</span>
-          <p class="text-sm text-studio-bg/70 mb-4">사진 STANDARD + 영상 STANDARD</p>
-          <p class="text-4xl font-light text-studio-bg mb-1">₩ 1,800,000~</p>
-          <p class="text-xs text-studio-bg/50 line-through mb-6">개별 신청 시 ₩ 2,000,000~</p>
-          <div class="flex-grow"></div>
-          <a href="mailto:dj7013@naver.com" target="_blank" rel="noopener noreferrer" class="pricing-cta-btn mt-6 inline-flex items-center justify-center bg-studio-bg text-studio-text text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-white transition-colors duration-300">이 상품 견적받기</a>
-        </div>
-
-        <!-- PROFESSIONAL -->
-        <div class="rounded-xl border border-studio-border bg-studio-card p-8 flex flex-col shadow-sm h-full">
-          <span class="text-xs font-semibold tracking-widest text-studio-accent uppercase mb-1">PROFESSIONAL</span>
-          <p class="text-sm text-studio-muted mb-4">사진 PROFESSIONAL + 영상 PROFESSIONAL</p>
-          <p class="text-3xl font-light text-studio-text mb-1">₩ 3,300,000~</p>
-          <p class="text-xs text-studio-muted/70 line-through mb-6">개별 신청 시 ₩ 3,700,000~</p>
-          <div class="flex-grow"></div>
-          <a href="mailto:dj7013@naver.com" target="_blank" rel="noopener noreferrer" class="pricing-cta-btn mt-6 inline-flex items-center justify-center border border-studio-accent text-studio-accent text-sm font-medium px-5 py-2.5 rounded-full hover:bg-studio-accent hover:text-white transition-colors duration-300">이 상품 견적받기</a>
-        </div>
-
-        <!-- SPECIAL -->
-        <div class="rounded-xl bg-[#1C1815] border border-studio-accent/20 p-8 flex flex-col shadow-sm h-full">
-          <span class="text-xs font-semibold tracking-widest text-studio-accent uppercase mb-1">SPECIAL</span>
-          <p class="text-sm text-studio-bg/60 mb-4">대형·통합 프로젝트</p>
-          <p class="text-3xl font-light text-studio-bg mb-1">별도 견적</p>
-          <p class="text-xs text-studio-bg/50 mb-6">프로젝트 규모에 맞춰 상담 후 안내</p>
-          <div class="flex-grow"></div>
-          <a href="mailto:dj7013@naver.com" target="_blank" rel="noopener noreferrer" class="pricing-cta-btn mt-6 inline-flex items-center justify-center border border-studio-bg/40 text-studio-bg text-sm font-medium px-5 py-2.5 rounded-full hover:bg-studio-bg hover:text-studio-text transition-colors duration-300">견적 문의</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- 패널: 숏폼·인터뷰 (회차제) -->
-    <section id="panel-session" class="price-panel mb-8">
-      <p class="text-sm text-studio-muted text-center mb-8">회차권으로 구매할수록 저렴해집니다. 결제일로부터 6개월간 사용 가능합니다.</p>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto items-start">
-        <!-- 숏폼 -->
-        <div class="rounded-xl border border-studio-border bg-studio-card p-8 flex flex-col shadow-sm h-full">
-          <h4 class="text-lg font-medium text-studio-text mb-1">숏폼</h4>
-          <p class="text-sm text-studio-muted mb-6">릴스·쇼츠, 1분 내외 세로 영상</p>
-          <div class="space-y-3 flex-grow">
-            <div class="flex items-center justify-between border-b border-studio-border pb-3">
-              <span class="text-sm text-studio-muted">1회</span>
-              <span class="text-base font-medium text-studio-text">₩ 300,000</span>
-            </div>
-            <div class="flex items-center justify-between border-b border-studio-border pb-3">
-              <span class="text-sm text-studio-muted">3회 <span class="text-xs text-studio-accent">(10% 할인)</span></span>
-              <span class="text-right">
-                <span class="block text-base font-medium text-studio-text">₩ 810,000</span>
-                <span class="block text-xs text-studio-muted">회당 ₩ 270,000</span>
-              </span>
-            </div>
-            <div class="flex items-center justify-between">
-              <span class="text-sm text-studio-muted">6회 <span class="text-xs text-studio-accent">(20% 할인)</span></span>
-              <span class="text-right">
-                <span class="block text-base font-medium text-studio-text">₩ 1,440,000</span>
-                <span class="block text-xs text-studio-muted">회당 ₩ 240,000</span>
-              </span>
-            </div>
-          </div>
-          <a href="mailto:dj7013@naver.com" target="_blank" rel="noopener noreferrer" class="pricing-cta-btn mt-6 inline-flex items-center justify-center border border-studio-accent text-studio-accent text-sm font-medium px-5 py-2.5 rounded-full hover:bg-studio-accent hover:text-white transition-colors duration-300">이 상품 견적받기</a>
-        </div>
-
-        <!-- 인터뷰 영상 -->
-        <div class="rounded-xl border border-studio-border bg-studio-card p-8 flex flex-col shadow-sm h-full">
-          <h4 class="text-lg font-medium text-studio-text mb-1">인터뷰 영상</h4>
-          <p class="text-sm text-studio-muted mb-6">1~2분 · 1인 출연 · 한 장소 · 1회 촬영 기준</p>
-          <div class="space-y-3 flex-grow">
-            <div class="flex items-center justify-between border-b border-studio-border pb-3">
-              <span class="text-sm text-studio-muted">1회</span>
-              <span class="text-base font-medium text-studio-text">₩ 350,000</span>
-            </div>
-            <div class="flex items-center justify-between border-b border-studio-border pb-3">
-              <span class="text-sm text-studio-muted">3회 <span class="text-xs text-studio-accent">(10% 할인)</span></span>
-              <span class="text-right">
-                <span class="block text-base font-medium text-studio-text">₩ 945,000</span>
-                <span class="block text-xs text-studio-muted">회당 ₩ 315,000</span>
-              </span>
-            </div>
-            <div class="flex items-center justify-between">
-              <span class="text-sm text-studio-muted">6회 <span class="text-xs text-studio-accent">(20% 할인)</span></span>
-              <span class="text-right">
-                <span class="block text-base font-medium text-studio-text">₩ 1,680,000</span>
-                <span class="block text-xs text-studio-muted">회당 ₩ 280,000</span>
-              </span>
-            </div>
-          </div>
-          <a href="mailto:dj7013@naver.com" target="_blank" rel="noopener noreferrer" class="pricing-cta-btn mt-6 inline-flex items-center justify-center border border-studio-accent text-studio-accent text-sm font-medium px-5 py-2.5 rounded-full hover:bg-studio-accent hover:text-white transition-colors duration-300">이 상품 견적받기</a>
-        </div>
-      </div>
-      <p class="text-xs text-studio-muted text-center mt-6">출연 인원·장소 추가 시 별도 협의</p>
-    </section>
-
-    <!-- 공통 안내 (탭과 무관하게 항상 노출) -->
-    <section class="border-t border-studio-border pt-12 mb-16">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-10">
-        <div class="flex gap-3">
-          <i data-lucide="map-pin" class="w-5 h-5 text-studio-accent shrink-0"></i>
-          <div>
-            <p class="text-sm font-medium text-studio-text mb-1">출장 지역</p>
-            <p class="text-xs text-studio-muted leading-relaxed">진주시 전역 무료 / 서부경남(사천·하동·산청·함안·의령·고성·남해) +50,000원 / 경남 기타 지역 +100,000원 / 그 외 지역 별도 협의</p>
-          </div>
-        </div>
-        <div class="flex gap-3">
-          <i data-lucide="refresh-cw" class="w-5 h-5 text-studio-accent shrink-0"></i>
-          <div>
-            <p class="text-sm font-medium text-studio-text mb-1">수정 정책</p>
-            <p class="text-xs text-studio-muted leading-relaxed">보정·편집 수정은 2회까지 무료이며, 3회부터 회당 추가 비용이 발생합니다.</p>
-          </div>
-        </div>
-        <div class="flex gap-3">
-          <i data-lucide="calculator" class="w-5 h-5 text-studio-accent shrink-0"></i>
-          <div>
-            <p class="text-sm font-medium text-studio-text mb-1">맞춤 견적</p>
-            <p class="text-xs text-studio-muted leading-relaxed">모든 촬영은 촬영 시간, 장소, 범위, 편집 난이도에 따라 견적이 달라질 수 있습니다. 상담 후 맞춤 견적을 안내드립니다.</p>
-          </div>
-        </div>
-        <div class="flex gap-3">
-          <i data-lucide="image" class="w-5 h-5 text-studio-accent shrink-0"></i>
-          <div>
-            <p class="text-sm font-medium text-studio-text mb-1">포트폴리오 사용</p>
-            <p class="text-xs text-studio-muted leading-relaxed">촬영 결과물 일부는 순간 스튜디오 포트폴리오(홈페이지·SNS)에 사용될 수 있으며, 원치 않으실 경우 사전에 말씀해 주세요.</p>
-          </div>
-        </div>
-        <div class="flex gap-3">
-          <i data-lucide="calendar" class="w-5 h-5 text-studio-accent shrink-0"></i>
-          <div>
-            <p class="text-sm font-medium text-studio-text mb-1">정기 촬영</p>
-            <p class="text-xs text-studio-muted leading-relaxed">월 1회 이상 정기 촬영 계약은 별도 요율로 안내드립니다.</p>
-          </div>
-        </div>
-        <div class="flex gap-3">
-          <i data-lucide="file-check" class="w-5 h-5 text-studio-accent shrink-0"></i>
-          <div>
-            <p class="text-sm font-medium text-studio-text mb-1">증빙 대응</p>
-            <p class="text-xs text-studio-muted leading-relaxed">전자세금계산서 발행 및 관공서·기관 지출증빙 대응이 가능합니다.</p>
-          </div>
-        </div>
-        <div class="flex gap-3">
-          <i data-lucide="user" class="w-5 h-5 text-studio-accent shrink-0"></i>
-          <div>
-            <p class="text-sm font-medium text-studio-text mb-1">개인 프로필 촬영</p>
-            <p class="text-xs text-studio-muted leading-relaxed">개인 프로필 촬영은 별도 문의로 진행합니다. 야외·현장 촬영 기반이며, 실내 스튜디오 촬영은 대여 스튜디오 이용 시 가능합니다(대여비 별도).</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 문의 CTA -->
-    <section class="text-center border-t border-studio-border pt-16">
-      <h4 class="text-lg font-light text-studio-text mb-6">촬영 및 제작 문의</h4>
-      <a href="mailto:dj7013@naver.com" class="inline-flex items-center gap-2 bg-studio-accent text-white text-sm font-medium px-8 py-3.5 rounded-full hover:bg-studio-text transition-colors duration-300">
-        <i data-lucide="mail" class="w-4 h-4"></i>
-        촬영 문의하기
-      </a>
-      <p class="mt-5 text-sm text-studio-muted">
-        <a href="https://instagram.com/sungan__studio" target="_blank" rel="noopener noreferrer" class="hover:text-studio-accent transition-colors">@sungan__studio</a>
-      </p>
-    </section>
   </main>
 
-  <footer class="bg-studio-card border-t border-studio-border py-8 transition-all duration-300">
-    <div class="max-w-6xl mx-auto px-6 text-center text-xs text-studio-muted">
-      <p>© 순간, 스튜디오</p>
-      <p class="mt-1 text-sm text-studio-muted/70">
-        <a href="mailto:dj7013@naver.com" class="hover:text-studio-accent transition-colors">dj7013@naver.com</a>
+  <footer class="bg-footerbg border-t border-white/5 py-10">
+    <div class="max-w-6xl mx-auto px-6 text-center text-xs text-footertext">
+      <p class="text-white/70">&copy; 순간, 스튜디오</p>
+      <p class="mt-2">
+        <a href="mailto:dj7013@naver.com" class="hover:text-goldlight transition-colors">dj7013@naver.com</a>
         ·
-        <a href="https://instagram.com/sungan__studio" target="_blank" rel="noopener noreferrer" class="hover:text-studio-accent transition-colors">@sungan__studio</a>
+        <a href="https://instagram.com/sungan__studio" target="_blank" rel="noopener noreferrer" class="hover:text-goldlight transition-colors">@sungan__studio</a>
       </p>
     </div>
   </footer>
 
+  <a id="floatingMailBtn" href="mailto:dj7013@naver.com" aria-label="이메일 문의"
+     class="floating-mail-btn fixed bottom-5 right-5 md:bottom-8 md:right-8 z-[9999] w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center opacity-0 pointer-events-none">
+    <i data-lucide="mail" class="w-5 h-5 md:w-6 md:h-6"></i>
+  </a>
+
+  <script src="assets/theme.js"></script>
   <script>
     lucide.createIcons();
-    // 모바일 햄버거 토글
-    document.getElementById('mobileMenuBtn').addEventListener('click', () => {
-      const m = document.getElementById('mobileMenu');
-      m.classList.toggle('hidden');
-    });
+    Theme.initHeader();
+    Theme.initMobileMenu();
+    Theme.initImageProtection();
+    Theme.initFloatingButton();
   </script>
   <script>
     (function () {
@@ -482,6 +463,5 @@
       activate(valid.includes(location.hash.slice(1)) ? location.hash.slice(1) : 'photo', false);
     })();
   </script>
-  <script src="floating-cta.js"></script>
 </body>
 </html>
