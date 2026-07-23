@@ -15,119 +15,144 @@
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@0.263.0"></script>
+  <link rel="stylesheet" href="assets/theme.css">
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            studio: {
-              bg: '#FAF7F2',
-              text: '#2B2420',
-              muted: '#5C534E',
-              accent: '#8C7A6B',
-              border: '#EBE5DC',
-              card: '#FFFFFF'
-            }
+            bg: 'var(--bg)', card: 'var(--card)', tint: 'var(--tint)',
+            ink: 'var(--ink)', muted: 'var(--muted)',
+            gold: 'var(--gold)', goldlight: 'var(--gold-light)', goldhover: 'var(--gold-hover)',
+            border: 'var(--border)', footerbg: 'var(--footer-bg)', footertext: 'var(--footer-text)'
           },
           fontFamily: { sans: ['Pretendard', 'sans-serif'] }
         }
       }
     }
   </script>
-  <style>
-    body {
-      font-family: 'Pretendard', sans-serif;
-      background-color: #FAF7F2;
-      color: #2B2420;
-    }
-  </style>
 </head>
-<body class="bg-studio-bg text-studio-text min-h-screen flex flex-col">
-  <header class="bg-studio-bg border-b border-studio-border/50 sticky top-0 z-40">
+<body class="min-h-screen flex flex-col bg-bg text-ink">
+  <header id="siteHeader" class="site-header">
     <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
-      <a href="index.html" class="flex flex-col">
-        <span class="text-xl font-bold tracking-widest">순간, 스튜디오</span>
-        <span class="text-[10px] tracking-widest text-studio-muted">SUNGAN STUDIO</span>
+      <a href="index.html" class="flex flex-col leading-none">
+        <span class="text-lg md:text-xl font-bold tracking-widest">순간, 스튜디오</span>
+        <span class="site-header-sub text-[10px] tracking-widest">SUNGAN STUDIO</span>
       </a>
       <nav class="hidden md:flex space-x-10 text-sm font-medium">
-        <a href="photo.html" class="text-studio-muted hover:text-studio-text">사진</a>
-        <a href="video.html" class="text-studio-muted hover:text-studio-text">영상</a>
-        <a href="pricing.html" class="text-studio-muted hover:text-studio-text">가격 안내</a>
-        <a href="about.html" class="text-studio-text border-b border-studio-accent pb-1">소개</a>
+        <a href="photo.html" class="nav-link">사진</a>
+        <a href="video.html" class="nav-link">영상</a>
+        <a href="pricing.html" class="nav-link">가격 안내</a>
+        <a href="about.html" class="nav-link active">소개</a>
       </nav>
-      <!-- 모바일 토글 버튼 -->
-      <button id="mobileMenuBtn" class="md:hidden text-studio-text focus:outline-none" aria-label="메뉴 열기">
+      <button id="mobileMenuBtn" class="md:hidden focus:outline-none" aria-label="메뉴 열기">
         <i data-lucide="menu" class="w-6 h-6"></i>
       </button>
     </div>
-    <!-- 모바일 드롭다운 메뉴 -->
-    <div id="mobileMenu" class="hidden md:hidden bg-studio-bg border-b border-studio-border px-6 py-6 space-y-4 shadow-sm">
-      <a href="photo.html" class="block text-base font-medium text-studio-muted hover:text-studio-text py-2">사진</a>
-      <a href="video.html" class="block text-base font-medium text-studio-muted hover:text-studio-text py-2">영상</a>
-      <a href="pricing.html" class="block text-base font-medium text-studio-muted hover:text-studio-text py-2">가격 안내</a>
-      <a href="about.html" class="block text-base font-medium text-studio-text py-2">소개</a>
+    <div id="mobileMenu" class="mobile-menu-panel hidden md:hidden px-6 py-6 space-y-4">
+      <a href="photo.html" class="block text-base font-medium py-2">사진</a>
+      <a href="video.html" class="block text-base font-medium py-2">영상</a>
+      <a href="pricing.html" class="block text-base font-medium py-2">가격 안내</a>
+      <a href="about.html" class="block text-base font-medium py-2 active">소개</a>
     </div>
   </header>
 
-  <main class="flex-grow max-w-4xl mx-auto px-6 py-12">
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center mb-16">
-      <div class="md:col-span-5 aspect-[3/4] rounded-xl overflow-hidden">
-        <img src="images/about.jpg" alt="스튜디오 디렉터들의 작업 전경" class="w-full h-full object-cover">
-      </div>
-      <div class="md:col-span-7 space-y-6">
-        <span class="text-xs font-semibold tracking-widest text-studio-accent uppercase">ABOUT SUNGAN</span>
-        <h3 class="text-2xl md:text-3xl font-light text-studio-text leading-tight">순간, 스튜디오</h3>
-        <p class="text-studio-muted text-sm leading-relaxed font-light">
-          진주에서 활동하고 있는 사진·영상 스튜디오입니다.<br>
-          행사, 프로필, 제품, 인테리어, 음식 사진과 홍보·광고 영상을 만듭니다.
-        </p>
-      </div>
+  <main class="flex-grow">
+    <div class="page-header-band pt-32 pb-12 px-6 text-center">
+      <span class="page-header-eyebrow block mb-3">About</span>
+      <h1 class="page-header-title">소개</h1>
     </div>
 
-    <!-- 문의 폼이 생략되고 플레이스홀더로 정제된 핵심 스튜디오 연락 상세 패널 -->
-    <div class="border-t border-studio-border pt-12 text-sm font-light text-studio-muted space-y-6">
-      <h4 class="text-base font-semibold text-studio-text uppercase tracking-wider">STUDIO DIRECTORY</h4>
-
-      <div class="space-y-4 max-w-xl">
-        <div class="flex items-center gap-3">
-          <i data-lucide="map-pin" class="w-5 h-5 text-studio-accent"></i>
-          <span>주소: 경상남도 진주시 봉곡동 474-39, 101호</span>
+    <!-- 텍스트 블록 + 이미지 + 골드 프레임 라인 (index S7과 동일한 레이아웃 언어) -->
+    <section class="bg-bg py-20 md:py-28">
+      <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-[55%_45%] gap-12 md:gap-16 items-center">
+        <div class="reveal md:pr-8">
+          <span class="block text-xs font-semibold tracking-[0.3em] text-gold uppercase mb-4">About Sungan</span>
+          <h2 class="text-[clamp(1.75rem,4vw,2.75rem)] font-extrabold tracking-[-0.02em] text-ink mb-6">순간, 스튜디오</h2>
+          <p class="text-sm md:text-base text-muted leading-relaxed mb-3">
+            진주에서 활동하고 있는 사진·영상 스튜디오입니다.
+          </p>
+          <p class="text-sm md:text-base text-muted leading-relaxed">
+            행사, 프로필, 제품, 인테리어, 음식 사진과 홍보·광고 영상을 만듭니다.
+          </p>
         </div>
-        <div class="flex items-center gap-3">
-          <i data-lucide="phone" class="w-5 h-5 text-studio-accent"></i>
-          <span>연락처: 010-2506-4076</span>
-        </div>
-        <div class="flex items-center gap-3">
-          <i data-lucide="mail" class="w-5 h-5 text-studio-accent"></i>
-          <span>이메일: <a href="mailto:dj7013@naver.com" class="underline hover:text-studio-accent transition-colors">dj7013@naver.com</a></span>
-        </div>
-        <div class="flex items-center gap-3">
-          <i data-lucide="instagram" class="w-5 h-5 text-studio-accent"></i>
-          <span>인스타그램: <a href="https://instagram.com/sungan__studio" target="_blank" rel="noopener noreferrer" class="underline hover:text-studio-accent transition-colors">@sungan__studio</a></span>
+        <div class="reveal relative" style="transition-delay:0.1s">
+          <div class="absolute -top-3 -left-3 w-16 h-16 border-t-2 border-l-2 border-gold hidden md:block z-10"></div>
+          <div class="relative aspect-[4/5] rounded-lg overflow-hidden bg-card border border-border">
+            <img id="aboutImg" src="images/about.jpg" alt="순간, 스튜디오 로고" class="w-full h-full object-cover opacity-0 transition-opacity duration-500" loading="lazy" draggable="false">
+            <span id="aboutImgPlaceholder" class="absolute inset-0 flex items-center justify-center text-xs text-muted bg-tint">이미지 준비 중</span>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
+
+    <!-- STUDIO DIRECTORY -->
+    <section class="bg-tint py-20 md:py-28">
+      <div class="max-w-4xl mx-auto px-6">
+        <div class="reveal text-center mb-12">
+          <span class="block text-xs font-semibold tracking-[0.3em] text-gold uppercase mb-3">Studio Directory</span>
+          <h2 class="text-[clamp(1.5rem,3vw,2rem)] font-extrabold tracking-[-0.02em] text-ink">연락처 안내</h2>
+        </div>
+        <div class="reveal card-surface rounded-xl p-8 md:p-10 grid grid-cols-1 sm:grid-cols-2 gap-6" style="transition-delay:0.08s">
+          <div class="flex items-center gap-3">
+            <i data-lucide="map-pin" class="w-5 h-5 text-gold shrink-0"></i>
+            <span class="text-sm text-muted">경상남도 진주시 봉곡동 474-39, 101호</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <i data-lucide="phone" class="w-5 h-5 text-gold shrink-0"></i>
+            <span class="text-sm text-muted">010-2506-4076</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <i data-lucide="mail" class="w-5 h-5 text-gold shrink-0"></i>
+            <span class="text-sm text-muted"><a href="mailto:dj7013@naver.com" class="underline hover:text-gold transition-colors">dj7013@naver.com</a></span>
+          </div>
+          <div class="flex items-center gap-3">
+            <i data-lucide="instagram" class="w-5 h-5 text-gold shrink-0"></i>
+            <span class="text-sm text-muted"><a href="https://instagram.com/sungan__studio" target="_blank" rel="noopener noreferrer" class="underline hover:text-gold transition-colors">@sungan__studio</a></span>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <footer class="bg-studio-card border-t border-studio-border py-8 transition-all duration-300">
-    <div class="max-w-6xl mx-auto px-6 text-center text-xs text-studio-muted">
-      <p>© 순간, 스튜디오</p>
-      <p class="mt-1 text-sm text-studio-muted/70">
-        <a href="mailto:dj7013@naver.com" class="hover:text-studio-accent transition-colors">dj7013@naver.com</a>
+  <footer class="bg-footerbg border-t border-white/5 py-10">
+    <div class="max-w-6xl mx-auto px-6 text-center text-xs text-footertext">
+      <p class="text-white/70">&copy; 순간, 스튜디오</p>
+      <p class="mt-2">
+        <a href="mailto:dj7013@naver.com" class="hover:text-goldlight transition-colors">dj7013@naver.com</a>
         ·
-        <a href="https://instagram.com/sungan__studio" target="_blank" rel="noopener noreferrer" class="hover:text-studio-accent transition-colors">@sungan__studio</a>
+        <a href="https://instagram.com/sungan__studio" target="_blank" rel="noopener noreferrer" class="hover:text-goldlight transition-colors">@sungan__studio</a>
       </p>
     </div>
   </footer>
 
+  <a id="floatingMailBtn" href="mailto:dj7013@naver.com" aria-label="이메일 문의"
+     class="floating-mail-btn fixed bottom-5 right-5 md:bottom-8 md:right-8 z-[9999] w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center opacity-0 pointer-events-none">
+    <i data-lucide="mail" class="w-5 h-5 md:w-6 md:h-6"></i>
+  </a>
+
+  <script src="assets/theme.js"></script>
   <script>
     lucide.createIcons();
-    // 모바일 햄버거 토글
-    document.getElementById('mobileMenuBtn').addEventListener('click', () => {
-      const m = document.getElementById('mobileMenu');
-      m.classList.toggle('hidden');
+    Theme.initHeader();
+    Theme.initMobileMenu();
+    Theme.initImageProtection();
+    Theme.initReveal();
+    Theme.initFloatingButton();
+
+    const aboutImg = document.getElementById('aboutImg');
+    const aboutImgPlaceholder = document.getElementById('aboutImgPlaceholder');
+    aboutImg.addEventListener('load', () => {
+      aboutImg.classList.remove('opacity-0');
+      aboutImgPlaceholder.classList.add('hidden');
     });
+    aboutImg.addEventListener('error', () => {
+      aboutImgPlaceholder.classList.remove('hidden');
+    });
+    if (aboutImg.complete && aboutImg.naturalWidth > 0) {
+      aboutImg.classList.remove('opacity-0');
+      aboutImgPlaceholder.classList.add('hidden');
+    }
   </script>
-  <script src="floating-cta.js"></script>
 </body>
 </html>
