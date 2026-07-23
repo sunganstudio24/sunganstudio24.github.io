@@ -1,0 +1,299 @@
+/* ==========================================================================
+   순간, 스튜디오 — 공용 라이트 테마 (웜 아이보리)
+   전 페이지(index/photo/video/pricing/about)가 이 파일 하나를 공유한다.
+   색상 값을 바꿀 일이 생기면 :root 변수만 고치면 된다.
+
+   대비 검증(WCAG AA 4.5:1, 2026-07 기준):
+   - --gold(#8C6B1F) on --bg(#FAF9F6)  ≈ 4.70:1  / on --card(#FFFFFF) ≈ 4.95:1  → 통과
+   - #FFFFFF(흰 텍스트/아이콘) on --gold(#8C6B1F)                     ≈ 4.95:1  → 통과
+   - --muted(#55565B) on --bg(#FAF9F6) ≈ 6.95:1  / on --card(#FFFFFF) ≈ 7.32:1  → 통과
+   요청 스펙의 텍스트용 골드 #A9852F는 흰/아이보리 배경에서 약 3.3~3.45:1로 AA 미달이라
+   위 --gold(#8C6B1F)로 조정해 사용한다. 장식 전용(텍스트가 아닌 라인·미세 hover 강조)에는
+   더 밝은 --gold-light(#C9A24B)를 그대로 사용한다.
+   ========================================================================== */
+
+:root {
+  --bg: #FAF9F6;
+  --card: #FFFFFF;
+  --tint: #F1EEE7;
+  --ink: #1C1C1E;
+  --muted: #55565B;
+  --gold: #8C6B1F;        /* 텍스트·아이콘·버튼 채움용 (AA 안전 진한 골드) */
+  --gold-hover: #74591A;  /* gold 요소 hover 시 살짝 더 진하게 */
+  --gold-light: #C9A24B;  /* 장식 라인·미세 hover 강조 전용 (텍스트/아이콘 채움 금지) */
+  --border: #E7E4DD;
+  --footer-bg: #1A1A1C;
+  --footer-text: #9BA0A8;
+  --shadow: 0 2px 16px rgba(20, 20, 20, 0.06);
+  --shadow-hover: 0 8px 28px rgba(20, 20, 20, 0.10);
+}
+
+body {
+  font-family: 'Pretendard', sans-serif;
+  background-color: var(--bg);
+  color: var(--ink);
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-thumb { background: var(--gold-light); }
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* 이미지 보호: 드래그 및 선택 방지 */
+img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* --------------------------------------------------------------------------
+   헤더: 히어로 위(index 최초 진입)에서는 투명 + 흰 텍스트, scrollY>80 이후
+   또는 서브페이지(히어로 없음)에서는 처음부터 밝은 블러 배경 + 진한 텍스트.
+   -------------------------------------------------------------------------- */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  color: #fff;
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition: background-color 0.5s ease, backdrop-filter 0.5s ease, border-color 0.5s ease, color 0.5s ease;
+}
+.site-header .site-header-sub { color: rgba(255, 255, 255, 0.7); transition: color 0.5s ease; }
+.site-header.is-scrolled {
+  background: rgba(250, 249, 246, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: var(--ink);
+  border-bottom-color: var(--border);
+}
+.site-header.is-scrolled .site-header-sub { color: var(--muted); }
+
+.nav-link { opacity: 0.85; transition: opacity 0.3s ease, color 0.3s ease; }
+.nav-link:hover { opacity: 1; color: var(--gold); }
+.nav-link.active { opacity: 1; color: var(--gold); }
+
+/* 모바일 드롭다운은 헤더 투명 여부와 무관하게 항상 밝은 카드형 배경 사용 */
+.mobile-menu-panel {
+  background: var(--card);
+  border-top: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+.mobile-menu-panel a { color: var(--muted); }
+.mobile-menu-panel a:hover { color: var(--ink); }
+.mobile-menu-panel a.active { color: var(--gold); font-weight: 600; }
+
+/* 서브페이지 콤팩트 헤더 밴드 */
+.page-header-band {
+  background: var(--tint);
+  border-bottom: 1px solid var(--border);
+}
+.page-header-eyebrow {
+  color: var(--gold);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+.page-header-title {
+  color: var(--ink);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+}
+
+/* --------------------------------------------------------------------------
+   버튼 공통
+   -------------------------------------------------------------------------- */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--gold);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.875rem;
+  padding: 0.875rem 2rem;
+  border-radius: 9999px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.btn-primary:hover { background: var(--gold-hover); }
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: #fff;
+  color: var(--ink);
+  border: 1px solid var(--border);
+  font-weight: 500;
+  font-size: 0.875rem;
+  padding: 0.875rem 2rem;
+  border-radius: 9999px;
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+.btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+
+/* 히어로 위(투명 헤더 상태)에서 쓰는 보조 버튼: 흰 보더 + 흰 텍스트 */
+.btn-secondary-on-dark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  font-weight: 500;
+  font-size: 0.875rem;
+  padding: 0.875rem 2rem;
+  border-radius: 9999px;
+  transition: border-color 0.3s ease, color 0.3s ease, background-color 0.3s ease;
+}
+.btn-secondary-on-dark:hover { border-color: var(--gold-light); color: var(--gold-light); }
+
+/* 플로팅 문의 버튼: 주 버튼과 동일하게 AA 안전 진한 골드 채움 + 흰 아이콘
+   (스펙 원안은 #C9A24B였으나 흰 아이콘 대비가 2.4:1로 미달해 --gold로 조정) */
+.floating-mail-btn {
+  background: var(--gold);
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(140, 107, 31, 0.28);
+  transition: background-color 0.3s ease, transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease;
+}
+.floating-mail-btn:hover { background: var(--gold-hover); box-shadow: 0 10px 26px rgba(140, 107, 31, 0.34); }
+
+/* --------------------------------------------------------------------------
+   카드 / 필드 타일
+   -------------------------------------------------------------------------- */
+.card-surface {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  box-shadow: var(--shadow);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.card-surface:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+
+.field-tile {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  box-shadow: var(--shadow);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.field-tile:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+.field-tile-label { position: relative; display: inline-block; }
+.field-tile-label::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -5px;
+  width: 0;
+  height: 2px;
+  background: var(--gold-light);
+  transition: width 0.3s ease, left 0.3s ease;
+}
+.field-tile:hover .field-tile-label::after { width: 70%; left: 15%; }
+
+/* 갤러리 hover 오버레이 (index 대표작 / photo 갤러리 공용) */
+.gallery-hover-overlay {
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0) 60%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.group:hover .gallery-hover-overlay { opacity: 1; }
+.gallery-hover-tag {
+  transform: translateY(8px);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+.group:hover .gallery-hover-tag { transform: translateY(0); opacity: 1; }
+
+/* --------------------------------------------------------------------------
+   태그 필터 버튼 (photo.html / video.html 공용)
+   -------------------------------------------------------------------------- */
+.tag-filter-btn {
+  color: var(--muted);
+  background: var(--card);
+  border: 1px solid var(--border);
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+.tag-filter-btn:hover { border-color: var(--gold-light); }
+.tag-filter-btn.is-active {
+  color: var(--gold);
+  border-color: var(--gold);
+  font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   가격 탭 (pricing.html) — JS는 aria-selected 속성만 토글하고, 색상은
+   전부 이 CSS 셀렉터가 담당한다 (classList 기반 전환 금지 유지).
+   -------------------------------------------------------------------------- */
+.price-tab { color: var(--muted); background: transparent; border: 1px solid transparent; }
+.price-tab:hover { color: var(--ink); }
+.price-tab[aria-selected="true"] {
+  background: var(--card);
+  color: var(--gold);
+  border-color: var(--gold);
+  box-shadow: var(--shadow);
+  font-weight: 600;
+}
+.price-panel { display: none; }
+.price-panel.active { display: block; animation: panelIn 0.35s ease; }
+@keyframes panelIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* STANDARD(추천) 가격 카드 강조 */
+.price-card-featured { border: 1.5px solid var(--gold); box-shadow: var(--shadow-hover); }
+.price-card-badge {
+  background: var(--gold);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(140, 107, 31, 0.3);
+}
+
+/* --------------------------------------------------------------------------
+   영상 세로 썸네일 회전 트릭 (video.html)
+   -------------------------------------------------------------------------- */
+.v-thumb-box { container-type: size; }
+.v-thumb-img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100cqh;
+  height: 100cqw;
+  max-width: none;
+  object-fit: cover;
+  transform: translate(-50%, -50%) rotate(-90deg);
+  transition: transform 0.5s;
+}
+.group:hover .v-thumb-img { transform: translate(-50%, -50%) rotate(-90deg) scale(1.05); }
+
+/* --------------------------------------------------------------------------
+   스크롤 리빌 / 카운트업 / 스크롤 인디케이터 (index.html)
+   -------------------------------------------------------------------------- */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.revealed { opacity: 1; transform: translateY(0); }
+
+@keyframes scrollBarMove {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(300%); }
+}
+.scroll-indicator-bar { animation: scrollBarMove 1.8s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .scroll-indicator-bar { animation: none !important; }
+  .price-panel.active { animation: none !important; }
+  * { scroll-behavior: auto !important; }
+}
