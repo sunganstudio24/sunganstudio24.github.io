@@ -235,23 +235,6 @@ img {
 }
 
 /* --------------------------------------------------------------------------
-   영상 세로 썸네일 회전 트릭 (video.html)
-   -------------------------------------------------------------------------- */
-.v-thumb-box { container-type: size; }
-.v-thumb-img {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 100cqh;
-  height: 100cqw;
-  max-width: none;
-  object-fit: cover;
-  transform: translate(-50%, -50%) rotate(-90deg);
-  transition: transform 0.5s;
-}
-.group:hover .v-thumb-img { transform: translate(-50%, -50%) rotate(-90deg) scale(1.05); }
-
-/* --------------------------------------------------------------------------
    스크롤 리빌 / 카운트업 / 스크롤 인디케이터 (index.html)
    -------------------------------------------------------------------------- */
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }

@@ -74,7 +74,7 @@
       </div>
 
       <!-- 비디오 그리드 -->
-      <div id="videoGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+      <div id="videoGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start"></div>
     </div>
   </main>
 
@@ -240,19 +240,17 @@
         // 세로(쇼츠) 영상은 검은 띠 없는 세로 원본 썸네일(oar2)을 우선 사용
         const thumbUrl = video.vertical ? `https://i.ytimg.com/vi/${video.youtubeId}/oar2.jpg` : hqThumbUrl;
 
-        // 썸네일 노드 생성 (카드 박스는 vertical 여부와 관계없이 16:9로 통일)
+        // 썸네일 박스: vertical이면 9:16 세로 카드, 아니면 기존 16:9
         const triggerDiv = document.createElement('div');
         triggerDiv.className = video.vertical
-          ? 'relative aspect-video overflow-hidden bg-ink cursor-pointer v-thumb-box'
+          ? 'relative aspect-[9/16] max-h-[70vh] md:max-h-none overflow-hidden bg-ink cursor-pointer'
           : 'relative aspect-video overflow-hidden bg-ink cursor-pointer';
 
         const img = document.createElement('img');
         img.src = thumbUrl;
         img.alt = video.title;
-        // 세로 영상은 썸네일을 90도 회전시켜 눕힌 뒤 16:9 박스를 여백 없이 채움
-        img.className = video.vertical
-          ? 'v-thumb-img opacity-95'
-          : 'w-full h-full object-cover opacity-95 transition duration-500 group-hover:scale-105';
+        // oar2 실패로 16:9 hqdefault로 폴백된 경우에도 object-cover로 9:16 박스에 맞춰 중앙 크롭
+        img.className = 'w-full h-full object-cover opacity-95 transition duration-500 group-hover:scale-105';
         img.loading = 'lazy';
         if (video.vertical) {
           // oar2 썸네일이 없는 영상일 경우 hqdefault로 폴백 (1회만 시도)
