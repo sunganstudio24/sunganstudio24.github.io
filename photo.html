@@ -323,6 +323,9 @@
       }
       emptyState.classList.add('hidden');
       appendNextBatch();
+      // 초기 렌더/필터 변경 직후에도 뷰포트가 넓어 스크롤이 발생하지 않는 화면에서는
+      // scroll 이벤트 자체가 안 일어나므로, 여기서 한 번 직접 근접 여부를 확인한다.
+      checkSentinelProximity();
     }
 
     // 전체 데이터에 실제로 존재하는 태그만 TAG_ORDER 순서로 추출
@@ -389,29 +392,33 @@
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
-        if (getColumnCount() === columnEls.length) return;
+        if (getColumnCount() !== columnEls.length) {
+          // 재구성 전에 이미 로드된 이미지들의 실제 종횡비를 idx 기준으로 캡처
+          // (DOM 순회 순서는 컬럼별로 묶여 있어 filteredList 순서와 다르므로
+          // data-filtered-idx로 정확히 역참조한다)
+          const aspectByIdx = {};
+          document.querySelectorAll('#photoGrid img').forEach((img) => {
+            const idx = Number(img.dataset.filteredIdx);
+            aspectByIdx[idx] = (img.naturalWidth || 4) / (img.naturalHeight || 3);
+          });
 
-        // 재구성 전에 이미 로드된 이미지들의 실제 종횡비를 idx 기준으로 캡처
-        // (DOM 순회 순서는 컬럼별로 묶여 있어 filteredList 순서와 다르므로
-        // data-filtered-idx로 정확히 역참조한다)
-        const aspectByIdx = {};
-        document.querySelectorAll('#photoGrid img').forEach((img) => {
-          const idx = Number(img.dataset.filteredIdx);
-          aspectByIdx[idx] = (img.naturalWidth || 4) / (img.naturalHeight || 3);
-        });
+          const loadedSoFar = filteredList.slice(0, renderedCount);
+          buildColumns();
+          loadedSoFar.forEach((photo, idx) => {
+            const aspectRatio = aspectByIdx[idx] || 4 / 3;
+            const colIndex = shortestColumnIndex();
+            const colEl = columnEls[colIndex];
+            const colWidth = colEl.getBoundingClientRect().width;
+            const tagRowHeight = (photo.tags && photo.tags.length > 0) ? TAG_ROW_ESTIMATE : 0;
+            columnHeights[colIndex] += (colWidth / aspectRatio) + tagRowHeight + COLUMN_GAP;
+            colEl.appendChild(createPhotoCard(photo, idx));
+          });
+          lucide.createIcons();
+        }
 
-        const loadedSoFar = filteredList.slice(0, renderedCount);
-        buildColumns();
-        loadedSoFar.forEach((photo, idx) => {
-          const aspectRatio = aspectByIdx[idx] || 4 / 3;
-          const colIndex = shortestColumnIndex();
-          const colEl = columnEls[colIndex];
-          const colWidth = colEl.getBoundingClientRect().width;
-          const tagRowHeight = (photo.tags && photo.tags.length > 0) ? TAG_ROW_ESTIMATE : 0;
-          columnHeights[colIndex] += (colWidth / aspectRatio) + tagRowHeight + COLUMN_GAP;
-          colEl.appendChild(createPhotoCard(photo, idx));
-        });
-        lucide.createIcons();
+        // 컬럼 수 변경 여부와 무관하게, 리사이즈로 뷰포트가 커져 문서 높이가
+        // 부족해질 수 있으므로 근접 여부를 다시 확인한다.
+        checkSentinelProximity();
       }, 200);
     });
 
@@ -426,7 +433,11 @@
     function checkSentinelProximity() {
       if (renderedCount >= filteredList.length) return;
       const obs = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && window.scrollY > 0 && renderedCount < filteredList.length) {
+        // window.scrollY > 0 조건은 제거했다: 첫 배치만으로 문서 높이가 뷰포트를
+        // 넘지 못하는 넓은 화면에서는 스크롤이 아예 발생하지 않아 scrollY가 계속
+        // 0으로 남고, 이 조건 때문에 추가 배치가 영구히 로드되지 않는 버그가 있었다.
+        // 근접 판단은 IntersectionObserver의 rootMargin(200px)이 이미 담당한다.
+        if (entries[0].isIntersecting && renderedCount < filteredList.length) {
           appendNextBatch();
           // 배치를 추가해도 이미지가 아직 로드되기 전이라 문서 높이가 그대로일 수 있고,
           // 이미 스크롤 최대치에 도달해 있으면 사용자의 추가 스크롤(=새 scroll 이벤트) 자체가

@@ -73,8 +73,11 @@
         <div class="flex flex-nowrap md:flex-wrap justify-start md:justify-center gap-2 max-w-xl mx-auto overflow-x-auto no-scrollbar px-6 -mx-6 md:px-0 md:mx-auto" id="tagFilterContainer"></div>
       </div>
 
-      <!-- 비디오 그리드 -->
-      <div id="videoGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start"></div>
+      <!-- 비디오 그리드: CSS grid 대신 JS가 컬럼별 실제 누적 높이를 추적해 매번
+           가장 짧은 컬럼에 카드를 배치하는 masonry 방식(photo.html의 photoGrid와 동일한
+           구조). 세로(9:16) 숏폼과 가로(16:9) 카드가 섞여도 행 높이가 가장 큰 카드에
+           맞춰 늘어나며 빈 공간이 생기는 문제를 피한다. -->
+      <div id="videoGrid" class="flex gap-6 items-start"></div>
     </div>
   </main>
 
@@ -228,95 +231,177 @@
       });
     }
 
-    function renderVideos() {
+    // 뷰포트 폭에 따른 컬럼 수 (기존 grid-cols-1 md:grid-cols-2 lg:grid-cols-3와
+    // 동일한 Tailwind 브레이크포인트 기준: md=768px, lg=1024px)
+    function getColumnCount() {
+      const w = window.innerWidth;
+      if (w >= 1024) return 3;
+      if (w >= 768) return 2;
+      return 1;
+    }
+
+    let columnEls = [];
+    let columnHeights = []; // 각 컬럼에 누적된 추정 높이(px) 추적
+    let renderGeneration = 0; // 필터 변경/리사이즈로 그리드가 재구성될 때마다 증가
+    const COLUMN_GAP = 24; // Tailwind gap-6(1.5rem) = 24px, 컬럼 높이 계산에 동일하게 반영
+
+    // 카드 하단 정보 영역(카테고리·제목 1줄 기준)의 대략적인 높이(px)
+    const INFO_ESTIMATE = 92;
+    // 태그 뱃지 한 줄이 추가될 때 더해지는 대략적인 높이(px)
+    const TAG_ROW_ESTIMATE = 34;
+
+    // 현재 컬럼 수에 맞춰 빈 컬럼 div들을 새로 만든다 (필터 변경/초기 로드/브레이크포인트
+    // 전환 시에만 호출)
+    function buildColumns() {
+      renderGeneration++;
       const grid = document.getElementById('videoGrid');
       grid.innerHTML = '';
-      const list = computeFilteredList();
+      const count = getColumnCount();
+      columnEls = [];
+      columnHeights = new Array(count).fill(0);
+      for (let i = 0; i < count; i++) {
+        const col = document.createElement('div');
+        col.className = 'flex-1 min-w-0 flex flex-col gap-6';
+        grid.appendChild(col);
+        columnEls.push(col);
+      }
+    }
 
-      list.forEach(video => {
-        const card = document.createElement('div');
-        card.className = 'group relative card-surface overflow-hidden rounded-xl flex flex-col';
-        const hqThumbUrl = `https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`;
-        // 세로(쇼츠) 영상은 검은 띠 없는 세로 원본 썸네일(oar2)을 우선 사용
-        const thumbUrl = video.vertical ? `https://i.ytimg.com/vi/${video.youtubeId}/oar2.jpg` : hqThumbUrl;
+    // 현재 누적 높이가 가장 낮은(짧은) 컬럼의 인덱스를 반환
+    function shortestColumnIndex() {
+      let idx = 0;
+      for (let i = 1; i < columnHeights.length; i++) {
+        if (columnHeights[i] < columnHeights[idx]) idx = i;
+      }
+      return idx;
+    }
 
-        // 썸네일 박스: vertical이면 9:16 세로 카드, 아니면 기존 16:9
-        const triggerDiv = document.createElement('div');
-        triggerDiv.className = video.vertical
-          ? 'relative aspect-[9/16] max-h-[70vh] md:max-h-none overflow-hidden bg-ink cursor-pointer'
-          : 'relative aspect-video overflow-hidden bg-ink cursor-pointer';
+    function createVideoCard(video) {
+      const card = document.createElement('div');
+      card.className = 'group relative card-surface overflow-hidden rounded-xl flex flex-col';
+      const hqThumbUrl = `https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`;
+      // 세로(쇼츠) 영상은 검은 띠 없는 세로 원본 썸네일(oar2)을 우선 사용
+      const thumbUrl = video.vertical ? `https://i.ytimg.com/vi/${video.youtubeId}/oar2.jpg` : hqThumbUrl;
 
-        const img = document.createElement('img');
-        img.src = thumbUrl;
-        img.alt = video.title;
-        // oar2 실패로 16:9 hqdefault로 폴백된 경우에도 object-cover로 9:16 박스에 맞춰 중앙 크롭
-        img.className = 'w-full h-full object-cover opacity-95 transition duration-500 group-hover:scale-105';
-        img.loading = 'lazy';
-        if (video.vertical) {
-          // oar2 썸네일이 없는 영상일 경우 hqdefault로 폴백 (1회만 시도)
-          img.addEventListener('error', function onErr() {
-            img.removeEventListener('error', onErr);
-            img.src = hqThumbUrl;
-          });
-        }
+      // 썸네일 박스: vertical이면 9:16 세로 카드, 아니면 기존 16:9
+      const triggerDiv = document.createElement('div');
+      triggerDiv.className = video.vertical
+        ? 'relative aspect-[9/16] max-h-[70vh] md:max-h-none overflow-hidden bg-ink cursor-pointer'
+        : 'relative aspect-video overflow-hidden bg-ink cursor-pointer';
 
-        const playOverlay = document.createElement('div');
-        playOverlay.className = 'absolute inset-0 flex items-center justify-center';
-
-        const playBtn = document.createElement('div');
-        playBtn.className = 'w-12 h-12 rounded-full bg-gold text-white shadow-lg flex items-center justify-center group-hover:bg-goldhover group-hover:scale-105 transition duration-300';
-
-        const playIcon = document.createElement('i');
-        playIcon.setAttribute('data-lucide', 'play');
-        playIcon.className = 'ml-1 w-5 h-5 fill-current';
-
-        playBtn.appendChild(playIcon);
-        playOverlay.appendChild(playBtn);
-        triggerDiv.appendChild(img);
-        triggerDiv.appendChild(playOverlay);
-
-        // 설명부 노드 생성 (textContent 속성을 통해 완전 안전하게 문자열 인젝션 차단)
-        const infoDiv = document.createElement('div');
-        infoDiv.className = 'p-5 flex-grow flex flex-col justify-between';
-
-        const subDiv = document.createElement('div');
-        const catSpan = document.createElement('span');
-        catSpan.className = 'text-[9px] text-gold font-semibold uppercase mb-1 block';
-        catSpan.textContent = getCategoryLabel(video.category);
-
-        const titleH = document.createElement('h4');
-        titleH.className = 'text-sm font-semibold text-ink tracking-wide';
-        titleH.textContent = video.title;
-
-        subDiv.appendChild(catSpan);
-        subDiv.appendChild(titleH);
-        infoDiv.appendChild(subDiv);
-
-        // 태그 뱃지 (연한 배경의 작은 pill, 사이트 톤에 맞춤)
-        if (video.tags && video.tags.length > 0) {
-          const tagRow = document.createElement('div');
-          tagRow.className = 'flex flex-wrap gap-1 mt-3';
-          video.tags.forEach((tag) => {
-            const pill = document.createElement('span');
-            pill.className = 'text-[10px] leading-none px-2 py-1 rounded-full bg-tint text-muted whitespace-nowrap';
-            pill.textContent = tag;
-            tagRow.appendChild(pill);
-          });
-          infoDiv.appendChild(tagRow);
-        }
-
-        card.appendChild(triggerDiv);
-        card.appendChild(infoDiv);
-
-        // 자바스크립트 기반 리스너 매핑 (인라인 onclick 전면 우회)
-        triggerDiv.addEventListener('click', () => {
-          openTheater(video.youtubeId, video.title, video.vertical);
+      const img = document.createElement('img');
+      img.src = thumbUrl;
+      img.alt = video.title;
+      // oar2 실패로 16:9 hqdefault로 폴백된 경우에도 object-cover로 9:16 박스에 맞춰 중앙 크롭
+      img.className = 'w-full h-full object-cover opacity-95 transition duration-500 group-hover:scale-105';
+      img.loading = 'lazy';
+      if (video.vertical) {
+        // oar2 썸네일이 없는 영상일 경우 hqdefault로 폴백 (1회만 시도)
+        img.addEventListener('error', function onErr() {
+          img.removeEventListener('error', onErr);
+          img.src = hqThumbUrl;
         });
+      }
 
-        grid.appendChild(card);
+      const playOverlay = document.createElement('div');
+      playOverlay.className = 'absolute inset-0 flex items-center justify-center';
+
+      const playBtn = document.createElement('div');
+      playBtn.className = 'w-12 h-12 rounded-full bg-gold text-white shadow-lg flex items-center justify-center group-hover:bg-goldhover group-hover:scale-105 transition duration-300';
+
+      const playIcon = document.createElement('i');
+      playIcon.setAttribute('data-lucide', 'play');
+      playIcon.className = 'ml-1 w-5 h-5 fill-current';
+
+      playBtn.appendChild(playIcon);
+      playOverlay.appendChild(playBtn);
+      triggerDiv.appendChild(img);
+      triggerDiv.appendChild(playOverlay);
+
+      // 설명부 노드 생성 (textContent 속성을 통해 완전 안전하게 문자열 인젝션 차단)
+      const infoDiv = document.createElement('div');
+      infoDiv.className = 'p-5 flex-grow flex flex-col justify-between';
+
+      const subDiv = document.createElement('div');
+      const catSpan = document.createElement('span');
+      catSpan.className = 'text-[9px] text-gold font-semibold uppercase mb-1 block';
+      catSpan.textContent = getCategoryLabel(video.category);
+
+      const titleH = document.createElement('h4');
+      titleH.className = 'text-sm font-semibold text-ink tracking-wide';
+      titleH.textContent = video.title;
+
+      subDiv.appendChild(catSpan);
+      subDiv.appendChild(titleH);
+      infoDiv.appendChild(subDiv);
+
+      // 태그 뱃지 (연한 배경의 작은 pill, 사이트 톤에 맞춤)
+      if (video.tags && video.tags.length > 0) {
+        const tagRow = document.createElement('div');
+        tagRow.className = 'flex flex-wrap gap-1 mt-3';
+        video.tags.forEach((tag) => {
+          const pill = document.createElement('span');
+          pill.className = 'text-[10px] leading-none px-2 py-1 rounded-full bg-tint text-muted whitespace-nowrap';
+          pill.textContent = tag;
+          tagRow.appendChild(pill);
+        });
+        infoDiv.appendChild(tagRow);
+      }
+
+      card.appendChild(triggerDiv);
+      card.appendChild(infoDiv);
+
+      // 자바스크립트 기반 리스너 매핑 (인라인 onclick 전면 우회)
+      triggerDiv.addEventListener('click', () => {
+        openTheater(video.youtubeId, video.title, video.vertical);
       });
+
+      return card;
+    }
+
+    // 썸네일 비율(가로 16:9 / 세로 9:16, 세로는 모바일 1열에서 max-h-[70vh] 캡 반영)과
+    // 하단 정보 영역(카테고리·제목·태그) 추정 높이를 더해 가장 짧은 컬럼에 배치한다.
+    // 실제 이미지 로딩과 무관하게 vertical 플래그만으로 비율이 고정돼 있어, photo.html과
+    // 달리 이미지 프리로드 없이 동기적으로 바로 배치할 수 있다.
+    function placeVideoCard(video) {
+      const colIndex = shortestColumnIndex();
+      const colEl = columnEls[colIndex];
+      const colWidth = colEl.getBoundingClientRect().width;
+
+      let thumbHeight;
+      if (video.vertical) {
+        thumbHeight = colWidth * (16 / 9);
+        if (columnEls.length === 1) {
+          // md 미만(1열)에서만 max-h-[70vh] 캡이 적용된다
+          thumbHeight = Math.min(thumbHeight, window.innerHeight * 0.7);
+        }
+      } else {
+        thumbHeight = colWidth * (9 / 16);
+      }
+
+      const tagRowHeight = (video.tags && video.tags.length > 0) ? TAG_ROW_ESTIMATE : 0;
+      columnHeights[colIndex] += thumbHeight + INFO_ESTIMATE + tagRowHeight + COLUMN_GAP;
+      colEl.appendChild(createVideoCard(video));
+    }
+
+    function renderVideos() {
+      buildColumns();
+      const list = computeFilteredList();
+      list.forEach(video => placeVideoCard(video));
       lucide.createIcons();
     }
+
+    // 창 크기 변경으로 컬럼 수 자체가 바뀌어야 할 때만 컬럼을 다시 만들고 전체를
+    // 재배치한다 (16건 전체를 매번 다시 그리는 정도는 photo.html과 달리 페이지네이션이
+    // 없어 비용이 크지 않다)
+    let resizeTimer = null;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        if (getColumnCount() === columnEls.length) return;
+        renderVideos();
+      }, 200);
+    });
 
     // URL 파라미터(?tag=)로 전달된 태그를 초기 필터로 적용
     (function applyTagFromUrl() {
