@@ -1,6 +1,6 @@
 /* ==========================================================================
    순간, 스튜디오 — 공용 라이트 테마 (웜 아이보리)
-   전 페이지(index/photo/video/pricing/about)가 이 파일 하나를 공유한다.
+   전 페이지(index/photo/video/about)가 이 파일 하나를 공유한다.
    색상 값을 바꿀 일이 생기면 :root 변수만 고치면 된다.
 
    대비 검증(WCAG AA 4.5:1, 2026-07 기준):
@@ -232,34 +232,6 @@ img {
   color: var(--gold);
   border-color: var(--gold);
   font-weight: 600;
-}
-
-/* --------------------------------------------------------------------------
-   가격 탭 (pricing.html) — JS는 aria-selected 속성만 토글하고, 색상은
-   전부 이 CSS 셀렉터가 담당한다 (classList 기반 전환 금지 유지).
-   -------------------------------------------------------------------------- */
-.price-tab { color: var(--muted); background: transparent; border: 1px solid transparent; }
-.price-tab:hover { color: var(--ink); }
-.price-tab[aria-selected="true"] {
-  background: var(--card);
-  color: var(--gold);
-  border-color: var(--gold);
-  box-shadow: var(--shadow);
-  font-weight: 600;
-}
-.price-panel { display: none; }
-.price-panel.active { display: block; animation: panelIn 0.35s ease; }
-@keyframes panelIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* STANDARD(추천) 가격 카드 강조 */
-.price-card-featured { border: 1.5px solid var(--gold); box-shadow: var(--shadow-hover); }
-.price-card-badge {
-  background: var(--gold);
-  color: #fff;
-  box-shadow: 0 4px 12px rgba(140, 107, 31, 0.3);
 }
 
 /* --------------------------------------------------------------------------

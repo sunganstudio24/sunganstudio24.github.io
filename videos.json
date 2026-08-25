@@ -1,5 +1,62 @@
 [
   {
+    "youtubeId": "NawsYrz_1Xo",
+    "category": "event",
+    "title": "청년공예창작",
+    "tags": ["행사", "관공서·지자체"]
+  },
+  {
+    "youtubeId": "EukOhJWtqYE",
+    "category": "event",
+    "title": "건강플러스 가드닝 교실",
+    "tags": ["행사", "관공서·지자체"]
+  },
+  {
+    "youtubeId": "TwEL82i955g",
+    "category": "event",
+    "title": "청년멘토단과 함께하는 아크릴 공예",
+    "tags": ["행사", "관공서·지자체"]
+  },
+  {
+    "youtubeId": "E24HFBtcmys",
+    "category": "event",
+    "title": "청년공예창작",
+    "tags": ["숏폼"],
+    "vertical": true
+  },
+  {
+    "youtubeId": "Bijs5NCC6V0",
+    "category": "event",
+    "title": "건강플러스 가드닝 교실",
+    "tags": ["숏폼"],
+    "vertical": true
+  },
+  {
+    "youtubeId": "Zd_o0qmALVY",
+    "category": "event",
+    "title": "청년멘토단과 함께하는 아크릴 공예",
+    "tags": ["숏폼"],
+    "vertical": true
+  },
+  {
+    "youtubeId": "w0uHjuwez6Q",
+    "category": "promo",
+    "title": "진주성 홍보영상",
+    "tags": ["관공서·지자체"]
+  },
+  {
+    "youtubeId": "QHr1mLu94KA",
+    "category": "promo",
+    "title": "진주유등 홍보영상",
+    "tags": ["관공서·지자체"]
+  },
+  {
+    "youtubeId": "Z3b7YQRL_d0",
+    "category": "promo",
+    "title": "진주남강 홍보영상",
+    "tags": ["관공서·지자체"]
+  },
+  {
     "youtubeId": "AZxAu4Go2P0",
     "category": "promo",
     "title": "짐플릭스 진주시청점 — 홍보영상",
