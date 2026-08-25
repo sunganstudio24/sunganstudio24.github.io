@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <title>영상 — 순간, 스튜디오</title>
   <meta name="description" content="경남 진주 순간, 스튜디오의 영상 포트폴리오. 홍보 필름, 행사 아카이빙, 광고·커머셜 영상 작업을 확인해보세요.">
   <link rel="canonical" href="https://sunganstudio24.github.io/video.html">
@@ -15,7 +18,7 @@
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@0.263.0"></script>
-  <link rel="stylesheet" href="assets/theme.css">
+  <link rel="stylesheet" href="assets/theme.css?v=20260825">
   <script>
     tailwind.config = {
       theme: {
@@ -105,7 +108,7 @@
     <i data-lucide="mail" class="w-5 h-5 md:w-6 md:h-6"></i>
   </a>
 
-  <script src="assets/theme.js"></script>
+  <script src="assets/theme.js?v=20260825"></script>
   <script>
     Theme.initHeader();
     Theme.initMobileMenu();
@@ -145,14 +148,14 @@
     }
 
     // 태그 사전 + 영상 데이터를 함께 로드한 뒤 렌더링 (둘 다 준비된 시점에 한 번만 그림)
-    const tagDictPromise = fetch('data/tag-dictionary.json')
+    const tagDictPromise = fetch('data/tag-dictionary.json?v=20260825')
       .then(res => res.json())
       .catch(err => {
         console.warn("data/tag-dictionary.json을 불러오지 못해 태그 정렬 순서 없이 진행합니다.", err);
         return [];
       });
 
-    const videoDataPromise = fetch('videos.json')
+    const videoDataPromise = fetch('videos.json?v=20260825')
       .then(res => res.json())
       .then(data => shuffleArray(data))
       .catch(err => {
