@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>작업 — 순간, 스튜디오</title>
+  <meta name="description" content="경남 진주 순간, 스튜디오가 함께한 프로젝트. 관공서·기업·매장의 사진과 영상 작업을 프로젝트별로 확인해보세요.">
+  <link rel="canonical" href="https://sunganstudio24.github.io/works.html">
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <meta property="og:title" content="작업 — 순간, 스튜디오">
+  <meta property="og:description" content="경남 진주 순간, 스튜디오가 함께한 프로젝트. 관공서·기업·매장의 사진과 영상 작업을 프로젝트별로 확인해보세요.">
+  <meta property="og:image" content="https://sunganstudio24.github.io/images/about.jpg">
+  <meta property="og:url" content="https://sunganstudio24.github.io/works.html">
+  <meta property="og:type" content="website">
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@0.263.0"></script>
+  <link rel="stylesheet" href="assets/theme.css?v=20260825">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bg: 'var(--bg)', card: 'var(--card)', tint: 'var(--tint)',
+            ink: 'var(--ink)', muted: 'var(--muted)',
+            gold: 'var(--gold)', goldlight: 'var(--gold-light)', goldhover: 'var(--gold-hover)',
+            border: 'var(--border)', footerbg: 'var(--footer-bg)', footertext: 'var(--footer-text)'
+          },
+          fontFamily: { sans: ['Pretendard', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="min-h-screen flex flex-col bg-bg text-ink">
+  <header id="siteHeader" class="site-header">
+    <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+      <a href="index.html" class="flex flex-col leading-none">
+        <span class="text-lg md:text-xl font-bold tracking-widest">순간, 스튜디오</span>
+        <span class="site-header-sub text-[10px] tracking-widest">SUNGAN STUDIO</span>
+      </a>
+      <nav class="hidden md:flex space-x-10 text-sm font-medium">
+        <a href="photo.html" class="nav-link">사진</a>
+        <a href="works.html" class="nav-link active">영상</a>
+        <a href="about.html" class="nav-link">소개</a>
+      </nav>
+      <button id="mobileMenuBtn" class="md:hidden focus:outline-none" aria-label="메뉴 열기">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
+    </div>
+    <div id="mobileMenu" class="mobile-menu-panel hidden md:hidden px-6 py-6 space-y-4">
+      <a href="photo.html" class="block text-base font-medium py-2">사진</a>
+      <a href="works.html" class="block text-base font-medium py-2 active">영상</a>
+      <a href="about.html" class="block text-base font-medium py-2">소개</a>
+    </div>
+  </header>
+
+  <main class="flex-grow w-full">
+    <div class="page-header-band pt-32 pb-12 px-6 text-center">
+      <span class="page-header-eyebrow block mb-3">Works</span>
+      <h1 class="page-header-title">작업</h1>
+      <p class="mt-4 text-sm text-muted" style="word-break:keep-all">함께한 곳과 결과물을 프로젝트별로 정리했습니다.</p>
+    </div>
+    <div class="max-w-6xl mx-auto px-6 py-12 w-full">
+      <div id="typeTabs" class="flex flex-nowrap md:flex-wrap justify-start md:justify-center gap-2 overflow-x-auto no-scrollbar mb-12"></div>
+      <div id="projectGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"></div>
+      <div class="text-center mt-20 text-sm text-muted space-x-6">
+        <a href="photo.html" class="text-gold hover:text-goldhover">사진 전체 아카이브 →</a>
+        <a href="video.html" class="text-gold hover:text-goldhover">영상 전체 아카이브 →</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- 프로젝트 상세 -->
+  <div id="projectModal" class="fixed inset-0 z-40 bg-bg overflow-y-auto" style="display:none">
+    <div class="max-w-6xl mx-auto px-6 py-8">
+      <div class="flex justify-end"><button id="closeProjectBtn" class="p-2 text-muted hover:text-ink" aria-label="닫기"><i data-lucide="x" class="w-7 h-7"></i></button></div>
+      <p id="pmClient" class="text-xs font-semibold tracking-[0.2em] text-gold mb-2"></p>
+      <h2 id="pmTitle" class="text-2xl md:text-4xl font-extrabold text-ink mb-3" style="word-break:keep-all"></h2>
+      <div id="pmMeta" class="flex flex-wrap gap-2 mb-10"></div>
+      <div id="pmVideos" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10"></div>
+      <div id="pmPhotos" class="columns-2 md:columns-3 gap-4 [&>*]:mb-4"></div>
+    </div>
+  </div>
+
+  <!-- 사진 크게 보기 -->
+  <div id="photoViewer" class="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4" style="display:none">
+    <img id="photoViewerImg" class="max-w-full max-h-full object-contain" alt="">
+  </div>
+
+  <div id="theater" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-sm flex flex-col justify-between items-center p-3 md:p-6" style="display: none;">
+    <div class="w-full flex justify-between items-center text-white/80 text-[10px] uppercase">
+      <span>Cinema Theater</span>
+      <button id="closeTheaterBtn" class="text-white/60 hover:text-white p-2 focus:outline-none"><i data-lucide="x" class="w-6 h-6"></i></button>
+    </div>
+    <div id="theaterFrame" class="w-full max-w-4xl aspect-video rounded-lg overflow-hidden bg-black shadow-2xl">
+      <iframe id="theaterIframe" src="" class="w-full h-full border-0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+    <div class="text-center text-white pb-6">
+      <h4 id="theaterTitle" class="text-lg font-light tracking-wide"></h4>
+    </div>
+  </div>
+
+  <footer class="bg-footerbg border-t border-white/5 py-10">
+    <div class="max-w-6xl mx-auto px-6 text-center text-xs text-footertext">
+      <p class="text-white/70">&copy; 순간, 스튜디오</p>
+      <p class="mt-2">
+        <a href="mailto:dj7013@naver.com" class="hover:text-goldlight transition-colors">dj7013@naver.com</a>
+        ·
+        <a href="https://instagram.com/sungan__studio" target="_blank" rel="noopener noreferrer" class="hover:text-goldlight transition-colors">@sungan__studio</a>
+      </p>
+    </div>
+  </footer>
+
+  <a id="floatingMailBtn" href="mailto:dj7013@naver.com" aria-label="이메일 문의"
+     class="floating-mail-btn fixed bottom-5 right-5 md:bottom-8 md:right-8 z-[9999] w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center opacity-0 pointer-events-none">
+    <i data-lucide="mail" class="w-5 h-5 md:w-6 md:h-6"></i>
+  </a>
+
+  <script src="assets/theme.js?v=20260825"></script>
+  <script>
+    Theme.initHeader(); Theme.initMobileMenu(); Theme.initImageProtection(); Theme.initFloatingButton();
+    const yt = (id) => `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
+    let projects = [], types = {}, active = 'all';
+
+    Promise.all([
+      fetch('data/projects.json?v=20261029').then(r => r.json()),
+      fetch('images.json?v=20261029').then(r => r.json()),
+      fetch('videos.json?v=20261029').then(r => r.json())
+    ]).then(([pj, images, videos]) => {
+      types = pj.types;
+      const vmap = new Map(videos.map(v => [v.youtubeId, v]));
+      projects = pj.projects.map(p => ({
+        ...p,
+        photos: images.filter(i => (p.photoTitles || []).some(t => (i.title || '').startsWith(t))),
+        vids: (p.videos || []).map(id => vmap.get(id) || { youtubeId: id, title: p.title })
+      }));
+      renderTabs(); renderGrid();
+      const hash = decodeURIComponent(location.hash.slice(1));
+      const hit = projects.find(p => p.id === hash);
+      if (hit) openProject(hit);
+    });
+
+    function renderTabs() {
+      const box = document.getElementById('typeTabs');
+      box.innerHTML = '';
+      [['all', '전체'], ...Object.entries(types)].forEach(([k, label]) => {
+        const n = k === 'all' ? projects.length : projects.filter(p => p.types.includes(k)).length;
+        if (!n) return;
+        const b = document.createElement('button');
+        b.className = 'tag-filter-btn shrink-0 px-4 py-2 text-xs rounded-full transition-colors duration-300' + (active === k ? ' is-active' : '');
+        b.textContent = `${label} ${n}`;
+        b.onclick = () => { active = k; renderTabs(); renderGrid(); };
+        box.appendChild(b);
+      });
+    }
+
+    function renderGrid() {
+      const grid = document.getElementById('projectGrid');
+      grid.innerHTML = '';
+      projects.filter(p => active === 'all' || p.types.includes(active)).forEach(p => {
+        const a = document.createElement('button');
+        a.className = 'group text-left';
+        const cover = p.photos[0] ? p.photos[0].file : yt(p.vids[0].youtubeId);
+        const badge = [p.photos.length ? `사진 ${p.photos.length}` : '', p.vids.length ? `영상 ${p.vids.length}` : ''].filter(Boolean).join(' · ');
+        a.innerHTML = `
+          <div class="relative aspect-[4/3] overflow-hidden rounded-xl bg-tint">
+            <img src="${cover}" alt="" loading="lazy" draggable="false" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]">
+            ${p.vids.length ? '<span class="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/60 flex items-center justify-center"><i data-lucide="play" class="w-4 h-4 text-white"></i></span>' : ''}
+          </div>
+          <p class="mt-4 text-xs font-semibold text-gold tracking-wide">${p.client}</p>
+          <h3 class="mt-1 text-base md:text-lg font-bold text-ink" style="word-break:keep-all">${p.title}</h3>
+          <p class="mt-1 text-xs text-muted">${p.types.map(t => types[t]).join(' · ')} — ${badge}</p>`;
+        a.onclick = () => openProject(p);
+        grid.appendChild(a);
+      });
+      lucide.createIcons();
+    }
+
+    function openProject(p) {
+      document.getElementById('pmClient').textContent = p.client;
+      document.getElementById('pmTitle').textContent = p.title;
+      document.getElementById('pmMeta').innerHTML = p.types.map(t => `<span class="px-3 py-1 text-xs rounded-full border border-border text-muted">${types[t]}</span>`).join('');
+      const vbox = document.getElementById('pmVideos');
+      vbox.innerHTML = '';
+      p.vids.forEach(v => {
+        const b = document.createElement('button');
+        b.className = 'group text-left';
+        b.innerHTML = `<div class="relative ${v.vertical ? 'aspect-[9/16] max-h-[520px] mx-auto' : 'aspect-video'} overflow-hidden rounded-xl bg-black">
+            <img src="${yt(v.youtubeId)}" class="w-full h-full object-cover opacity-90 group-hover:opacity-100" alt="">
+            <span class="absolute inset-0 flex items-center justify-center"><span class="w-14 h-14 rounded-full bg-white/90 flex items-center justify-center"><i data-lucide="play" class="w-6 h-6 text-ink"></i></span></span>
+          </div><p class="mt-2 text-sm text-ink">${v.title || ''}</p>`;
+        b.onclick = () => openTheater(v);
+        vbox.appendChild(b);
+      });
+      const pbox = document.getElementById('pmPhotos');
+      pbox.innerHTML = '';
+      p.photos.forEach(ph => {
+        const img = document.createElement('img');
+        img.src = ph.file; img.loading = 'lazy'; img.draggable = false;
+        img.className = 'w-full rounded-lg cursor-zoom-in break-inside-avoid';
+        img.onclick = () => { document.getElementById('photoViewerImg').src = ph.file; document.getElementById('photoViewer').style.display = 'flex'; };
+        pbox.appendChild(img);
+      });
+      document.getElementById('projectModal').style.display = 'block';
+      document.getElementById('projectModal').scrollTop = 0;
+      document.body.style.overflow = 'hidden';
+      history.replaceState(null, '', '#' + p.id);
+      lucide.createIcons();
+    }
+
+    function closeProject() {
+      document.getElementById('projectModal').style.display = 'none';
+      document.body.style.overflow = '';
+      history.replaceState(null, '', location.pathname);
+    }
+    document.getElementById('closeProjectBtn').onclick = closeProject;
+    document.getElementById('photoViewer').onclick = (e) => { e.currentTarget.style.display = 'none'; };
+
+    function openTheater(v) {
+      document.getElementById('theaterIframe').src = `https://www.youtube.com/embed/${v.youtubeId}?autoplay=1&rel=0`;
+      document.getElementById('theaterTitle').textContent = v.title || '';
+      document.getElementById('theater').style.display = 'flex';
+    }
+    document.getElementById('closeTheaterBtn').onclick = () => {
+      document.getElementById('theaterIframe').src = '';
+      document.getElementById('theater').style.display = 'none';
+    };
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      if (document.getElementById('theater').style.display === 'flex') document.getElementById('closeTheaterBtn').click();
+      else if (document.getElementById('photoViewer').style.display === 'flex') document.getElementById('photoViewer').style.display = 'none';
+      else closeProject();
+    });
+    lucide.createIcons();
+  </script>
+</body>
+</html>

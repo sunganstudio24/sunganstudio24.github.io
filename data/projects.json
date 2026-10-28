@@ -1,0 +1,288 @@
+{
+  "types": {
+    "gov": "관공서·지자체",
+    "brand": "기업·브랜드",
+    "space": "매장·공간",
+    "event": "행사"
+  },
+  "projects": [
+    {
+      "id": "wolasan",
+      "client": "진주시 · 한국산림보호협회",
+      "title": "2026 월아산 산불조심 캠페인 걷기대회",
+      "types": [
+        "gov",
+        "event"
+      ],
+      "photoTitles": [
+        "2026 월아산 산불조심 캠페인 걷기대회"
+      ],
+      "videos": [
+        "TV7Z5vGaL-o"
+      ],
+      "featured": true
+    },
+    {
+      "id": "chorang",
+      "client": "사천 다슬기초량마을",
+      "title": "마을 홈페이지 촬영 · 알밤 체험 영상",
+      "types": [
+        "gov"
+      ],
+      "photoTitles": [
+        "홈페이지 - 마을"
+      ],
+      "videos": [
+        "U2f0daboxKs"
+      ],
+      "featured": true
+    },
+    {
+      "id": "dental",
+      "client": "진주50플러스치과",
+      "title": "병원 인테리어 · 의료진 프로필",
+      "types": [
+        "brand",
+        "space"
+      ],
+      "photoTitles": [
+        "인테리어 - 진주50플러스치과",
+        "프로필 - 진주50플러스치과"
+      ],
+      "videos": [],
+      "featured": true
+    },
+    {
+      "id": "gangnam",
+      "client": "진주시 강남지구 도시재생지원센터",
+      "title": "주민 프로그램 기록 영상 시리즈",
+      "types": [
+        "gov",
+        "event"
+      ],
+      "photoTitles": [],
+      "videos": [
+        "NawsYrz_1Xo",
+        "EukOhJWtqYE",
+        "TwEL82i955g",
+        "E24HFBtcmys",
+        "Bijs5NCC6V0",
+        "Zd_o0qmALVY"
+      ],
+      "featured": true
+    },
+    {
+      "id": "jinju-tour",
+      "client": "진주시",
+      "title": "진주 관광 홍보영상 (진주성 · 유등 · 남강)",
+      "types": [
+        "gov"
+      ],
+      "photoTitles": [],
+      "videos": [
+        "w0uHjuwez6Q",
+        "QHr1mLu94KA",
+        "Z3b7YQRL_d0"
+      ],
+      "featured": true
+    },
+    {
+      "id": "gymflix",
+      "client": "짐플릭스 진주시청점",
+      "title": "브랜드 인터뷰 · 인스타그램 릴스",
+      "types": [
+        "brand"
+      ],
+      "photoTitles": [],
+      "videos": [
+        "AZxAu4Go2P0",
+        "QRXIzlthbxE"
+      ],
+      "featured": true
+    },
+    {
+      "id": "gnu-camp",
+      "client": "경상국립대학교",
+      "title": "대학생 창업멘토링 캠프 스케치 영상",
+      "types": [
+        "event"
+      ],
+      "photoTitles": [],
+      "videos": [
+        "kzQbj5gTtH8"
+      ],
+      "featured": false
+    },
+    {
+      "id": "ttubeogi",
+      "client": "진주시",
+      "title": "진주 뚜벅이 여행",
+      "types": [
+        "gov"
+      ],
+      "photoTitles": [],
+      "videos": [
+        "e30IrVNrTI4"
+      ],
+      "featured": false
+    },
+    {
+      "id": "local-creator",
+      "client": "진주시",
+      "title": "진주 로컬크리에이터 워크숍",
+      "types": [
+        "gov",
+        "event"
+      ],
+      "photoTitles": [],
+      "videos": [
+        "m5Ro8NW7BbM"
+      ],
+      "featured": false
+    },
+    {
+      "id": "dashu",
+      "client": "DASHU",
+      "title": "다운텍 광고 영상",
+      "types": [
+        "brand"
+      ],
+      "photoTitles": [],
+      "videos": [
+        "6s4Xa_RxfUY"
+      ],
+      "featured": false
+    },
+    {
+      "id": "kindergarten",
+      "client": "진주유치원",
+      "title": "유치원 홍보영상",
+      "types": [
+        "brand"
+      ],
+      "photoTitles": [],
+      "videos": [
+        "VH4rf1hcCTw"
+      ],
+      "featured": false
+    },
+    {
+      "id": "munsan",
+      "client": "문산 선지국",
+      "title": "매장 인테리어 · 메뉴 촬영",
+      "types": [
+        "space"
+      ],
+      "photoTitles": [
+        "음식 - 문산 선지국",
+        "인테리어 - 문산 선지국"
+      ],
+      "videos": [],
+      "featured": false
+    },
+    {
+      "id": "boardgame",
+      "client": "보드게임 카페",
+      "title": "매장 인테리어 촬영",
+      "types": [
+        "space"
+      ],
+      "photoTitles": [
+        "인테리어 - 보드게임 카페"
+      ],
+      "videos": [],
+      "featured": false
+    },
+    {
+      "id": "bamsaem",
+      "client": "밤샘포차",
+      "title": "메뉴 촬영",
+      "types": [
+        "space"
+      ],
+      "photoTitles": [
+        "음식 - 밤샘포차"
+      ],
+      "videos": [],
+      "featured": false
+    },
+    {
+      "id": "yeoun",
+      "client": "여운포차",
+      "title": "메뉴 촬영",
+      "types": [
+        "space"
+      ],
+      "photoTitles": [
+        "음식 - 여운포차"
+      ],
+      "videos": [],
+      "featured": false
+    },
+    {
+      "id": "thomson",
+      "client": "톰슨함박",
+      "title": "메뉴 촬영",
+      "types": [
+        "space"
+      ],
+      "photoTitles": [
+        "음식 - 톰슨함박"
+      ],
+      "videos": [],
+      "featured": false
+    },
+    {
+      "id": "philiaout",
+      "client": "필리아웃",
+      "title": "메뉴 촬영",
+      "types": [
+        "space"
+      ],
+      "photoTitles": [
+        "음식 - 필리아웃"
+      ],
+      "videos": [],
+      "featured": false
+    },
+    {
+      "id": "gungjung",
+      "client": "궁중수라간",
+      "title": "메뉴 촬영",
+      "types": [
+        "space"
+      ],
+      "photoTitles": [
+        "음식 - 궁중수라간"
+      ],
+      "videos": [],
+      "featured": false
+    },
+    {
+      "id": "vr",
+      "client": "VR 장비",
+      "title": "제품 촬영",
+      "types": [
+        "brand"
+      ],
+      "photoTitles": [
+        "제품 - VR 장비"
+      ],
+      "videos": [],
+      "featured": false
+    },
+    {
+      "id": "boat",
+      "client": "수상 보트",
+      "title": "제품 촬영",
+      "types": [
+        "brand"
+      ],
+      "photoTitles": [
+        "제품 - 수상 보트"
+      ],
+      "videos": [],
+      "featured": false
+    }
+  ]
+}
