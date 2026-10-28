@@ -98,5 +98,29 @@
     "category": "event",
     "title": "진주 로컬크리에이터 워크숍",
     "tags": ["행사", "관공서·지자체"]
+  },
+  {
+    "youtubeId": "e30IrVNrTI4",
+    "category": "promo",
+    "title": "진주 뚜벅이 여행",
+    "tags": ["관공서·지자체"]
+  },
+  {
+    "youtubeId": "TV7Z5vGaL-o",
+    "category": "event",
+    "title": "월아산 산불 예방 캠페인 걷기 대회",
+    "tags": ["행사", "관공서·지자체"]
+  },
+  {
+    "youtubeId": "U2f0daboxKs",
+    "category": "event",
+    "title": "사천 다슬기초량마을 알밤 체험",
+    "tags": ["행사", "관공서·지자체"]
+  },
+  {
+    "youtubeId": "kzQbj5gTtH8",
+    "category": "event",
+    "title": "GNU 대학생 창업멘토링 캠프 스케치 영상",
+    "tags": ["행사", "교육"]
   }
 ]
