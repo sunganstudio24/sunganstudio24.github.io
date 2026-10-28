@@ -53,6 +53,13 @@
       }
     }
   </script>
+  <style>
+    .hero-slide { opacity: 0; transform: scale(1.0); transition: opacity 1.4s ease, transform 7s ease-out; }
+    .hero-slide.is-active { opacity: 1; transform: scale(1.08); }
+    .hero-dot { width: 22px; height: 2px; background: rgba(255,255,255,.35); transition: background .4s; }
+    .hero-dot.is-active { background: var(--gold-light); }
+    @media (prefers-reduced-motion: reduce) { .hero-slide, .hero-slide.is-active { transform: none; transition: opacity .6s; } }
+  </style>
 </head>
 <body class="min-h-screen flex flex-col bg-bg text-ink">
   <header id="siteHeader" class="site-header">
@@ -78,10 +85,8 @@
   <main class="flex-grow">
     <!-- S1. 히어로 (유일하게 다크 톤 유지: 영상/이미지 배경 + 오버레이 + 흰 텍스트) -->
     <section id="hero" class="relative h-screen min-h-[560px] w-full overflow-hidden flex items-center justify-center text-center">
-      <video id="heroVideo" class="absolute inset-0 w-full h-full object-cover" autoplay muted loop playsinline poster="assets/hero-poster.jpg">
-        <source src="assets/hero.mp4" type="video/mp4">
-      </video>
-      <img id="heroFallbackImg" alt="" class="hidden absolute inset-0 w-full h-full object-cover" loading="eager" fetchpriority="high" draggable="false">
+      <!-- 히어로 슬라이드: HERO_SLIDES 순서대로 크로스페이드 + 천천히 확대 -->
+      <div id="heroSlides" class="absolute inset-0"></div>
       <div class="absolute inset-0 bg-gradient-to-b from-black/35 via-black/45 to-black/80"></div>
 
       <div class="relative z-10 px-6 max-w-3xl mx-auto">
@@ -98,6 +103,11 @@
         </div>
       </div>
 
+      <a id="heroCaption" href="works.html" class="absolute z-10 left-6 md:left-10 bottom-8 text-left text-white/80 hover:text-white transition-opacity duration-700 hidden sm:block">
+        <span id="heroCapClient" class="block text-[11px] tracking-[0.2em] text-goldlight"></span>
+        <span id="heroCapTitle" class="block text-sm mt-1"></span>
+      </a>
+      <div id="heroDots" class="absolute z-10 right-6 md:right-10 bottom-9 flex gap-2"></div>
       <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2">
         <span class="text-[10px] tracking-[0.3em] text-white/60 uppercase">Scroll</span>
         <div class="w-px h-10 bg-white/30 overflow-hidden relative">
@@ -305,32 +315,61 @@
     Theme.initCountUp();
     Theme.initFloatingButton();
 
-    // 히어로 배경 영상: assets/hero.mp4·hero-poster.jpg가 없거나 재생에 실패하면
-    // featured 이미지(없으면 첫 이미지)로 대체한다.
-    const heroVideo = document.getElementById('heroVideo');
-    const heroFallbackImg = document.getElementById('heroFallbackImg');
     const imagesPromise = fetch('images.json?v=' + Date.now()).then((res) => res.json()).catch(() => []);
-    let heroFallbackTriggered = false;
-    function triggerHeroFallback() {
-      if (heroFallbackTriggered) return;
-      heroFallbackTriggered = true;
-      heroVideo.style.display = 'none';
-      imagesPromise.then((data) => {
-        const list = Array.isArray(data) ? data : [];
-        const pick = list.find((d) => d.featured) || list[0];
-        if (pick) {
-          heroFallbackImg.src = pick.file;
-          heroFallbackImg.alt = pick.title || '';
-          heroFallbackImg.classList.remove('hidden');
-        }
+
+    // 히어로 슬라이드: 분야별 대표 컷. 바꾸려면 이 배열의 파일 경로만 수정.
+    const HERO_SLIDES = [
+      'images/food/food_020.jpg',
+      'images/interior/interior_028.jpg',
+      'images/event/wolasan_001.jpg',
+      'images/food/food_034.jpg',
+      'images/homepage/homepage_060.jpg',
+      'images/food/food_008.jpg'
+    ];
+    (function initHeroSlides() {
+      const box = document.getElementById('heroSlides');
+      const dots = document.getElementById('heroDots');
+      const cap = document.getElementById('heroCaption');
+      const slides = HERO_SLIDES.map((src, i) => {
+        const img = document.createElement('img');
+        img.src = src; img.alt = ''; img.draggable = false;
+        img.loading = i === 0 ? 'eager' : 'lazy';
+        img.className = 'hero-slide absolute inset-0 w-full h-full object-cover';
+        box.appendChild(img);
+        const d = document.createElement('button');
+        d.className = 'hero-dot'; d.setAttribute('aria-label', `${i + 1}번 사진`);
+        d.onclick = () => { show(i); restart(); };
+        dots.appendChild(d);
+        return img;
       });
-    }
-    heroVideo.addEventListener('error', triggerHeroFallback, true);
-    // 일부 브라우저는 소스 404 시 video 엘리먼트까지 error가 버블링되지 않으므로
-    // 재생 준비 상태(readyState)를 한 번 더 확인해 대비한다.
-    setTimeout(() => {
-      if (heroVideo.readyState === 0) triggerHeroFallback();
-    }, 1800);
+      let cur = -1, timer = null, meta = [];
+      Promise.all([imagesPromise, fetch('data/projects.json?v=' + Date.now()).then(r => r.json()).catch(() => ({ projects: [] }))]).then(([imgs, pj]) => {
+        meta = HERO_SLIDES.map(src => {
+          const it = (imgs || []).find(x => x.file === src);
+          const p = it && pj.projects.find(p => (p.photoTitles || []).some(t => (it.title || '').startsWith(t)));
+          return p ? { client: p.client, title: p.title, href: 'works.html#' + p.id } : null;
+        });
+        updateCap();
+      });
+      function updateCap() {
+        const m = meta[cur];
+        cap.style.opacity = m ? 1 : 0;
+        if (!m) return;
+        document.getElementById('heroCapClient').textContent = m.client;
+        document.getElementById('heroCapTitle').textContent = m.title;
+        cap.href = m.href;
+      }
+      function show(i) {
+        if (cur >= 0) slides[cur].classList.remove('is-active');
+        cur = i;
+        slides[cur].classList.remove('is-active'); void slides[cur].offsetWidth;
+        slides[cur].classList.add('is-active');
+        [...dots.children].forEach((d, k) => d.classList.toggle('is-active', k === cur));
+        updateCap();
+      }
+      function restart() { clearInterval(timer); timer = setInterval(() => show((cur + 1) % slides.length), 5000); }
+      show(0); restart();
+    })();
 
     // 소개 이미지: images/about.jpg 로드 성공 시 노출, 실패하면 플레이스홀더 유지
     const aboutImg = document.getElementById('aboutImg');
