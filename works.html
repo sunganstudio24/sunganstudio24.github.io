@@ -136,6 +136,11 @@
         photos: images.filter(i => (p.photoTitles || []).some(t => (i.title || '').startsWith(t))),
         vids: (p.videos || []).map(id => vmap.get(id) || { youtubeId: id, title: p.title })
       }));
+      // 정렬: 영상+사진 → 영상 → 사진, 같은 그룹 안에서는 대표작(featured) 먼저, 그다음 projects.json 순서
+      const tier = p => (p.photos.length && p.vids.length) ? 0 : (p.vids.length ? 1 : 2);
+      projects = projects.map((p, i) => ({ p, i }))
+        .sort((a, b) => tier(a.p) - tier(b.p) || (b.p.featured ? 1 : 0) - (a.p.featured ? 1 : 0) || a.i - b.i)
+        .map(x => x.p);
       renderTabs(); renderGrid();
       const hash = decodeURIComponent(location.hash.slice(1));
       const hit = projects.find(p => p.id === hash);
