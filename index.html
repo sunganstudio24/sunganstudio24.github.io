@@ -309,7 +309,7 @@
     // featured 이미지(없으면 첫 이미지)로 대체한다.
     const heroVideo = document.getElementById('heroVideo');
     const heroFallbackImg = document.getElementById('heroFallbackImg');
-    const imagesPromise = fetch('images.json?v=20260825').then((res) => res.json()).catch(() => []);
+    const imagesPromise = fetch('images.json?v=' + Date.now()).then((res) => res.json()).catch(() => []);
     let heroFallbackTriggered = false;
     function triggerHeroFallback() {
       if (heroFallbackTriggered) return;
@@ -387,7 +387,7 @@
     // 대표 프로젝트: data/projects.json의 featured 프로젝트 6개를 카드로, 전체 클라이언트명을 리스트로 렌더
     function renderFeatured(images) {
       const grid = document.getElementById('featuredGrid');
-      fetch('data/projects.json?v=20261029').then(r => r.json()).then(pj => {
+      fetch('data/projects.json?v=' + Date.now()).then(r => r.json()).then(pj => {
         grid.innerHTML = '';
         pj.projects.filter(p => p.featured).slice(0, 6).forEach((p, idx) => {
           const ph = (images || []).find(i => (p.photoTitles || []).some(t => (i.title || '').startsWith(t)));
@@ -458,7 +458,7 @@
     Promise.all([
       fetch('data/tag-dictionary.json?v=20260825').then((res) => res.json()).catch(() => []),
       imagesPromise,
-      fetch('videos.json?v=20260825').then((res) => res.json()).catch(() => [])
+      fetch('videos.json?v=' + Date.now()).then((res) => res.json()).catch(() => [])
     ]).then(([tagOrder, photoData, videoData]) => {
       renderFeatured(photoData);
       renderFields(tagOrder, photoData, videoData);

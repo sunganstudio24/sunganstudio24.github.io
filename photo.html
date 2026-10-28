@@ -166,7 +166,7 @@
         return [];
       });
 
-    const photoDataPromise = fetch('images.json?v=20260825')
+    const photoDataPromise = fetch('images.json?v=' + Date.now())
       .then(res => res.json())
       .then(data => sortFeaturedFirst(data))
       .catch(err => {

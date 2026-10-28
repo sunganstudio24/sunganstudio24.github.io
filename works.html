@@ -125,9 +125,9 @@
     let projects = [], types = {}, active = 'all';
 
     Promise.all([
-      fetch('data/projects.json?v=20261029').then(r => r.json()),
-      fetch('images.json?v=20261029').then(r => r.json()),
-      fetch('videos.json?v=20261029').then(r => r.json())
+      fetch('data/projects.json?v=' + Date.now()).then(r => r.json()),
+      fetch('images.json?v=' + Date.now()).then(r => r.json()),
+      fetch('videos.json?v=' + Date.now()).then(r => r.json())
     ]).then(([pj, images, videos]) => {
       types = pj.types;
       const vmap = new Map(videos.map(v => [v.youtubeId, v]));
