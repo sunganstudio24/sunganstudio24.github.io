@@ -404,7 +404,7 @@
           grid.appendChild(a);
           Theme.observeReveal(a);
         });
-        const names = [...new Set(pj.projects.flatMap(p => p.client.split(' · ')))];
+        const names = [...new Set(pj.projects.filter(p => p.inClientList !== false).flatMap(p => p.client.split(' · ')))];
         document.getElementById('clientList').textContent = names.join('   ·   ');
       });
     }

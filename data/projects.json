@@ -191,7 +191,8 @@
         "인테리어 - 보드게임 카페"
       ],
       "videos": [],
-      "featured": false
+      "featured": false,
+      "inClientList": false
     },
     {
       "id": "bamsaem",
@@ -269,7 +270,8 @@
         "제품 - VR 장비"
       ],
       "videos": [],
-      "featured": false
+      "featured": false,
+      "inClientList": false
     },
     {
       "id": "boat",
@@ -282,7 +284,8 @@
         "제품 - 수상 보트"
       ],
       "videos": [],
-      "featured": false
+      "featured": false,
+      "inClientList": false
     }
   ]
 }
