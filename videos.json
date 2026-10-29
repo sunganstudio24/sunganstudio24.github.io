@@ -122,5 +122,83 @@
     "category": "event",
     "title": "GNU 대학생 창업멘토링 캠프 스케치 영상",
     "tags": ["행사", "교육"]
+  },
+  {
+    "youtubeId": "a9h20IvU7io",
+    "category": "promo",
+    "title": "일본 음식점 홍보 영상 (샘플 1)",
+    "tags": ["음식", "매장·공간"]
+  },
+  {
+    "youtubeId": "ODjtNPeOjdE",
+    "category": "promo",
+    "title": "일본 음식점 홍보 영상 (샘플 2)",
+    "tags": ["음식", "매장·공간"]
+  },
+  {
+    "youtubeId": "qrzIM0h7Ocw",
+    "category": "event",
+    "title": "청년창업의날 (1일차)",
+    "tags": ["행사"]
+  },
+  {
+    "youtubeId": "O6qbIutq1Vo",
+    "category": "event",
+    "title": "청년창업의날 (2일차)",
+    "tags": ["행사"]
+  },
+  {
+    "youtubeId": "ehsQ9UMQwaE",
+    "category": "promo",
+    "title": "사천 다슬기초량마을 홍보 영상",
+    "tags": ["관공서·지자체"]
+  },
+  {
+    "youtubeId": "3UzR4LMYhp0",
+    "category": "promo",
+    "title": "주변 관광지 홍보 영상 (다솔사)",
+    "tags": ["관공서·지자체"]
+  },
+  {
+    "youtubeId": "_o3oMX1SRs4",
+    "category": "promo",
+    "title": "주변 관광지 홍보 영상 (서봉암)",
+    "tags": ["관공서·지자체"]
+  },
+  {
+    "youtubeId": "GB7caNToGps",
+    "category": "promo",
+    "title": "주변 관광지 홍보 영상 (신해사)",
+    "tags": ["관공서·지자체"]
+  },
+  {
+    "youtubeId": "ovy9aZYQaAc",
+    "category": "promo",
+    "title": "주변 관광지 홍보 영상 (양귀비 축제)",
+    "tags": ["관공서·지자체"]
+  },
+  {
+    "youtubeId": "W9KdBbCA-uQ",
+    "category": "promo",
+    "title": "주변 관광지 홍보 영상 (와인갤러리)",
+    "tags": ["관공서·지자체"]
+  },
+  {
+    "youtubeId": "HPbwNotOXbM",
+    "category": "promo",
+    "title": "주변 관광지 홍보 영상 (하동 레일파크)",
+    "tags": ["관공서·지자체"]
+  },
+  {
+    "youtubeId": "VkuDq1OCRTk",
+    "category": "promo",
+    "title": "진주50플러스치과 홈페이지 영상",
+    "tags": ["기업"]
+  },
+  {
+    "youtubeId": "KA0Pon9wFoI",
+    "category": "promo",
+    "title": "황재윤 트레이너 인터뷰",
+    "tags": ["헬스·피트니스", "기업", "인터뷰"]
   }
 ]
