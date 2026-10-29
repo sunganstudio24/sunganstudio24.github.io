@@ -122,6 +122,7 @@
   <script>
     Theme.initHeader(); Theme.initMobileMenu(); Theme.initImageProtection(); Theme.initFloatingButton();
     const yt = (id) => `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
+    const thumb = (v) => v.poster || yt(v.youtubeId);
     let projects = [], types = {}, active = 'all';
 
     Promise.all([
@@ -134,7 +135,7 @@
       projects = pj.projects.map(p => ({
         ...p,
         photos: images.filter(i => (p.photoTitles || []).some(t => (i.title || '').startsWith(t))),
-        vids: (p.videos || []).map(id => vmap.get(id) || { youtubeId: id, title: p.title })
+        vids: (p.videos || []).map(id => vmap.get(id) || { youtubeId: id, title: p.title }).concat(p.localVideos || [])
       }));
       // 정렬: 영상+사진 → 영상 → 사진, 같은 그룹 안에서는 대표작(featured) 먼저, 그다음 projects.json 순서
       const tier = p => (p.photos.length && p.vids.length) ? 0 : (p.vids.length ? 1 : 2);
@@ -167,7 +168,7 @@
       projects.filter(p => active === 'all' || p.types.includes(active)).forEach(p => {
         const a = document.createElement('button');
         a.className = 'group text-left';
-        const cover = p.photos[0] ? p.photos[0].file : yt(p.vids[0].youtubeId);
+        const cover = p.photos[0] ? p.photos[0].file : thumb(p.vids[0]);
         const badge = [p.photos.length ? `사진 ${p.photos.length}` : '', p.vids.length ? `영상 ${p.vids.length}` : ''].filter(Boolean).join(' · ');
         a.innerHTML = `
           <div class="relative aspect-[4/3] overflow-hidden rounded-xl bg-tint">
@@ -193,7 +194,7 @@
         const b = document.createElement('button');
         b.className = 'group text-left';
         b.innerHTML = `<div class="relative ${v.vertical ? 'aspect-[9/16] max-h-[520px] mx-auto' : 'aspect-video'} overflow-hidden rounded-xl bg-black">
-            <img src="${yt(v.youtubeId)}" class="w-full h-full object-cover opacity-90 group-hover:opacity-100" alt="">
+            <img src="${thumb(v)}" class="w-full h-full object-cover opacity-90 group-hover:opacity-100" alt="">
             <span class="absolute inset-0 flex items-center justify-center"><span class="w-14 h-14 rounded-full bg-white/90 flex items-center justify-center"><i data-lucide="play" class="w-6 h-6 text-ink"></i></span></span>
           </div><p class="mt-2 text-sm text-ink">${v.title || ''}</p>`;
         b.onclick = () => openTheater(v);
@@ -233,12 +234,28 @@
     document.getElementById('photoViewer').onclick = (e) => { e.currentTarget.style.display = 'none'; };
 
     function openTheater(v) {
-      document.getElementById('theaterIframe').src = `https://www.youtube.com/embed/${v.youtubeId}?autoplay=1&rel=0`;
+      const fr = document.getElementById('theaterFrame');
+      fr.querySelectorAll('video').forEach(x => x.remove());
+      const ifr = document.getElementById('theaterIframe');
+      if (v.src) {
+        ifr.style.display = 'none'; ifr.src = '';
+        const vid = document.createElement('video');
+        vid.src = v.src; vid.controls = true; vid.autoplay = true; vid.playsInline = true;
+        vid.className = 'w-full h-full object-contain bg-black';
+        fr.appendChild(vid);
+      } else {
+        ifr.style.display = '';
+        ifr.src = `https://www.youtube.com/embed/${v.youtubeId}?autoplay=1&rel=0`;
+      }
+      fr.classList.toggle('aspect-video', !v.vertical);
+      fr.classList.toggle('max-w-4xl', !v.vertical);
+      fr.style.aspectRatio = v.vertical ? '9/16' : ''; fr.style.height = v.vertical ? '80vh' : ''; fr.style.width = v.vertical ? 'auto' : '';
       document.getElementById('theaterTitle').textContent = v.title || '';
       document.getElementById('theater').style.display = 'flex';
     }
     document.getElementById('closeTheaterBtn').onclick = () => {
       document.getElementById('theaterIframe').src = '';
+      document.querySelectorAll('#theaterFrame video').forEach(x => x.remove());
       document.getElementById('theater').style.display = 'none';
     };
     document.addEventListener('keydown', (e) => {

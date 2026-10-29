@@ -140,6 +140,157 @@
       "inClientList": false
     },
     {
+      "id": "lumo",
+      "client": "LUMO (루모)",
+      "title": "미니 영사기 브랜드 인스타그램 릴스",
+      "types": [
+        "brand"
+      ],
+      "photoTitles": [],
+      "videos": [],
+      "localVideos": [
+        {
+          "src": "videos/lumo/lumo_01.mp4",
+          "poster": "videos/lumo/lumo_01.jpg",
+          "title": "LUMO 릴스 01",
+          "vertical": true
+        },
+        {
+          "src": "videos/lumo/lumo_02.mp4",
+          "poster": "videos/lumo/lumo_02.jpg",
+          "title": "LUMO 릴스 02",
+          "vertical": true
+        },
+        {
+          "src": "videos/lumo/lumo_03.mp4",
+          "poster": "videos/lumo/lumo_03.jpg",
+          "title": "LUMO 릴스 03",
+          "vertical": true
+        },
+        {
+          "src": "videos/lumo/lumo_04.mp4",
+          "poster": "videos/lumo/lumo_04.jpg",
+          "title": "LUMO 릴스 04",
+          "vertical": true
+        },
+        {
+          "src": "videos/lumo/lumo_05.mp4",
+          "poster": "videos/lumo/lumo_05.jpg",
+          "title": "LUMO 릴스 05",
+          "vertical": true
+        },
+        {
+          "src": "videos/lumo/lumo_06.mp4",
+          "poster": "videos/lumo/lumo_06.jpg",
+          "title": "LUMO 릴스 06",
+          "vertical": true
+        },
+        {
+          "src": "videos/lumo/lumo_07.mp4",
+          "poster": "videos/lumo/lumo_07.jpg",
+          "title": "LUMO 릴스 07",
+          "vertical": true
+        },
+        {
+          "src": "videos/lumo/lumo_08.mp4",
+          "poster": "videos/lumo/lumo_08.jpg",
+          "title": "LUMO 릴스 08",
+          "vertical": true
+        },
+        {
+          "src": "videos/lumo/lumo_09.mp4",
+          "poster": "videos/lumo/lumo_09.jpg",
+          "title": "LUMO 릴스 09",
+          "vertical": true
+        },
+        {
+          "src": "videos/lumo/lumo_10.mp4",
+          "poster": "videos/lumo/lumo_10.jpg",
+          "title": "LUMO 릴스 10",
+          "vertical": true
+        },
+        {
+          "src": "videos/lumo/lumo_11.mp4",
+          "poster": "videos/lumo/lumo_11.jpg",
+          "title": "LUMO 릴스 11",
+          "vertical": true
+        },
+        {
+          "src": "videos/lumo/lumo_12.mp4",
+          "poster": "videos/lumo/lumo_12.jpg",
+          "title": "LUMO 릴스 12",
+          "vertical": true
+        },
+        {
+          "src": "videos/lumo/lumo_13.mp4",
+          "poster": "videos/lumo/lumo_13.jpg",
+          "title": "LUMO 릴스 13",
+          "vertical": true
+        },
+        {
+          "src": "videos/lumo/lumo_14.mp4",
+          "poster": "videos/lumo/lumo_14.jpg",
+          "title": "LUMO 릴스 14",
+          "vertical": true
+        },
+        {
+          "src": "videos/lumo/lumo_15.mp4",
+          "poster": "videos/lumo/lumo_15.jpg",
+          "title": "LUMO 릴스 15",
+          "vertical": true
+        },
+        {
+          "src": "videos/lumo/lumo_16.mp4",
+          "poster": "videos/lumo/lumo_16.jpg",
+          "title": "LUMO 릴스 16",
+          "vertical": true
+        },
+        {
+          "src": "videos/lumo/lumo_17.mp4",
+          "poster": "videos/lumo/lumo_17.jpg",
+          "title": "LUMO 릴스 17",
+          "vertical": true
+        },
+        {
+          "src": "videos/lumo/lumo_18.mp4",
+          "poster": "videos/lumo/lumo_18.jpg",
+          "title": "LUMO 릴스 18",
+          "vertical": true
+        },
+        {
+          "src": "videos/lumo/lumo_19.mp4",
+          "poster": "videos/lumo/lumo_19.jpg",
+          "title": "LUMO 릴스 19",
+          "vertical": true
+        },
+        {
+          "src": "videos/lumo/lumo_20.mp4",
+          "poster": "videos/lumo/lumo_20.jpg",
+          "title": "LUMO 릴스 20",
+          "vertical": true
+        },
+        {
+          "src": "videos/lumo/lumo_21.mp4",
+          "poster": "videos/lumo/lumo_21.jpg",
+          "title": "LUMO 릴스 21",
+          "vertical": true
+        },
+        {
+          "src": "videos/lumo/lumo_22.mp4",
+          "poster": "videos/lumo/lumo_22.jpg",
+          "title": "LUMO 릴스 22",
+          "vertical": true
+        },
+        {
+          "src": "videos/lumo/lumo_23.mp4",
+          "poster": "videos/lumo/lumo_23.jpg",
+          "title": "LUMO 릴스 23",
+          "vertical": true
+        }
+      ],
+      "featured": false
+    },
+    {
       "id": "gnu-camp",
       "client": "경상국립대학교",
       "title": "대학생 창업멘토링 캠프 스케치 영상",

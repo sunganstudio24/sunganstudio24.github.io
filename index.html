@@ -125,7 +125,7 @@
           <p class="text-[11px] md:text-sm text-muted tracking-wide">사진 작업 파트너</p>
         </div>
         <div class="reveal" style="transition-delay:0.08s">
-          <p class="text-3xl md:text-5xl font-extrabold text-ink mb-1"><span data-count="11">0</span></p>
+          <p class="text-3xl md:text-5xl font-extrabold text-ink mb-1"><span data-count="12">0</span></p>
           <p class="text-[11px] md:text-sm text-muted tracking-wide">영상 작업 파트너</p>
         </div>
         <div class="reveal" style="transition-delay:0.16s">
@@ -430,7 +430,7 @@
         grid.innerHTML = '';
         pj.projects.filter(p => p.featured).slice(0, 6).forEach((p, idx) => {
           const ph = (images || []).find(i => (p.photoTitles || []).some(t => (i.title || '').startsWith(t)));
-          const cover = ph ? ph.file : `https://img.youtube.com/vi/${p.videos[0]}/hqdefault.jpg`;
+          const cover = ph ? ph.file : (p.videos[0] ? `https://img.youtube.com/vi/${p.videos[0]}/hqdefault.jpg` : p.localVideos[0].poster);
           const a = document.createElement('a');
           a.href = 'works.html#' + p.id;
           a.className = 'reveal group block';
